@@ -11,6 +11,14 @@ import {
 export const settingsQuery = defineQuery(`*[_type == "settings"][0]{
   title,
   description,
+  preFooter {
+    heading,
+    content,
+    image {
+      asset,
+      alt
+    }
+  },
   ${menuFragment}
 }`);
 

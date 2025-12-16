@@ -4,6 +4,7 @@ import { draftMode } from 'next/headers';
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
 import Main from '@/components/layout/Main';
+import PreFooter from '@/components/layout/PreFooter';
 import { SanityLive } from '@/lib/sanity/client/live';
 import { handleError } from './client-utils';
 
@@ -17,7 +18,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { isEnabled: isDraftMode } = await draftMode();
 
   return (
-    <body className={`font-inter bg-white text-black`}>
+    <body className={`bg-white`}>
       <section className="min-h-screen">
         <Alert />
         {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}
@@ -33,6 +34,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <SanityLive onError={handleError} />
         <Header />
         <Main>{children}</Main>
+        <PreFooter />
         <Footer />
       </section>
     </body>

@@ -15,22 +15,18 @@ export default function PostListSection({ section }: { section: PostListSectionF
   return (
     <section className="py-10 md:py-14">
       <div className="container mx-auto">
-        <div className="max-w-2xl mx-auto text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">{section?.heading}</h2>
-          <p className="text-gray-600">Latest updates and insights from our team</p>
+        <div className="border-t border-dark py-4 flex justify-between items-center gap-5">
+          <h3>{section?.heading}</h3>
+          <Button asChild>
+            <Link href={'/blog'}>
+              View All Posts <ArrowRight />
+            </Link>
+          </Button>
         </div>
-        <div className="max-w-4xl mx-auto space-y-12">
+        <div className="mt-6 grid md:grid-cols-2 lg:grid-cols-3 pt-4 border-t border-gray-200 divide-x-1 divide-gray-200">
           {posts.slice(0, numberOfPosts).map((post) => (
             <PostCard key={post._id} post={post} />
           ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <Button asChild variant="gradient" size={'xl'}>
-            <Link href={'/blog'}>
-              View All Posts <ArrowRight className="w-4 h-4 ml-2" />
-            </Link>
-          </Button>
         </div>
       </div>
     </section>

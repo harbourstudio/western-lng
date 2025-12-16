@@ -1,7 +1,7 @@
 import type { PortableTextBlock } from 'next-sanity';
 import React from 'react';
 import Byline from '@/components/modules/Byline';
-import CoverImage from '@/components/modules/CoverImage';
+import CoverImage from '@/components/sections/CoverImage';
 import CustomPortableText from '@/components/modules/PortableText';
 import type { PostFragmentType } from '@/lib/sanity/queries/fragments/fragment.types';
 

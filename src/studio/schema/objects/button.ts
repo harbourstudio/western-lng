@@ -35,6 +35,7 @@ export default defineType({
     select: {
       title: 'text',
       variant: 'variant',
+      icon: 'icon',
       externalUrl: 'url.external',
       urlType: 'url.type',
       internalUrl: 'url.internal.slug.current',

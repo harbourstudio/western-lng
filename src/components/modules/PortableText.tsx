@@ -62,7 +62,7 @@ export default function CustomPortableText({
   const components: PortableTextComponents = {
     block: {
       normal: ({ children }) => (
-        <p className="text-lg leading-relaxed text-gray-700 mb-6">{children}</p>
+        <p>{children}</p>
       ),
       h1: ({ children, value }) => (
         <Heading
@@ -123,6 +123,15 @@ export default function CustomPortableText({
           {children}
         </blockquote>
       ),
+      'text-xs': ({ children }) => <p className="text-xs">{children}</p>,
+      'text-sm': ({ children }) => <p className="text-sm">{children}</p>,
+      'text-base': ({ children }) => <p className="text-base">{children}</p>,
+      'text-md': ({ children }) => <p className="text-md">{children}</p>,
+      'text-lg': ({ children }) => <p className="text-lg">{children}</p>,
+      'text-xl': ({ children }) => <p className="text-xl">{children}</p>,
+      'text-2xl': ({ children }) => <p className="text-2xl">{children}</p>,
+      'text-3xl': ({ children }) => <p className="text-3xl">{children}</p>,
+      'text-4xl': ({ children }) => <p className="text-4xl">{children}</p>,
     },
     list: {
       bullet: ({ children }) => (
@@ -137,6 +146,9 @@ export default function CustomPortableText({
       number: ({ children }) => <li className="pl-2">{children}</li>,
     },
     marks: {
+      colorStyle: ({ children, value }: { children: ReactNode; value?: { className: string } }) => {
+        return <span className={value?.className || ''}>{children}</span>;
+      },
       code: ({ children }) => (
         <code className="bg-gray-100 rounded px-1 py-0.5 font-mono text-sm">{children}</code>
       ),
@@ -160,7 +172,7 @@ export default function CustomPortableText({
           </Link>
         );
       },
-      strong: ({ children }) => <strong className="font-bold">{children}</strong>,
+      strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
       'strike-through': ({ children }) => <del className="line-through">{children}</del>,
       underline: ({ children }) => <u className="underline">{children}</u>,
       sup: ({ children }) => <sup className="text-xs">{children}</sup>,

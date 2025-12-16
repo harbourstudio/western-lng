@@ -3,25 +3,33 @@ import { getLinkByLinkObject } from '@/lib/links';
 import type { ButtonFragmentType } from '@/lib/sanity/queries/fragments/fragment.types';
 import { cn } from '@/lib/utils';
 import { Button } from '../ui/Button';
+import { ArrowRight } from 'lucide-react';
 
 export default function ButtonsGroup({
   buttons,
-  size = 'xl',
   className,
 }: {
   buttons: ButtonFragmentType[];
-  size?: 'xl' | 'lg' | 'sm' | 'default' | 'icon';
   className?: string;
 }) {
   return (
-    <div className={cn('flex flex-col md:flex-row gap-4', className)}>
+    <div className={cn('flex flex-col md:flex-row gap-6 mt-6', className)}>
       {buttons.map((button) => (
-        <Button asChild variant={button.variant} size={size} key={button._key}>
+        <Button
+          asChild
+          variant={button.variant}
+          key={button._key}
+          className={cn({
+            'has-arrow-left': button.icon === 'arrow-left',
+            'has-arrow-right': button.icon === 'arrow-right',
+          })}
+        >
           <Link
             href={button.link ? getLinkByLinkObject(button.link) || '' : ''}
             target={button.link?.openInNewTab ? '_blank' : '_self'}
           >
             {button.text}
+            <ArrowRight />
           </Link>
         </Button>
       ))}

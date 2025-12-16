@@ -5,24 +5,28 @@ import { useOptimistic } from 'next-sanity/hooks';
 import type { ElementType } from 'react';
 import { dataAttr } from '@/lib/sanity/client/utils';
 import type { SectionsType, SectionType } from '@/lib/sanity/queries/fragments/fragment.types';
-import CardGrid from './CardGrid';
-import CTA from './CTA';
-import Divider from './Divider';
+import Divider from '../modules/Divider';
 import Hero from './Hero';
-import MediaText from './MediaText';
 import PostList from './PostList';
 import Subscribe from './Subscribe';
+
+import Section from './Section';
+import HeroFullscreen from './HeroFullscreen';
+import HeroMinimal from './HeroMinimal';
+import CoverImage from './CoverImage';
+
 
 type PageSectionstype = SectionType['_type'];
 
 const SECTION_COMPONENTS: Record<PageSectionstype, ElementType> = {
   hero: Hero,
-  mediaText: MediaText,
-  cta: CTA,
   subscribe: Subscribe,
   postList: PostList,
-  cardGrid: CardGrid,
   divider: Divider,
+  section: Section,
+  heroFullscreen: HeroFullscreen,
+  heroMinimal: HeroMinimal,
+  coverImage: CoverImage
 } as const;
 
 type PageSectionsProps = {

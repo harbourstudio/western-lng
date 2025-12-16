@@ -76,15 +76,6 @@ export default function NavBar({
             ))}
           </NavigationMenuList>
         </NavigationMenu>
-
-        <div className="flex space-x-2">
-          <Button asChild variant="default">
-            <Link href={'/'}>Get Started</Link>
-          </Button>
-          <Button asChild variant="outline">
-            <Link href={'/'}>Log In</Link>
-          </Button>
-        </div>
       </div>
 
       {/* Mobile Menu Button */}

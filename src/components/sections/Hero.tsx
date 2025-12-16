@@ -11,12 +11,12 @@ export default function HeroSection({ section }: { section: HeroSectionFragmentT
       <div className="container mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">{section?.heading}</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">{section?.heading?.content}</h1>
             <PortableText className="text-xl" value={section.text as PortableTextBlock[]} />
 
             {section?.buttons && section?.buttons.length ? (
               <div className="mt-8 gap-4 flex">
-                {section?.buttons.length > 1 && (
+                {section?.buttons.length > 0 && (
                   <ButtonsGroup className="w-full md:w-auto" buttons={section?.buttons} />
                 )}
               </div>

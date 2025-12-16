@@ -9,7 +9,7 @@ export default function SubscribeSection({ section }: { section: SubscribeSectio
       <div className="bg-gradient-to-r from-pink-500 to-blue-500 py-16 md:py-24 rounded-4xl container">
         <div className="">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{section?.heading}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{section?.heading?.content}</h2>
             <div className="[&_p]:text-white">
               <PortableText value={section.content as PortableTextBlock[]} />
             </div>

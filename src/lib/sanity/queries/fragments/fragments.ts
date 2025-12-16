@@ -8,21 +8,61 @@ export const twitterFragment = /* groq */ `
 
 export const imageFragment = /* groq */ `
   _type,
-  crop {
-    _type,
-    right,
-    top,
-    left,
-    bottom
+  crop,
+  hotspot,
+  asset,
+`;
+
+export const galleryFragment = /* groq */ `
+  _type,
+  _key,
+  spacing,
+  images[] {
+    ${imageFragment}
+    alt
   },
-  hotspot {
-    _type,
-    x,
-    y,
-    height,
-    width,
+`;
+
+// Video field fragment (for embedding inside other components like mediaText)
+export const videoFieldFragment = /* groq */ `
+  videoUrl,
+  videoFile {
+    asset-> {
+      _id,
+      url
+    },
+    "assetRef": asset._ref
   },
-  asset->{...},
+  coverImage {
+    ${imageFragment}
+    alt,
+    asset-> {
+      _id,
+      url
+    }
+  },
+`;
+
+// Video section fragment (for standalone videoSection component)
+export const videoSectionFragment = /* groq */ `
+  _type,
+  _key,
+  videoUrl,
+  videoFile {
+    asset-> {
+      _id,
+      url
+    },
+    "assetRef": asset._ref
+  },
+  coverImage {
+    ${imageFragment}
+    alt,
+    asset-> {
+      _id,
+      url
+    }
+  },
 `;
 
 export const openGraphFragment = /* groq */ `
@@ -111,6 +151,7 @@ export const buttonFragment = /* groq */ `
   _key,
   _type,
   variant,
+  icon,
   text,
   link {
     ${linkFragment}
@@ -123,19 +164,22 @@ export const buttonsFragment = /* groq */ `
   },
 `;
 
+export const headingFragment = /* groq */ `
+  _type,
+  text,
+  level,
+  size,
+  alignment,
+  color,
+  spacing,
+  maxWidth,
+  ${buttonsFragment}
+`;
+
 export const heroSectionFragment = /* groq */ `
   _type,
   heading,
   text,
-  ${buttonsFragment}
-`;
-
-export const mediaTextSectionFragment = /* groq */ `
-  _type,
-  heading,
-  text,
-  media,
-  mediaPosition,
   ${buttonsFragment}
 `;
 
@@ -184,6 +228,7 @@ export const postListSectionFragment = /* groq */ `
     _type,
     heading,
     numberOfPosts,
+    spacing,
     "posts": *[_type == 'post'] | order(_createdAt desc, _id desc) [0...20] {
       ${postFragment}
     }
@@ -194,11 +239,13 @@ export const dividerSectionFragment = /* groq */ `
   height
 `;
 
-export const ctaSectionFragment = /* groq */ `
+export const ctaFragment = /* groq */ `
   _type,
   heading,
-  text,
-  ${buttonsFragment}
+  ${contentFragment}
+  backgroundColor,
+  innerBackgroundColor,
+  spacing
 `;
 
 export const subscribeSectionFragment = /* groq */ `
@@ -207,18 +254,297 @@ export const subscribeSectionFragment = /* groq */ `
   text
 `;
 
-export const cardGridFragment = /* groq */ `
+export const mediaCardFragment = /* groq */ `
+  _key,
+  _type,
+  heading,
+  mediaType,
+  image {
+    ${imageFragment}
+    alt
+  },
+  link {
+    ${linkFragment}
+  },
+  video {
+    ${videoFieldFragment}
+  },
+`;
+
+export const stickyGridFragment = /* groq */ `
+  _type,
+  _key,
+  ${contentFragment}
+  spacing,
+  cards[] {
+    ${mediaCardFragment}
+  },
+`;
+
+export const featuredTextFragment = /* groq */ `
+  _type,
+  ${contentFragment}
+  ${buttonsFragment}
+  spacing,
+`;
+
+export const heroFullscreenFragment = /* groq */ `
+  _type,
+  _key,
+  heading,
+  ${contentFragment}
+  image {
+    ${imageFragment}
+    alt
+  },
+  video {
+    ${videoFieldFragment}
+  },
+  backgroundColor,
+  gradientColor,
+`;
+
+export const heroMinimalFragment = /* groq */ `
+  _type,
+  _key,
+  heading {
+    content,
+    headingLevel
+  },
+  ${contentFragment}
+  image {
+    ${imageFragment}
+    alt
+  },
+  layout,
+  spacing,
+  backgroundColor,
+`;
+
+export const accordionItemFragment = /* groq */ `
+  _key,
+  _type,
+  title,
+  ${contentFragment}
+`;
+
+export const accordionFragment = /* groq */ `
+  _type,
+  _key,
+  items[] {
+    ${accordionItemFragment}
+  },
+  orientation,
+  mediaType,
+  image {
+    ${imageFragment}
+    alt
+  },
+  video {
+    ${videoFieldFragment}
+  },
+  allowMultiple,
+  alignment,
+  spacing,
+`;
+
+export const headerSectionFragment = /* groq */ `
+  _type,
+  _key,
+  heading,
+  headingLevel,
+  headingSize,
+  content[]{
+    ...,
+    markDefs[]{
+      ...,
+      ...customLink{
+        ${linkFragment}
+      },
+    },
+  },
+  layout,
+  spacing,
+  ${buttonsFragment}
+`;
+
+export const detailFragment = /* groq */ `
+  _key,
   _type,
   heading,
   ${contentFragment}
-  icon,
 `;
 
-export const cardGridsSectionFragment = /* groq */ `
-  ${cardGridFragment}
-  cards[]{
-    ${cardGridFragment}
+export const headerDetailsFragment = /* groq */ `
+  _type,
+  _key,
+  heading {
+    content,
+    headingLevel
   },
+  ${contentFragment}
+  details[] {
+    ${detailFragment}
+  },
+  spacing,
+  ${buttonsFragment}
+`;
+
+export const gridItemFragment = /* groq */ `
+  _key,
+  _type,
+  heading {
+    content,
+    headingLevel
+  },
+  ${contentFragment}
+`;
+
+export const gridFragment = /* groq */ `
+  _type,
+  _key,
+  items[]{
+    ${gridItemFragment}
+  },
+  borderColor,
+  tabletColumns,
+  desktopColumns,
+  spacing,
+  backgroundColor,
+  textColor,
+`;
+
+export const linkItemFragment = /* groq */ `
+  _key,
+  _type,
+  heading,
+  ${contentFragment}
+  link {
+    ${linkFragment}
+  },
+`;
+
+// LinkList fields only (for embedding in other components)
+export const linkListFields = /* groq */ `
+  _type,
+  _key,
+  items[] {
+    ${linkItemFragment}
+  },
+  headingLevel,
+  tabletColumns,
+  desktopColumns,
+  borderColor,
+  spacing,
+  backgroundColor,
+  textColor,
+`;
+
+// Full linkList fragment for standalone use
+export const linkListFragment = /* groq */ `
+  ${linkListFields}
+`;
+
+export const coverImageFragment = /* groq */ `
+  _type,
+  _key,
+  image {
+    asset-> {
+      _id,
+      url
+    },
+    alt,
+    hotspot {
+      x,
+      y
+    },
+    crop {
+      top,
+      bottom,
+      left,
+      right
+    }
+  },
+  minHeight,
+  maxHeight,
+`;
+
+export const mediaTextFragment = /* groq */ `
+  _type,
+  _key,
+  mediaType,
+  image {
+    ${imageFragment}
+    alt
+  },
+  image2 {
+    ${imageFragment}
+    alt
+  },
+  video {
+    ${videoFieldFragment}
+  },
+  orientation,
+  heading {
+    content,
+    headingLevel
+  },
+  ${contentFragment}
+  ${buttonsFragment}
+  links[] {
+    _key,
+    text,
+    link {
+      ${linkFragment}
+    }
+  },
+  spacing,
+`;
+
+export const tableFragment = /* groq */ `
+  _type,
+  _key,
+  columns[] {
+    _key,
+    header
+  },
+  rows[] {
+    _key,
+    cells[] {
+      _key,
+      value
+    }
+  },
+  caption,
+  headerBackgroundColor,
+  spacing,
+`;
+
+
+export const sectionFragment = /* groq */ `
+  _type,
+  _key,
+  components[]{
+    _key,
+    _type,
+    _type == 'heading' => {${headingFragment}},
+    _type == 'header' => {${headerSectionFragment}},
+    _type == 'headerDetails' => {${headerDetailsFragment}},
+    _type == 'accordion' => {${accordionFragment}},
+    _type == 'gallery' => {${galleryFragment}},
+    _type == 'grid' => {${gridFragment}},
+    _type == 'stickyGrid' => {${stickyGridFragment}},
+    _type == 'linkList' => {${linkListFragment}},
+    _type == 'videoSection' => {${videoSectionFragment}},
+    _type == 'mediaText' => {${mediaTextFragment}},
+    _type == 'coverImage' => {${coverImageFragment}},
+    _type == 'table' => {${tableFragment}},
+    _type == 'featuredText' => {${featuredTextFragment}},
+    _type == 'cta' => {${ctaFragment}},
+  },
+  spacing,
+  backgroundColor,
+  textColor,
 `;
 
 export const pageBuilderFragment = /* groq */ `
@@ -226,13 +552,14 @@ export const pageBuilderFragment = /* groq */ `
     ...,
     _key,
     _type,
-    _type == 'cardGrid' => {${cardGridsSectionFragment}},
-    _type == 'cta' => {${ctaSectionFragment}},
     _type == 'divider' => {${dividerSectionFragment}},
     _type == 'hero' => {${heroSectionFragment}},
-    _type == 'mediaText' => {${mediaTextSectionFragment}},
+    _type == 'heroFullscreen' => {${heroFullscreenFragment}},
+    _type == 'heroMinimal' => {${heroMinimalFragment}},
+    _type == 'mediaText' => {${mediaTextFragment}},
     _type == 'postList' => {${postListSectionFragment}},
-    _type == 'subscribe' => {${subscribeSectionFragment}}
+    _type == 'subscribe' => {${subscribeSectionFragment}},
+    _type == 'coverImage' => {${coverImageFragment}},
   },
 `;
 
