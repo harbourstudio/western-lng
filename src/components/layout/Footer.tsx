@@ -1,9 +1,13 @@
-import { sanityFetch } from '@/lib/sanity/client/live';
+import { getCurrentSite } from '@/lib/get-current-site';
+import { getLive } from '@/lib/sanity/client/live';
 import { settingsQuery } from '@/lib/sanity/queries/queries';
 import Logo from '../icons/Logo';
 import { Button } from '../ui/Button';
 
 export default async function Footer() {
+  const site = await getCurrentSite();
+  const { sanityFetch } = getLive(site.id);
+
   const { data: settings } = await sanityFetch({
     query: settingsQuery,
   });
@@ -13,7 +17,7 @@ export default async function Footer() {
   }
 
   return (
-    <footer className="bg-secondary-wlng text-white [&_h1,h2,h3,h4,h5,h6]:!text-white pt-9 pb-5">
+    <footer className="bg-secondary text-white [&_h1,h2,h3,h4,h5,h6]:!text-white pt-9 pb-5">
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="flex flex-wrap items-center justify-between gap-6 mb-8">
           <Logo />

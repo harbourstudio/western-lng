@@ -100,13 +100,13 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Primary', value: 'bg-primary-wlng' },
-          { title: 'Secondary', value: 'bg-secondary-wlng' },
+          { title: 'Primary', value: 'bg-primary' },
+          { title: 'Secondary', value: 'bg-secondary' },
           { title: 'Dark', value: 'bg-dark' },
           { title: 'Gray', value: 'bg-gray-700' },
         ],
       },
-      initialValue: 'bg-secondary-wlng',
+      initialValue: 'bg-secondary',
     }),
     spacing,
   ],

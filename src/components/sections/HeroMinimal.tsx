@@ -21,7 +21,7 @@ export default function HeroMinimal({ section }: { section: HeroMinimalFragmentT
   const isSplit = layout === 'split';
 
   // Determine text color based on background
-  const isDarkBg = ['bg-primary-wlng', 'bg-secondary-wlng', 'bg-gray-900'].includes(bgColor);
+  const isDarkBg = ['bg-primary', 'bg-secondary', 'bg-gray-900'].includes(bgColor);
   const textColorClass = isDarkBg ? 'text-white [&_h1,h2,h3,h4,h5,h6]:!text-white' : 'text-gray-900';
 
   const hasImage = !!section?.image?.asset;

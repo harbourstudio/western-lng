@@ -140,7 +140,7 @@ function AccordionItem({ title, content, isOpen, onToggle }: AccordionItemProps)
     <div className="accordion-item">
       <button
         onClick={onToggle}
-        className="flex w-full items-center justify-between py-5 text-left border-solid border-t-1 border-secondary-wlng transition-colors hover:text-primary"
+        className="flex w-full items-center justify-between py-5 text-left border-solid border-t-1 border-secondary transition-colors hover:text-primary"
         aria-expanded={isOpen}
       >
         <h4 className="text-md">{title}</h4>

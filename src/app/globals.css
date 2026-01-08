@@ -10,8 +10,8 @@
   --color-base: #7A8C8E;
   --color-heading: #050505;
   --color-dark: #050505;
-  --color-primary-wlng: #FFC000;
-  --color-secondary-wlng: #004578;
+  --color-primary: #FFC000;
+  --color-secondary: #004578;
   /* Spacing */
   --spacing-1: 4px;
   --spacing-2: 8px;
@@ -119,10 +119,10 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: var(--color-primary-wlng);
+  --primary: var(--color-primary);
   /* modified */
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: var(--color-secondary-wlng);
+  --secondary: var(--color-secondary);
   /* modified */
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.97 0 0);

@@ -57,7 +57,7 @@ export default function HeroFullscreen({ section }: { section: HeroFullscreenFra
   const [isModalOpen, setIsModalOpen] = useState(false);
   
   const bgColor = cleanString(section?.backgroundColor) || '';
-  const gradientColor = cleanString(section?.gradientColor) || 'bg-secondary-wlng';
+  const gradientColor = cleanString(section?.gradientColor) || 'bg-secondary';
 
   // Get video URLs using reusable video field structure (videoUrl, videoFile)
   const videoUrl = section?.video?.videoUrl;
@@ -80,10 +80,10 @@ export default function HeroFullscreen({ section }: { section: HeroFullscreenFra
   const gradientColorMap: Record<string, string> = {
     'bg-white': 'from-white via-white/80',
     'bg-dark': 'from-dark via-dark/80',
-    'bg-primary-wlng': 'from-primary-wlng via-primary-wlng/80',
-    'bg-secondary-wlng': 'from-secondary-wlng via-secondary-wlng/80',
+    'bg-primary': 'from-primary via-primary/80',
+    'bg-secondary': 'from-secondary via-secondary/80',
   };
-  const gradientClasses = gradientColorMap[gradientColor] || 'from-secondary-wlng via-secondary-wlng/80';
+  const gradientClasses = gradientColorMap[gradientColor] || 'from-secondary via-secondary/80';
 
   const openModal = useCallback(() => {
     setIsModalOpen(true);

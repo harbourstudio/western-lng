@@ -228,7 +228,7 @@ export default function MediaCard({ card }: { card: MediaCardFragmentType }) {
         href={href}
         target={openInNewTab ? '_blank' : undefined}
         rel={openInNewTab ? 'noopener noreferrer' : undefined}
-        className="bg-secondary-wlng relative aspect-4/5 overflow-hidden flex flex-col rounded-base block hover:opacity-90 transition-opacity"
+        className="bg-secondary relative aspect-4/5 overflow-hidden flex flex-col rounded-base block hover:opacity-90 transition-opacity"
       >
         {cardContent}
       </Link>
@@ -237,7 +237,7 @@ export default function MediaCard({ card }: { card: MediaCardFragmentType }) {
 
   return (
     <>
-      <div className="bg-secondary-wlng relative aspect-4/5 overflow-hidden flex flex-col rounded-base">
+      <div className="bg-secondary relative aspect-4/5 overflow-hidden flex flex-col rounded-base">
         {cardContent}
       </div>
 

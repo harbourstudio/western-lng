@@ -26,11 +26,11 @@ export default defineType({
         list: [
           { title: 'White', value: 'bg-white' },
           { title: 'Dark', value: 'bg-dark' },
-          { title: 'Primary - Western LNG ', value: 'bg-primary-wlng' },
-          { title: 'Secondary - Western LNG ', value: 'bg-secondary-wlng' },
+          { title: 'Primary', value: 'bg-primary' },
+          { title: 'Secondary', value: 'bg-secondary' },
         ],
       },
-      initialValue: 'bg-secondary-wlng',
+      initialValue: 'bg-secondary',
     }),
   ],
   preview: {

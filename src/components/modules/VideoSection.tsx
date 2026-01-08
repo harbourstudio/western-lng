@@ -64,15 +64,6 @@ export default function VideoSection({ section }: { section: VideoSectionFragmen
     section?.videoFile?.asset?.url || 
     (section?.videoFile?.asset?._ref ? buildFileUrl(section.videoFile.asset._ref) : null);
 
-  // DEBUG: Uncomment to see video file data
-  console.log('VideoSection Debug:', {
-    fullSection: section,
-    videoFile: section?.videoFile,
-    assetUrl: section?.videoFile?.asset?.url,
-    assetRef: section?.videoFile?.asset?._ref,
-    builtUrl: videoFileUrl,
-  });
-
   // Determine which video source to use
   const videoSrc = videoFileUrl || videoUrl;
 

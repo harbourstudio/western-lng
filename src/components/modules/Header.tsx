@@ -42,15 +42,15 @@ export default function Header({ section }: { section: HeaderFragmentType }) {
                 {headingContent}
               </HeadingTag>
             )}
-          </div>
-
-          <div className="w-full lg:w-6/12 flex justify-end">
             {section?.content && (
               <PortableText 
                 value={section.content as PortableTextBlock[]} 
                 className="mt-4 font-semibold text-lg"
               />
             )}
+          </div>
+
+          <div className="w-full lg:w-6/12 flex flex-col items-end justify-end">
             {section?.buttons && section.buttons.length > 0 && (
               <ButtonsGroup buttons={section.buttons} />
             )}

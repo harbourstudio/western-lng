@@ -26,7 +26,7 @@ export default function Table({ section }: { section: TableFragmentType }) {
         <table className="w-full border-collapse rounded-base overflow-hidden">
           {/* Table Header */}
           <thead>
-            <tr className={`${headerBgColor} ${headerBgColor == 'bg-primary-wlng' ? 'text-dark' : 'text-white'}`}>
+            <tr className={`${headerBgColor} ${headerBgColor == 'bg-primary' ? 'text-dark' : 'text-white'}`}>
               {columns.map((column) => (
                 <th
                   key={column._key}
