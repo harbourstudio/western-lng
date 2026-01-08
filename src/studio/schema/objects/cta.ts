@@ -12,6 +12,18 @@ export default defineType({
       title: 'Heading',
       type: 'string'
     }),
+    defineField({
+      name: 'colorScheme',
+      title: 'Color Scheme',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Light Scheme', value: 'light' },
+          { title: 'Dark Scheme', value: 'dark' },
+        ],
+      },
+      initialValue: 'dark'
+    }),
     backgroundColor,
     spacing,
   ],

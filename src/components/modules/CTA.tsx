@@ -15,23 +15,28 @@ export default function Cta({ section }: { section: CtaFragmentType }) {
     const spacingTop = cleanString(section?.spacing?.top) || '';
     const spacingBottom = cleanString(section?.spacing?.bottom) || '';
     const bgColor = cleanString(section?.backgroundColor) || '';
+    const colorScheme = cleanString(section?.colorScheme) || '';
 
   return (
-      <div className={`${spacingTop} ${spacingBottom} ${bgColor} flex flex-wrap justify-between gap-5 p-7 rounded-base overflow-hidden` }>
+      <div className={`${spacingTop} ${spacingBottom} ${bgColor} flex flex-wrap justify-between gap-5 p-7 rounded-base overflow-hidden
+      ${colorScheme == 'light' ? 'text-white' : 'text-dark' }
+      `}>
         {section?.heading &&
           <div className='lg:w-4/12'>
-            <h4>{section?.heading}</h4>
+            <h4 className={`${colorScheme == 'light' ? '!text-white' : '!text-dark' }`}>{section?.heading}</h4>
           </div>
         }
         <div className='lg:w-7/12'>
-            <div className="flex border-solid border-1 border-dark rounded-sm px-5 py-4">
+            <div className={`flex border-solid border-1 rounded-sm px-5 py-4
+              ${colorScheme == 'light' ? 'border-white' : 'border-dark' }`}>
               <form className='flex justify-between w-full gap-5'>
                 <input
                   type="email"
                   placeholder="Enter your email address"
                   className='grow placeholder:text-dark placeholder:opacity-50'
                 />
-                <input type="submit" value={'Subscribe'} className='text-dark font-medium'/>
+      
+                <input type="submit" value={'Subscribe'} className={`font-medium ${colorScheme == 'light' ? 'text-white' : 'text-dark' }`}/>
               </form>
             </div>
         </div>
