@@ -10,6 +10,13 @@ export default defineType({
   icon: DocumentIcon,
   fields: [
     defineField({
+      name: 'site',
+      title: 'Site',
+      type: 'reference',
+      to: [{ type: 'site' }],
+      description: 'Leave empty to share across all sites',
+    }),
+    defineField({
       name: 'name',
       type: 'string',
       initialValue: 'Blog Page',

@@ -14,6 +14,13 @@ export default defineType({
   icon: CogIcon,
   fields: [
     defineField({
+      name: 'site',
+      title: 'Site',
+      type: 'reference',
+      to: [{ type: 'site' }],
+      description: 'Leave empty to share across all sites',
+    }),
+    defineField({
       name: 'title',
       description: 'This field is the title of your website.',
       title: 'Title',

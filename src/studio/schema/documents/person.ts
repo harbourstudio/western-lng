@@ -13,6 +13,13 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'site',
+      title: 'Site',
+      type: 'reference',
+      to: [{ type: 'site' }],
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'firstName',
       title: 'First Name',
       type: 'string',

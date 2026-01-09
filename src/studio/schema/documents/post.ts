@@ -16,6 +16,14 @@ export default defineType({
   groups: defaultFieldGroups,
   fields: [
     defineField({
+      name: 'site',
+      title: 'Site',
+      type: 'reference',
+      to: [{ type: 'site' }],
+      validation: (Rule) => Rule.required(),
+      group: 'content',
+    }),
+    defineField({
       name: 'title',
       title: 'Title',
       type: 'string',

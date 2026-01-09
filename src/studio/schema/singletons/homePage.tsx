@@ -11,6 +11,13 @@ export default defineType({
   groups: defaultFieldGroups,
   fields: [
     defineField({
+      name: 'site',
+      title: 'Site',
+      type: 'reference',
+      to: [{ type: 'site' }],
+      description: 'Leave empty to share across all sites',
+    }),
+    defineField({
       name: 'name',
       hidden: true,
       readOnly: true,
