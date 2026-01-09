@@ -35,7 +35,10 @@ export default defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required().custom(async (value, context) => {
+        if (!value?.current) return true;
+        return isUniquePerSite(value.current, context);
+      }),
       options: {
         source: (doc) => `${doc?.firstName}-${doc?.lastName}`.toLowerCase(),
         maxLength: 96,

@@ -40,7 +40,10 @@ export default defineType({
         maxLength: 96,
         isUnique: (value, context) => context.defaultIsUnique(value, context),
       },
-      validation: (rule) => rule.required(),
+      validation: (Rule) => Rule.required().custom(async (value, context) => {
+        if (!value?.current) return true;
+        return isUniquePerSite(value.current, context);
+      }),
       group: 'content',
     }),
     defineField({
