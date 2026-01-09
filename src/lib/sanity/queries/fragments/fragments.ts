@@ -164,18 +164,6 @@ export const buttonsFragment = /* groq */ `
   },
 `;
 
-export const headingFragment = /* groq */ `
-  _type,
-  text,
-  level,
-  size,
-  alignment,
-  color,
-  spacing,
-  maxWidth,
-  ${buttonsFragment}
-`;
-
 export const heroSectionFragment = /* groq */ `
   _type,
   heading,
@@ -393,9 +381,12 @@ export const headerDetailsFragment = /* groq */ `
 export const gridItemFragment = /* groq */ `
   _key,
   _type,
+  image {
+    ${imageFragment}
+    alt
+  },
   heading {
-    content,
-    headingLevel
+    content
   },
   ${contentFragment}
 `;
@@ -406,6 +397,7 @@ export const gridFragment = /* groq */ `
   items[]{
     ${gridItemFragment}
   },
+  headingLevel,
   borderColor,
   tabletColumns,
   desktopColumns,
@@ -440,9 +432,32 @@ export const linkListFields = /* groq */ `
   textColor,
 `;
 
+// List
+export const listFragment = /* groq */ `
+  _type,
+  _key,
+  items[]{
+    ${detailFragment}
+  },
+  spacing,
+`;
+
 // Full linkList fragment for standalone use
 export const linkListFragment = /* groq */ `
   ${linkListFields}
+`;
+
+export const timelineFragment = /* groq */ `
+  _type,
+  _key,
+  heading {
+    content,
+    headingLevel
+  },
+  spacing,
+  items[] {
+    ${gridItemFragment}
+  },
 `;
 
 export const coverImageFragment = /* groq */ `
@@ -527,14 +542,15 @@ export const sectionFragment = /* groq */ `
   components[]{
     _key,
     _type,
-    _type == 'heading' => {${headingFragment}},
     _type == 'header' => {${headerSectionFragment}},
     _type == 'headerDetails' => {${headerDetailsFragment}},
     _type == 'accordion' => {${accordionFragment}},
     _type == 'gallery' => {${galleryFragment}},
     _type == 'grid' => {${gridFragment}},
     _type == 'stickyGrid' => {${stickyGridFragment}},
+    _type == 'timeline' => {${timelineFragment}},
     _type == 'linkList' => {${linkListFragment}},
+    _type == 'list' => {${listFragment}},
     _type == 'videoSection' => {${videoSectionFragment}},
     _type == 'mediaText' => {${mediaTextFragment}},
     _type == 'coverImage' => {${coverImageFragment}},

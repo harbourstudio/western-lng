@@ -68,7 +68,7 @@ export default defineType({
     }),
     defineField({
       ...image,
-      hidden: ({ parent }) => parent?.mediaType !== 'image',
+      hidden: ({ parent }) => parent?.mediaType == 'video',
     }),
     defineField({
       name: 'image2',

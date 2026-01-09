@@ -1,7 +1,4 @@
 import type { SectionFragmentType } from '@/lib/sanity/queries/fragments/fragment.types';
-import Row from '../modules/Row';
-import Heading from '../modules/Heading';
-import Paragraph from '../modules/Paragraph';
 import Header from '../modules/Header';
 import Accordion from '../modules/Accordion';
 import Gallery from '../modules/Gallery';
@@ -17,11 +14,10 @@ import Table from '../modules/Table';
 import FeaturedText from '../modules/FeaturedText';
 import Cta from '../modules/CTA';
 import PostList from '../modules/PostList';
+import List from '../modules/List';
+import Timeline from '../modules/Timeline';
 
 const componentMap = {
-  row: Row,
-  heading: Heading,
-  paragraph: Paragraph,
   header: Header,
   accordion: Accordion,
   gallery: Gallery,
@@ -37,6 +33,8 @@ const componentMap = {
   featuredText: FeaturedText,
   cta: Cta,
   postList: PostList,
+  list: List,
+  timeline: Timeline,
 };
 
 // Function to remove zero-width and invisible Unicode characters so that TW can match classes

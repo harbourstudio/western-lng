@@ -35,6 +35,9 @@ import gridItem from './objects/gridItem';
 import linkList from './objects/linkList';
 import linkItem from './objects/linkItem';
 
+import list from './objects/list';
+import timeline from './objects/timeline';
+
 import coverImage from './objects/coverImage';
 import videoSection from './objects/videoSection';
 import gallery from './objects/gallery';
@@ -44,11 +47,7 @@ import header from './objects/header';
 import headerDetails from './objects/headerDetails';
 import table from './objects/table';
 
-import row from './objects/row';
-import heading from './objects/heading';
-
 import detail from './objects/detail';
-import paragraph from './objects/paragraph';
 
 export const schemaTypes = [
   // Singletons
@@ -85,19 +84,18 @@ export const schemaTypes = [
   link,
   button,
   menuItem,
-  row,
-  heading,
-  paragraph,
   accordionItem,
   gallery,
   grid,
   gridItem,
   linkList,
   linkItem,
+  list,
   detail,
   videoSection,
   coverImage,
   table,
+  timeline,
 
   ...seoTypes,
 ];

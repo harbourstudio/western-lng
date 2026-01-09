@@ -28,6 +28,7 @@ export default function Header({ section }: { section: HeaderFragmentType }) {
   // Get heading level from reusable heading field
   const HeadingTag = getHeadingTag(section?.heading?.level);
   const headingContent = section?.heading?.content;
+  const headingSize = section?.heading?.size;
   
   const spacingTop = cleanString(section?.spacing?.top) || '';
   const spacingBottom = cleanString(section?.spacing?.bottom) || '';
@@ -38,7 +39,7 @@ export default function Header({ section }: { section: HeaderFragmentType }) {
         <div className={cn('flex gap-5 justify-between', spacingTop, spacingBottom)}>
           <div className="w-full lg:w-6/12 lg:pr-7">
             {headingContent && (
-              <HeadingTag className="mb-0">
+              <HeadingTag className={`mb-0 ${headingSize}`}>
                 {headingContent}
               </HeadingTag>
             )}
@@ -60,7 +61,7 @@ export default function Header({ section }: { section: HeaderFragmentType }) {
         <div className={cn('flex flex-wrap justify-between items-end', spacingTop, spacingBottom)}>
           <div className="w-full lg:w-8/12">
             {headingContent && (
-              <HeadingTag className="mb-0">
+              <HeadingTag className={`mb-0 ${headingSize}`}>
                 {headingContent}
               </HeadingTag>
             )}
@@ -82,7 +83,7 @@ export default function Header({ section }: { section: HeaderFragmentType }) {
       ) : (
         <div className={cn(spacingTop, spacingBottom)}>
           {headingContent && (
-            <HeadingTag className="mb-0">
+              <HeadingTag className={`mb-0 ${headingSize}`}>
               {headingContent}
             </HeadingTag>
           )}

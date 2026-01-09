@@ -1,5 +1,5 @@
 import type { PortableTextBlock } from 'next-sanity';
-import type { StickyGridFragmentTypey } from '@/lib/sanity/queries/fragments/fragment.types';
+import type { StickyGridFragmentType } from '@/lib/sanity/queries/fragments/fragment.types';
 import MediaCard from './MediaCard';
 import PortableText from '@/components/modules/PortableText';
 
@@ -14,8 +14,8 @@ function cleanString(str: string | undefined): string {
 
 export default function StickyGrid( { section, }: { section: StickyGridFragmentType; }) {
 
-  const spacingTop = cleanString(section?.spacing?.top) || 'pt-9';
-  const spacingBottom = cleanString(section?.spacing?.bottom) || 'pb-9';
+  const spacingTop = cleanString(section?.spacing?.top) || '';
+  const spacingBottom = cleanString(section?.spacing?.bottom) || '';
 
   return (
       <div className={`lg:flex gap-5 ${spacingBottom} ${spacingTop}`}>

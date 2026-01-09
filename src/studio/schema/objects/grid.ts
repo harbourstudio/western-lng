@@ -16,6 +16,22 @@ export default defineType({
       validation: (Rule) => Rule.min(1).error('Add at least one grid item'),
     }),
     defineField({
+        name: 'level',
+        title: 'Heading Level',
+        type: 'string',
+        options: {
+            list: [
+                { title: 'H1', value: 'h1' },
+                { title: 'H2', value: 'h2' },
+                { title: 'H3', value: 'h3' },
+                { title: 'H4', value: 'h4' },
+                { title: 'H5', value: 'h5' },
+                { title: 'H6', value: 'h6' },
+            ],
+        },
+        initialValue: 'h2',
+    }),
+    defineField({
       name: 'borderColor',
       title: 'Border Color',
       type: 'string',
@@ -23,6 +39,7 @@ export default defineType({
         list: [
           { title: 'Dark', value: 'dark' },
           { title: 'Light', value: 'light' },
+          { title: 'Primary', value: 'primary' },
         ]
       },
       initialValue: 'dark'

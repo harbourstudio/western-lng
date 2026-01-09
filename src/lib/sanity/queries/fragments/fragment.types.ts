@@ -22,11 +22,6 @@ export type SectionFragmentType = Extract<SectionType, { _type: 'section' }>;
 export type HeroFullscreenFragmentType = Extract<SectionType, { _type: 'heroFullscreen' }>;
 export type HeroMinimalFragmentType = Extract<SectionType, { _type: 'heroMinimal' }>;
 
-export type RowComponentType = NonNullable<ContainerFragmentType['components']>[number];
-export type RowFragmentType = Extract<RowComponentType, { _type: 'row' }>;
-export type HeadingFragmentType = Extract<RowComponentType, { _type: 'heading' }>;
-export type ParagraphFragmentType = Extract<RowComponentType, { _type: 'paragraph' }>;
-
 export type HeaderFragmentType = Extract<RowComponentType, { _type: 'header' }>;
 export type TableFragmentType = Extract<RowComponentType, { _type: 'table' }>;
 export type FeaturedTextFragmentType = Extract<RowComponentType, { _type: 'featuredText' }>;
@@ -40,10 +35,14 @@ export type GridItemFragmentType = NonNullable<GridFragmentType['items']>[number
 export type LinkListFragmentType = Extract<RowComponentType, { _type: 'linkList' }>;
 export type LinkItemFragmentType = NonNullable<LinkListFragmentType['items']>[number];
 
+export type ListFragmentType = Extract<RowComponentType, { _type: 'list' }>;
+
 export type AccordionFragmentType = Extract<RowComponentType, { _type: 'accordion' }>;
 export type AccordionItemFragmentType = NonNullable<AccordionFragmentType['items']>[number];
 
 export type StickyGridFragmentType = Extract<SectionType, { _type: 'stickyGrid' }>;
+export type TimelineFragmentType = Extract<SectionType, { _type: 'timeline' }>;
+
 export type MediaCardFragmentType = NonNullable<StickyGridFragmentType['items']>[number];
 
 export type CoverImageFragmentType = Extract<RowComponentType, { _type: 'coverImage' }>;

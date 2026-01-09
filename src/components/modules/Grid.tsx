@@ -1,4 +1,6 @@
 import type { PortableTextBlock } from 'next-sanity';
+import { Image } from 'next-sanity/image';
+import { urlForImage } from '@/lib/sanity/client/utils';
 import type { GridFragmentType } from '@/lib/sanity/queries/fragments/fragment.types';
 import PortableText from '@/components/modules/PortableText';
 import { cn } from '@/lib/utils';
@@ -12,7 +14,7 @@ function cleanString(str: string | undefined): string {
     .trim();
 }
 
-const validHeadingLevels = ['h2', 'h3', 'h4', 'h5', 'h6'] as const;
+const validHeadingLevels = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] as const;
 type HeadingLevel = (typeof validHeadingLevels)[number];
 
 function getHeadingTag(level: string | undefined): HeadingLevel {
@@ -20,7 +22,7 @@ function getHeadingTag(level: string | undefined): HeadingLevel {
   if (validHeadingLevels.includes(cleaned as HeadingLevel)) {
     return cleaned as HeadingLevel;
   }
-  return 'h3';
+  return 'h2';
 }
 
 // Map column numbers to Tailwind grid classes
@@ -53,7 +55,10 @@ export default function Grid({ section }: { section: GridFragmentType }) {
   const tabletColClass = tabletColumnClasses[tabletCols] || 'md:grid-cols-2';
   const desktopColClass = desktopColumnClasses[desktopCols] || 'lg:grid-cols-3';
 
-  const borderClass = borderColor === 'dark' ? 'border-dark' : 'border-gray-200';
+  const borderClass = borderColor === 'dark' ? 'border-dark' : borderColor === 'primary' ? 'border-primary' : 'border-gray-200';
+
+  // Get the unified heading level for all grid items
+  const HeadingTag = getHeadingTag(section?.level);
 
   const items = section?.items || [];
   if (items.length === 0) return null;
@@ -62,16 +67,24 @@ export default function Grid({ section }: { section: GridFragmentType }) {
     <div className={cn(bgColor, spacingTop, spacingBottom)}>
       <div className={cn('grid grid-cols-1 gap-y-5', tabletColClass, desktopColClass)}>
         {items.map((item) => {
-          const HeadingTag = getHeadingTag(item?.heading?.headingLevel);
-
           return (
             <div 
               key={item._key} 
               className={cn(
-                'grid-item flex flex-col pr-5 pb-5 ml-5 [&:not(:last-child)]:border-r',
+                'grid-item flex flex-col pr-5 pb-5 [&:not(:first-child)]:ml-5 [&:not(:last-child)]:border-r',
                 borderClass
               )}
             >
+              {item.image?.asset && (
+                <figure>
+                  <Image
+                    alt={item.image?.alt || ''}
+                    width={600}
+                    height={600}
+                    src={urlForImage(item.image)?.width(1000).height(667).url() as string}
+                  />
+                </figure>
+              )}
               {item?.heading?.content && (
                 <HeadingTag className="mb-3">{item.heading.content}</HeadingTag>
               )}

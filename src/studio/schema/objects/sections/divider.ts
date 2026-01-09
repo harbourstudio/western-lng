@@ -1,11 +1,9 @@
-import { RemoveIcon } from '@sanity/icons';
 import { defineField, defineType } from 'sanity';
 
 export default defineType({
   name: 'divider',
   title: 'Divider',
   type: 'object',
-  icon: RemoveIcon,
   fields: [
     defineField({
       name: 'height',

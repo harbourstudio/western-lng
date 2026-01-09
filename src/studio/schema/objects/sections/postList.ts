@@ -1,11 +1,9 @@
-import { ListIcon } from '@sanity/icons';
 import { defineField, defineType } from 'sanity';
 
 export default defineType({
   name: 'postList',
   title: 'Post List',
   type: 'object',
-  icon: ListIcon,
   fields: [
     defineField({
       name: 'heading',

@@ -36,8 +36,8 @@ export default defineType({
     },
     prepare({ headingContent, layout }) {
       return {
-        title: 'Hero (Minimal)',
-        subtitle: `${headingContent} • Layout: ${layout || 'split'}`,
+        title: `${headingContent}`,
+        subtitle: `Hero (Minimal) • Layout: ${layout || 'split'}`,
       };
     },
   },
