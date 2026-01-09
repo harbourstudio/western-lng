@@ -2,6 +2,8 @@ import category from './documents/category';
 import page from './documents/page';
 import person from './documents/person';
 import post from './documents/post';
+import site from './documents/site';
+
 import blockContent from './objects/blockContent';
 import button from './objects/button';
 import link from './objects/link';
@@ -60,6 +62,7 @@ export const schemaTypes = [
   post,
   person,
   category,
+  site,
 
   // Sections
   cta,
