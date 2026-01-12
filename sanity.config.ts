@@ -125,7 +125,9 @@ export default defineConfig([
     schema: {
       types: schemaTypes,
       templates: (prev) => [
-        ...prev,
+        ...prev.filter((template) =>
+          !['page', 'post', 'category', 'person'].includes(template.schemaType || '')
+        ),
         {
           id: 'page-western-lng',
           title: 'Page',
@@ -170,7 +172,9 @@ export default defineConfig([
     schema: {
       types: schemaTypes,
       templates: (prev) => [
-        ...prev,
+        ...prev.filter((template) =>
+          !['page', 'post', 'category', 'person'].includes(template.schemaType || '')
+        ),
         {
           id: 'page-ksi-lisims-lng',
           title: 'Page',
@@ -215,7 +219,9 @@ export default defineConfig([
     schema: {
       types: schemaTypes,
       templates: (prev) => [
-        ...prev,
+        ...prev.filter((template) =>
+          !['page', 'post', 'category', 'person'].includes(template.schemaType || '')
+        ),
         {
           id: 'page-pgrt',
           title: 'Page',

@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import PageSections from '@/components/sections/PageSections';
-import { getCurrentSite } from '@/lib/get-current-site';
-import { getLive } from '@/lib/sanity/client/live';
+import { siteSanityFetch } from '@/lib/sanity/client/fetch';
 import { formatMetaData } from '@/lib/sanity/client/seo';
 import { getPageQuery } from '@/lib/sanity/queries/queries';
 
@@ -12,12 +11,11 @@ type Props = {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
-  const site = await getCurrentSite();
-  const { sanityFetch } = getLive(site.id);
 
-  const { data: page } = await sanityFetch({
+  const page = await siteSanityFetch({
     query: getPageQuery,
     params,
+    tags: ['page'],
   });
 
   if (!page?.seo) {
@@ -29,12 +27,11 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function Page(props: Props) {
   const params = await props.params;
-  const site = await getCurrentSite();
-  const { sanityFetch } = getLive(site.id);
 
-  const { data: page } = await sanityFetch({
+  const page = await siteSanityFetch({
     query: getPageQuery,
     params,
+    tags: ['page'],
   });
 
   if (!page) {

@@ -4,10 +4,11 @@ import Page from '@/components/templates/Page';
 import PostRiver from '@/components/templates/PostRiver';
 import { serverEnv } from '@/env/serverEnv';
 import { POSTS_PER_PAGE } from '@/lib/constants';
+import { getCurrentSite } from '@/lib/get-current-site';
 import { getDocumentLink } from '@/lib/links';
 import { paginatedData } from '@/lib/pagination';
-import { client } from '@/lib/sanity/client/client';
-import { sanityFetch } from '@/lib/sanity/client/live';
+import { getClient } from '@/lib/sanity/client/client';
+import { siteSanityFetch } from '@/lib/sanity/client/fetch';
 import { categoryQuery, categorySlugs, postsArchiveQuery } from '@/lib/sanity/queries/queries';
 
 type Props = {
@@ -20,14 +21,16 @@ const loadData = async (props: Props) => {
   const from = 0;
   const to = POSTS_PER_PAGE - 1;
 
-  const [{ data: archiveData }, { data: categoryData }] = await Promise.all([
-    sanityFetch({
+  const [archiveData, categoryData] = await Promise.all([
+    siteSanityFetch({
       query: postsArchiveQuery,
       params: { from, to, filters: { categorySlug } },
+      tags: ['post'],
     }),
-    sanityFetch({
+    siteSanityFetch({
       query: categoryQuery,
       params: { slug: categorySlug },
+      tags: ['category'],
     }),
   ]);
 
@@ -54,8 +57,12 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 // Return a list of `params` to populate the [slug] dynamic segment
 export async function generateStaticParams() {
+  const site = await getCurrentSite();
+  const client = getClient(site.id);
+  
   const slugs = await client.fetch(categorySlugs, {
     limit: serverEnv.MAX_STATIC_PARAMS,
+    site: site.id,
   });
 
   return slugs

@@ -1,15 +1,12 @@
-import { getCurrentSite } from '@/lib/get-current-site';
-import { getLive } from '@/lib/sanity/client/live';
+import { siteSanityFetch } from '@/lib/sanity/client/fetch';
 import { settingsQuery } from '@/lib/sanity/queries/queries';
 import Logo from '../icons/Logo';
 import { Button } from '../ui/Button';
 
 export default async function Footer() {
-  const site = await getCurrentSite();
-  const { sanityFetch } = getLive(site.id);
-
-  const { data: settings } = await sanityFetch({
+  const settings = await siteSanityFetch({
     query: settingsQuery,
+    tags: ['settings'],
   });
 
   if (!settings) {

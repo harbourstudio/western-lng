@@ -4,7 +4,7 @@ import Page from '@/components/templates/Page';
 import PostRiver from '@/components/templates/PostRiver';
 import { POSTS_PER_PAGE } from '@/lib/constants';
 import { type PaginatedResult, paginatedData } from '@/lib/pagination';
-import { sanityFetch } from '@/lib/sanity/client/live';
+import { siteSanityFetch } from '@/lib/sanity/client/fetch';
 import { formatMetaData } from '@/lib/sanity/client/seo';
 import { blogPageQuery, postsArchiveQuery } from '@/lib/sanity/queries/queries';
 import type { BlogPageQueryResult, PostsArchiveQueryResult } from '@/sanity.types';
@@ -27,17 +27,19 @@ const loadPostsPageData = async (
     notFound();
   }
 
-  const [{ data: blogPageData }, { data: posts }] = await Promise.all([
-    sanityFetch({
+  const [blogPageData, posts] = await Promise.all([
+    siteSanityFetch({
       query: blogPageQuery,
+      tags: ['blogPage'],
     }),
-    sanityFetch({
+    siteSanityFetch({
       query: postsArchiveQuery,
       params: {
         from: (pageNumber - 1) * POSTS_PER_PAGE,
         to: pageNumber * POSTS_PER_PAGE - 1,
         filters: {},
       },
+      tags: ['post'],
     }),
   ]);
 

@@ -8,7 +8,7 @@ import {
   postFragment,
 } from './fragments/fragments';
 
-export const settingsQuery = defineQuery(`*[_type == "settings"][0]{
+export const settingsQuery = defineQuery(`*[_type == "settings" && (!defined(site) || site->slug.current == $site)][0]{
   title,
   description,
   preFooter {
@@ -22,14 +22,14 @@ export const settingsQuery = defineQuery(`*[_type == "settings"][0]{
   ${menuFragment}
 }`);
 
-export const homePageQuery = defineQuery(`*[_type == "homePage"][0]{
+export const homePageQuery = defineQuery(`*[_type == "homePage" && (!defined(site) || site->slug.current == $site)][0]{
   _id,
   _type,
   ...,
   ${pageFragment}
 }`);
 
-export const blogPageQuery = defineQuery(`*[_type == "blogPage"][0]{
+export const blogPageQuery = defineQuery(`*[_type == "blogPage" && (!defined(site) || site->slug.current == $site)][0]{
   _id,
   _type,
   ...,
@@ -37,7 +37,7 @@ export const blogPageQuery = defineQuery(`*[_type == "blogPage"][0]{
 }`);
 
 export const getPageQuery = defineQuery(`
-  *[_type == 'page' && slug.current == $slug][0]{
+  *[_type == 'page' && slug.current == $slug && site->slug.current == $site][0]{
     _id,
     _type,
     name,
@@ -47,7 +47,7 @@ export const getPageQuery = defineQuery(`
 `);
 
 export const getSitemapQuery = defineQuery(`
-  *[((_type in ["page", "post"] && defined(slug.current)) || (_type == "homePage")) && seo.noIndex != true]{
+  *[((_type in ["page", "post"] && defined(slug.current)) || (_type == "homePage")) && seo.noIndex != true && site->slug.current == $site]{
     "href": select(
       _type == "page" => "/" + slug.current,
       _type == "post" => "/posts/" + slug.current,
@@ -59,33 +59,33 @@ export const getSitemapQuery = defineQuery(`
 `);
 
 export const postQuery = defineQuery(`
-  *[_type == "post" && slug.current == $slug] [0] {
+  *[_type == "post" && slug.current == $slug && site->slug.current == $site] [0] {
     ${postFragment}
   }
 `);
 
 export const categoryQuery = defineQuery(`
-  *[_type == "category" && slug.current == $slug] [0] {
+  *[_type == "category" && slug.current == $slug && site->slug.current == $site] [0] {
     ${categoryFragment}
   }
 `);
 
 export const personQuery = defineQuery(`
-  *[_type == "person" && slug.current == $slug] [0] {
+  *[_type == "person" && slug.current == $slug && site->slug.current == $site] [0] {
     ${personFragment}
   }
 `);
 
 export const postPagesSlugs = defineQuery(`
-  *[_type == "post" && defined(slug.current)][0..$limit].slug.current
+  *[_type == "post" && defined(slug.current) && site->slug.current == $site][0..$limit].slug.current
 `);
 
 export const categorySlugs = defineQuery(`
-  *[_type == "category" && defined(slug.current)][0..$limit].slug.current
+  *[_type == "category" && defined(slug.current) && site->slug.current == $site][0..$limit].slug.current
 `);
 
 export const personSlugs = defineQuery(`
-  *[_type == "person" && defined(slug.current)][0..$limit].slug.current
+  *[_type == "person" && defined(slug.current) && site->slug.current == $site][0..$limit].slug.current
 `);
 
 export const postsArchiveQuery = defineQuery(`
@@ -93,12 +93,14 @@ export const postsArchiveQuery = defineQuery(`
     "allResults": *[
       _type == "post"
       &&
+      site->slug.current == $site
+      &&
       (
-        !defined( $filters.categorySlug ) || references(*[_type == "category" && slug.current == $filters.categorySlug]._id)
+        !defined( $filters.categorySlug ) || references(*[_type == "category" && slug.current == $filters.categorySlug && site->slug.current == $site]._id)
       )
       &&
       (
-        !defined( $filters.personSlug ) || references(*[_type == "person" && slug.current == $filters.personSlug]._id)
+        !defined( $filters.personSlug ) || references(*[_type == "person" && slug.current == $filters.personSlug && site->slug.current == $site]._id)
       )
       //
       // Add more filter here if needed

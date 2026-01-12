@@ -1,4 +1,5 @@
 import { defineField, defineType } from 'sanity';
+import { isUniquePerSite } from '../../lib/validation';
 
 export default defineType({
   name: 'category',

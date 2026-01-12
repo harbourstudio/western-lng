@@ -6,7 +6,7 @@ import PostRiver from '@/components/templates/PostRiver';
 import { POSTS_PER_PAGE } from '@/lib/constants';
 import { getDocumentLink } from '@/lib/links';
 import { paginatedData } from '@/lib/pagination';
-import { sanityFetch } from '@/lib/sanity/client/live';
+import { siteSanityFetch } from '@/lib/sanity/client/fetch';
 import { personQuery, postsArchiveQuery } from '@/lib/sanity/queries/queries';
 
 type Props = {
@@ -14,25 +14,27 @@ type Props = {
 };
 
 const loadData = async (props: Props) => {
-  const { page, personSlug } = await props.params;
+  const { personSlug, page } = await props.params;
 
   const pageNumber = parseInt(page, 10);
 
-  if (Number.isNaN(pageNumber) || pageNumber < 1) {
-    return null;
+  if (!pageNumber) {
+    notFound();
   }
 
   const from = (pageNumber - 1) * POSTS_PER_PAGE;
   const to = pageNumber * POSTS_PER_PAGE - 1;
 
-  const [{ data: archiveData }, { data: personData }] = await Promise.all([
-    sanityFetch({
+  const [archiveData, personData] = await Promise.all([
+    siteSanityFetch({
       query: postsArchiveQuery,
       params: { from, to, filters: { personSlug } },
+      tags: ['post'],
     }),
-    sanityFetch({
+    siteSanityFetch({
       query: personQuery,
       params: { slug: personSlug },
+      tags: ['person'],
     }),
   ]);
 
@@ -43,26 +45,20 @@ const loadData = async (props: Props) => {
 };
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const { posts, person } = (await loadData(props)) || {};
-
-  const { currentPage = 1 } = posts || {};
+  const { person } = (await loadData(props)) || {};
 
   if (!person) {
     return notFound();
   }
 
   return {
-    title:
-      currentPage === 1
-        ? `Author ${person.firstName} ${person.lastName} `
-        : `Author ${person.firstName} ${person.lastName} - Page ${currentPage}`,
+    title: `Author ${person.firstName} ${person.lastName}`,
     alternates: {
       canonical: getDocumentLink(person, true),
     },
   };
 }
 
-// Return a list of `params` to populate the [slug] dynamic segment
 export async function generateStaticParams() {
   return [];
 }
@@ -70,7 +66,7 @@ export async function generateStaticParams() {
 export default async function PostPage(props: Props) {
   const { posts, person } = (await loadData(props)) || {};
 
-  if (!person || !posts) {
+  if (!person) {
     notFound();
   }
 

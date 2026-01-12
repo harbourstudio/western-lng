@@ -5,10 +5,11 @@ import PersonArchiveByline from '@/components/templates/PersonArchiveByline';
 import PostRiver from '@/components/templates/PostRiver';
 import { serverEnv } from '@/env/serverEnv';
 import { POSTS_PER_PAGE } from '@/lib/constants';
+import { getCurrentSite } from '@/lib/get-current-site';
 import { getDocumentLink } from '@/lib/links';
 import { paginatedData } from '@/lib/pagination';
-import { client } from '@/lib/sanity/client/client';
-import { sanityFetch } from '@/lib/sanity/client/live';
+import { getClient } from '@/lib/sanity/client/client';
+import { siteSanityFetch } from '@/lib/sanity/client/fetch';
 import { personQuery, personSlugs, postsArchiveQuery } from '@/lib/sanity/queries/queries';
 
 type Props = {
@@ -21,14 +22,16 @@ const loadData = async (props: Props) => {
   const from = 0;
   const to = POSTS_PER_PAGE - 1;
 
-  const [{ data: archiveData }, { data: personData }] = await Promise.all([
-    sanityFetch({
+  const [archiveData, personData] = await Promise.all([
+    siteSanityFetch({
       query: postsArchiveQuery,
       params: { from, to, filters: { personSlug } },
+      tags: ['post'],
     }),
-    sanityFetch({
+    siteSanityFetch({
       query: personQuery,
       params: { slug: personSlug },
+      tags: ['person'],
     }),
   ]);
 
@@ -55,8 +58,12 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 // Return a list of `params` to populate the [slug] dynamic segment
 export async function generateStaticParams() {
+  const site = await getCurrentSite();
+  const client = getClient(site.id);
+  
   const slugs = await client.fetch(personSlugs, {
     limit: serverEnv.MAX_STATIC_PARAMS,
+    site: site.id,
   });
 
   return slugs

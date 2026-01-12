@@ -1,4 +1,4 @@
-import { sanityFetch } from '@/lib/sanity/client/live';
+import { siteSanityFetch } from '@/lib/sanity/client/fetch';
 import { settingsQuery } from '@/lib/sanity/queries/queries';
 import { Image } from 'next-sanity/image';
 import { urlForImage } from '@/lib/sanity/client/utils';
@@ -6,12 +6,16 @@ import type { PortableTextBlock } from 'next-sanity';
 import PortableText from '@/components/modules/PortableText';
 
 export default async function PreFooter() {
-  const { data: settings } = await sanityFetch({
+  const settings = await siteSanityFetch({
     query: settingsQuery,
+    tags: ['settings'],
   });
 
-    // console.log('Settings:', JSON.stringify(settings, null, 2));
-  // console.log('PreFooter:', settings?.preFooter);
+  // Return null if settings or preFooter is not configured
+  if (!settings?.preFooter) {
+    return null;
+  }
+
   const { heading, content, image } = settings.preFooter;
 
   return (

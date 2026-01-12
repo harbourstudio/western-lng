@@ -207,6 +207,12 @@ export const postCardFragment = /* groq */ `
 export const postFragment = /* groq */ `
   ${postCardFragment}
   ${contentFragment}
+  site->{
+    _id,
+    _type,
+    title,
+    "slug": slug.current
+  },
   seo {
     ${seoFragment}
   },
@@ -600,6 +606,12 @@ export const menuFragment = /* groq */ `
 
 export const pageFragment = /* groq */ `
   ${pageBuilderFragment}
+  site->{
+    _id,
+    _type,
+    title,
+    "slug": slug.current
+  },
   seo {
     ${seoFragment}
   },

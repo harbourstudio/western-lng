@@ -1,11 +1,15 @@
 import type { MetadataRoute } from 'next';
-import { client } from '@/lib/sanity/client/client';
+import { getCurrentSite } from '@/lib/get-current-site';
+import { getClient } from '@/lib/sanity/client/client';
 import { getSitemapQuery } from '@/lib/sanity/queries/queries';
 import { getBaseUrl } from '@/utils/getBaseUrl';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
-    const paths = await client.fetch(getSitemapQuery);
+    const site = await getCurrentSite();
+    const client = getClient(site.id);
+    
+    const paths = await client.fetch(getSitemapQuery, { site: site.id });
 
     if (!paths) return [];
 

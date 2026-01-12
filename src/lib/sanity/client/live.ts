@@ -1,37 +1,22 @@
 import { defineLive } from 'next-sanity';
 import { serverEnv } from '@/env/serverEnv';
 import { getClient } from './client';
-import { getSiteById, DEFAULT_SITE_ID, sites, type SiteConfig } from '@/config/sites';
 
-/**
- * Cache for live configurations (one per site).
- */
-const liveCache = new Map<string, ReturnType<typeof defineLive>>();
+let cachedLive: ReturnType<typeof defineLive> | null = null;
 
-/**
- * Get the live configuration for a specific site.
- * This provides sanityFetch and SanityLive components configured for the site's dataset.
- */
-export function getLive(siteId: string) {
-  if (liveCache.has(siteId)) {
-    return liveCache.get(siteId)!;
-  }
+export function getLive(siteId?: string) {
+  if (cachedLive) return cachedLive;
 
-  const client = getClient(siteId);
+  const client = getClient();
 
-  const live = defineLive({
+  cachedLive = defineLive({
     client,
     serverToken: serverEnv.SANITY_API_READ_TOKEN,
     browserToken: serverEnv.SANITY_API_READ_TOKEN,
   });
 
-  liveCache.set(siteId, live);
-  return live;
+  return cachedLive;
 }
 
-/**
- * Default live configuration for backward compatibility.
- */
-const defaultLive = getLive(DEFAULT_SITE_ID);
-
-export const { sanityFetch, SanityLive } = defaultLive;
+const { sanityFetch, SanityLive } = getLive();
+export { sanityFetch, SanityLive };

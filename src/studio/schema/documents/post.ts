@@ -2,6 +2,7 @@ import { DocumentTextIcon } from '@sanity/icons';
 import { format, parseISO } from 'date-fns';
 import { defineField, defineType } from 'sanity';
 import { defaultFieldGroups } from '../config/fieldGroups';
+import { isUniquePerSite } from '../../lib/validation';
 
 /**
  * Post schema.  Define and edit the fields for the 'post' content type.

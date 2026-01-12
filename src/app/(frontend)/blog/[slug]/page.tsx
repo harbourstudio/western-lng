@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Post from '@/components/templates/Post';
 import { serverEnv } from '@/env/serverEnv';
+import { getCurrentSite } from '@/lib/get-current-site';
 import { getDocumentLink } from '@/lib/links';
-import { client } from '@/lib/sanity/client/client';
-import { sanityFetch } from '@/lib/sanity/client/live';
+import { getClient } from '@/lib/sanity/client/client';
+import { siteSanityFetch } from '@/lib/sanity/client/fetch';
 import { postPagesSlugs, postQuery } from '@/lib/sanity/queries/queries';
 import type { PostQueryResult } from '@/sanity.types';
 
@@ -15,9 +16,10 @@ type Props = {
 const loadData = async (props: Props): Promise<PostQueryResult> => {
   const { slug } = await props.params;
 
-  const { data: post } = await sanityFetch({
+  const post = await siteSanityFetch({
     query: postQuery,
     params: { slug },
+    tags: ['post'],
   });
 
   return post;
@@ -39,8 +41,12 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 // Return a list of `params` to populate the [slug] dynamic segment
 export async function generateStaticParams() {
+  const site = await getCurrentSite();
+  const client = getClient(site.id);
+  
   const slugs = await client.fetch(postPagesSlugs, {
     limit: serverEnv.MAX_STATIC_PARAMS,
+    site: site.id,
   });
 
   const staticParams = slugs

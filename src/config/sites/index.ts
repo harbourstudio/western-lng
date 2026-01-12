@@ -4,7 +4,7 @@ export interface SiteTheme {
 }
 
 export interface SiteConfig {
-  id: string;
+  id: string; // Also serves as the site slug (matches slug.current in Sanity)
   name: string;
   dataset: string;
   domains: string[];
@@ -16,7 +16,7 @@ export const sites: Record<string, SiteConfig> = {
     id: 'western-lng',
     name: 'Western LNG',
     dataset: 'western-lng',
-    domains: ['localhost', 'wlng.net', 'www.wlng.net'],
+    domains: ['localhost', 'western-lng.localhost', 'western-lng', 'www.western-lng.com'],
     theme: {
       primary: '#FFC000',
       secondary: '#004578'
@@ -25,11 +25,21 @@ export const sites: Record<string, SiteConfig> = {
   'ksi-lisims-lng': {
     id: 'ksi-lisims-lng',
     name: 'KSI-LISIMS-LNG',
-    dataset: 'ksi-lisims-lng',
-    domains: ['ksi-lisims-lng.localhost', 'ksi-lisims.net', 'www.ksi-lisims.net'],
+    dataset: 'western-lng',
+    domains: ['ksi-lisims-lng.localhost', 'ksi-lisims.com', 'www.ksi-lisims.com'],
     theme: {
       primary: '#009ADA',
       secondary: '#00438C'
+    },
+  },
+  'pgrt': {
+    id: 'pgrt',
+    name: 'PGRT',
+    dataset: 'western-lng',
+    domains: ['pgrt.localhost', 'pgrt.com', 'www.pgrt.com'],
+    theme: {
+      primary: '#1E40AF',
+      secondary: '#0F172A'
     },
   },
 };

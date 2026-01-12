@@ -31,6 +31,7 @@ export function createSiteStructure(siteId: string): StructureResolver {
         // Documents
         S.listItem()
           .title('Pages')
+          .schemaType('page')
           .child(
             S.documentList()
               .title('Pages')
@@ -39,6 +40,7 @@ export function createSiteStructure(siteId: string): StructureResolver {
           ),
         S.listItem()
           .title('Posts')
+          .schemaType('post')
           .child(
             S.documentList()
               .title('Posts')
@@ -47,6 +49,7 @@ export function createSiteStructure(siteId: string): StructureResolver {
           ),
         S.listItem()
           .title('Categories')
+          .schemaType('category')
           .child(
             S.documentList()
               .title('Categories')
@@ -55,6 +58,7 @@ export function createSiteStructure(siteId: string): StructureResolver {
           ),
         S.listItem()
           .title('People')
+          .schemaType('person')
           .child(
             S.documentList()
               .title('People')
