@@ -41,6 +41,7 @@ export default defineType({
       options: {
         source: 'name',
         maxLength: 96,
+        isUnique: () => true, // Disable default uniqueness check, use custom per-site validation instead
       },
       group: 'content',
     }),

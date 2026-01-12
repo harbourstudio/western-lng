@@ -32,13 +32,16 @@ export async function isUniquePerSite(
     type: document._type,
   };
 
-  const query = `!defined(*[
+  // Query to find if slug exists for this site
+  const query = `*[
     _type == $type &&
     !(_id in [$draft, $published]) &&
     slug.current == $slug &&
     site._ref == $siteId
-  ][0]._id)`;
+  ][0]._id`;
 
-  const result = await client.fetch(query, params);
-  return result ? true : 'Slug already exists for this site';
+  const duplicateId = await client.fetch(query, params);
+
+  // If no duplicate found, slug is unique
+  return !duplicateId ? true : 'Slug is already in use';
 }
