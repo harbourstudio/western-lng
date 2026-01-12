@@ -6,7 +6,6 @@ export const textColor = defineField({
     type: 'string',
     options: {
       list: [
-        { title: 'Default', value: '' },
         { title: 'White', value: 'text-white' },
         { title: 'Base', value: 'text-base' },
         { title: 'Dark', value: 'text-dark' },

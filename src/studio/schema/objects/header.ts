@@ -6,7 +6,7 @@ import { spacing } from '../fields/spacing';
 
 export default defineType({
   name: 'header',
-  title: 'Header',
+  title: 'Section Header',
   type: 'object',
   fields: [
     defineField({

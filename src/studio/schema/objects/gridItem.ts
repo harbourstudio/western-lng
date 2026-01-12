@@ -27,8 +27,8 @@ export default defineType({
     },
     prepare({ image, headingContent }) {
       return {
-        title: 'Grid Item',
-        subtitle: headingContent,
+        title: headingContent,
+        subtitle: 'Grid Item',
         media: image
       };
     },

@@ -6,7 +6,6 @@ export const backgroundColor = defineField({
   type: 'string',
   options: {
     list: [
-      { title: '', value: 'None' },
       { title: 'White', value: 'bg-white' },
       { title: 'Gray', value: 'bg-gray-100' },
       { title: 'Dark', value: 'bg-gray-900' },
