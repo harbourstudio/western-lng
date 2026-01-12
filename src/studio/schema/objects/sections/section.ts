@@ -70,7 +70,18 @@ export default defineType({
     },
     backgroundColor,
     textColor,
-    spacing,
+    {
+      ...spacing,
+      fields: spacing.fields?.map((field) => {
+        if (field.name === 'top') {
+          return { ...field, initialValue: 'pt-10' };
+        }
+        if (field.name === 'bottom') {
+          return { ...field, initialValue: 'pt-9' };
+        }
+        return field;
+      }),
+    }
   ],
   preview: {
     select: {
@@ -81,8 +92,8 @@ export default defineType({
 
       if (headingText) {
         return {
-          title: headingText,
-          subtitle: 'Section',
+          title: 'Section',
+          subtitle: `${headingText}`,
         };
       }
 
@@ -94,8 +105,8 @@ export default defineType({
         : 'Empty Section';
 
       return {
-        title: `${componentName}`,
-        subtitle: 'Section',
+        title: 'Section',
+        subtitle: `${componentName}`,
       };
     },
   },

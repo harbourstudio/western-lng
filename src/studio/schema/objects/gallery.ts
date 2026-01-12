@@ -28,7 +28,14 @@ export default defineType({
       validation: (Rule) =>
         Rule.min(4).max(8).error('Gallery requires between 4 and 8 images'),
     }),
-    spacing,
+    {
+      ...spacing,
+      fields: spacing.fields?.map((field) =>
+        field.name === 'top'
+          ? { ...field, initialValue: 'pt-6' }
+          : field
+      ),
+    },
   ],
   preview: {
     select: {
