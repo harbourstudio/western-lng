@@ -63,6 +63,7 @@ export const videoSectionFragment = /* groq */ `
       url
     }
   },
+  spacing
 `;
 
 export const openGraphFragment = /* groq */ `
@@ -359,7 +360,12 @@ export const headerSectionFragment = /* groq */ `
   },
   layout,
   spacing,
-  ${buttonsFragment}
+  ${buttonsFragment},
+  hasDetails,
+  details[]{
+    heading,
+    content
+  }
 `;
 
 export const detailFragment = /* groq */ `
@@ -367,21 +373,6 @@ export const detailFragment = /* groq */ `
   _type,
   heading,
   ${contentFragment}
-`;
-
-export const headerDetailsFragment = /* groq */ `
-  _type,
-  _key,
-  heading {
-    content,
-    headingLevel
-  },
-  ${contentFragment}
-  details[] {
-    ${detailFragment}
-  },
-  spacing,
-  ${buttonsFragment}
 `;
 
 export const gridItemFragment = /* groq */ `
@@ -549,7 +540,6 @@ export const sectionFragment = /* groq */ `
     _key,
     _type,
     _type == 'header' => {${headerSectionFragment}},
-    _type == 'headerDetails' => {${headerDetailsFragment}},
     _type == 'accordion' => {${accordionFragment}},
     _type == 'gallery' => {${galleryFragment}},
     _type == 'grid' => {${gridFragment}},

@@ -56,7 +56,6 @@ export default defineType({
         { type: 'stickyGrid' },
         { type: 'videoSection' },
         { type: 'mediaText' },
-        { type: 'headerDetails' },
         { type: 'divider' },
         { type: 'coverImage' },
         { type: 'linkList' },

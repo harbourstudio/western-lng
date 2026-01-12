@@ -46,7 +46,6 @@ import gallery from './objects/gallery';
 
 import featuredText from './objects/featuredText';
 import header from './objects/header';
-import headerDetails from './objects/headerDetails';
 import table from './objects/table';
 
 import detail from './objects/detail';
@@ -77,7 +76,6 @@ export const schemaTypes = [
   section,
   featuredText,
   header,
-  headerDetails,
   heroFullscreen,
   heroMinimal,
   accordion,

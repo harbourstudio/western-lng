@@ -26,7 +26,6 @@ export type HeaderFragmentType = Extract<RowComponentType, { _type: 'header' }>;
 export type TableFragmentType = Extract<RowComponentType, { _type: 'table' }>;
 export type FeaturedTextFragmentType = Extract<RowComponentType, { _type: 'featuredText' }>;
 
-export type HeaderDetailsFragmentType = Extract<RowComponentType, { _type: 'headerDetails' }>;
 export type DetailFragmentType = NonNullable<HeaderDetailsFragmentType['details']>[number];
 
 export type GridFragmentType = Extract<RowComponentType, { _type: 'grid' }>;

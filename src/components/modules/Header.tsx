@@ -43,17 +43,27 @@ export default function Header({ section }: { section: HeaderFragmentType }) {
                 {headingContent}
               </HeadingTag>
             )}
-            {section?.content && (
-              <PortableText 
-                value={section.content as PortableTextBlock[]} 
-                className="mt-4 font-semibold text-lg"
-              />
+            {section?.buttons && section.buttons.length > 0 && (
+              <ButtonsGroup buttons={section.buttons} />
             )}
           </div>
 
           <div className="w-full lg:w-6/12 flex flex-col items-end justify-end">
-            {section?.buttons && section.buttons.length > 0 && (
-              <ButtonsGroup buttons={section.buttons} />
+            {section?.content && (
+              <PortableText
+                value={section.content as PortableTextBlock[]}
+                className="mb-5 font-semibold text-lg"
+              />
+            )}
+            {section?.details && section.details.length > 0 && (
+              <ul className="mt-6 flex flex-wrap gap-7 w-full">
+                {section.details.map((detail: { heading?: string; content?: string }, index: number) => (
+                  <li key={index}>
+                    <h4 className="font-bold text-heading text-md">{detail.heading}</h4>
+                    <p>{detail.content}</p>
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
         </div>
@@ -67,10 +77,21 @@ export default function Header({ section }: { section: HeaderFragmentType }) {
             )}
 
             {section?.content && (
-              <PortableText 
-                value={section.content as PortableTextBlock[]} 
+              <PortableText
+                value={section.content as PortableTextBlock[]}
                 className="font-semibold text-lg max-w-3xl mt-5"
               />
+            )}
+
+            {section?.details && section.details.length > 0 && (
+              <ul className="mt-6 flex flex-wrap gap-7 w-full">
+                {section.details.map((detail: { heading?: string; content?: string }, index: number) => (
+                  <li key={index}>
+                    <h4 className="font-bold text-heading text-md">{detail.heading}</h4>
+                    <p>{detail.content}</p>
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
 
@@ -81,20 +102,36 @@ export default function Header({ section }: { section: HeaderFragmentType }) {
           )}
         </div>
       ) : (
-        <div className={cn(spacingTop, spacingBottom)}>
+        <div className={cn('flex flex-wrap justify-between items-end', spacingTop, spacingBottom)}>
           {headingContent && (
+            <div className="w-full lg:w-10/12">
               <HeadingTag className={`mb-0 ${headingSize}`}>
               {headingContent}
             </HeadingTag>
+            </div>
           )}
           {section?.content && (
-            <PortableText 
-              value={section.content as PortableTextBlock[]} 
-              className="font-semibold text-lg max-w-3xl mt-5"
+            <PortableText
+              value={section.content as PortableTextBlock[]}
+              className="font-semibold text-lg max-w-5xl mt-5"
             />
           )}
+
+          {section?.details && section.details.length > 0 && (
+            <ul className="mt-6 flex flex-wrap gap-7 w-full">
+              {section.details.map((detail: { heading?: string; content?: string }, index: number) => (
+                <li key={index}>
+                  <h4 className="font-bold text-heading text-md">{detail.heading}</h4>
+                  <p>{detail.content}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+
           {section?.buttons && section.buttons.length > 0 && (
-            <ButtonsGroup buttons={section.buttons} />
+            <div className="w-full lg:w-2/12 flex justify-end">
+              <ButtonsGroup buttons={section.buttons} />
+            </div>
           )}
         </div>
       )}
