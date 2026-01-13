@@ -10,7 +10,7 @@ export default defineType({
     defineField({
       name: 'items',
       type: 'array',
-      of: [{ type: 'gridItem' }],
+      of: [{ type: 'timelineItem' }],
     }),
     defineField({
         name: 'heading',
