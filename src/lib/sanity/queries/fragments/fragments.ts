@@ -597,6 +597,7 @@ export const tableFragment = /* groq */ `
 export const sectionFragment = /* groq */ `
   _type,
   _key,
+  anchorId,
   components[]{
     _key,
     _type,

@@ -45,6 +45,24 @@ export default defineType({
   type: 'object',
   fields: [
     {
+      name: 'anchorId',
+      title: 'Anchor ID',
+      type: 'string',
+      description: 'Optional anchor ID for linking to this section (e.g., "section-1"). Do not include the # symbol.',
+      validation: (Rule) =>
+        Rule.custom((value: string | undefined) => {
+          if (!value) return true; // Optional field
+          if (typeof value === 'string' && value.startsWith('#')) {
+            return 'Do not include the # symbol in the anchor ID';
+          }
+          // Check for valid HTML ID format
+          if (typeof value === 'string' && !/^[a-z][a-z0-9-_]*$/i.test(value)) {
+            return 'Anchor ID must start with a letter and contain only letters, numbers, hyphens, and underscores';
+          }
+          return true;
+        }),
+    },
+    {
       name: 'components',
       title: 'Components',
       type: 'array',

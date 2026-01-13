@@ -1,4 +1,3 @@
-import type { SectionFragmentType } from '@/lib/sanity/queries/fragments/fragment.types';
 import Header from '../modules/Header';
 import Accordion from '../modules/Accordion';
 import Gallery from '../modules/Gallery';
@@ -15,6 +14,23 @@ import Cta from '../modules/CTA';
 import PostList from '../modules/PostList';
 import List from '../modules/List';
 import Timeline from '../modules/Timeline';
+
+type SectionProps = {
+  section: {
+    anchorId?: string;
+    spacing?: {
+      top?: string;
+      bottom?: string;
+    };
+    backgroundColor?: string;
+    textColor?: string;
+    components?: Array<{
+      _key: string;
+      _type: keyof typeof componentMap;
+      [key: string]: any;
+    }>;
+  };
+};
 
 const componentMap = {
   header: Header,
@@ -44,26 +60,25 @@ function cleanString(str: string | undefined): string {
     .trim();
 }
 
-export default function Section({
-  section,
-}: {
-  section: SectionFragmentType;
-}) {
+export default function Section({ section }: SectionProps) {
   const spacingTop = cleanString(section?.spacing?.top) || '';
   const spacingBottom = cleanString(section?.spacing?.bottom) || '';
   const bgColor = cleanString(section?.backgroundColor) || '';
   const textColor = cleanString(section?.textColor) || '';
+  const anchorId = section?.anchorId;
 
   return (
-    <section className={`${bgColor} ${textColor}`}>
+    <section
+      className={`${bgColor} ${textColor}`}
+      {...(anchorId && { id: anchorId })}
+    >
       <div className={`container mx-auto ${spacingTop} ${spacingBottom}`}>
         {section?.components && section.components.length > 0 ? (
           section.components.map((component, index) => {
-              
-            const Component = componentMap[component._type];
+            const ComponentType = componentMap[component._type] as React.ComponentType<any>;
             const key = component._key || `component-${index}`;
-            return Component ? (
-              <Component key={key} section={component} />
+            return ComponentType ? (
+              <ComponentType key={key} section={component} />
             ) : (
               <div key={key} className="text-red-500">
                 Unknown component type: {component._type}
