@@ -378,6 +378,32 @@ export const detailFragment = /* groq */ `
 export const gridItemFragment = /* groq */ `
   _key,
   _type,
+  icon,
+  heading {
+    content
+  },
+  ${contentFragment}
+`;
+
+export const cardFragment = /* groq */ `
+  _key,
+  _type,
+  image {
+    ${imageFragment}
+    alt
+  },
+  heading {
+    content
+  },
+  ${contentFragment}
+  link {
+    ${linkFragment}
+  }
+`;
+
+export const timelineItemFragment = /* groq */ `
+  _key,
+  _type,
   image {
     ${imageFragment}
     alt
@@ -388,21 +414,6 @@ export const gridItemFragment = /* groq */ `
   ${contentFragment}
 `;
 
-export const gridFragment = /* groq */ `
-  _type,
-  _key,
-  items[]{
-    ${gridItemFragment}
-  },
-  headingLevel,
-  borderColor,
-  tabletColumns,
-  desktopColumns,
-  spacing,
-  backgroundColor,
-  textColor,
-`;
-
 export const linkItemFragment = /* groq */ `
   _key,
   _type,
@@ -411,6 +422,41 @@ export const linkItemFragment = /* groq */ `
   link {
     ${linkFragment}
   },
+`;
+
+export const stepItemFragment = /* groq */ `
+  _key,
+  _type,
+  heading {
+    content
+  },
+  ${contentFragment}
+`;
+
+export const gridFragment = /* groq */ `
+  _type,
+  _key,
+  items[]{
+    _type == 'gridItem' => {
+      ${gridItemFragment}
+    },
+    _type == 'card' => {
+      ${cardFragment}
+    },
+    _type == 'linkItem' => {
+      ${linkItemFragment}
+    },
+    _type == 'stepItem' => {
+      ${stepItemFragment}
+    }
+  },
+  headingLevel,
+  borderColor,
+  tabletColumns,
+  desktopColumns,
+  spacing,
+  backgroundColor,
+  textColor,
 `;
 
 // LinkList fields only (for embedding in other components)
@@ -447,13 +493,11 @@ export const linkListFragment = /* groq */ `
 export const timelineFragment = /* groq */ `
   _type,
   _key,
-  heading {
-    content,
-    headingLevel
-  },
+  heading,
+  borderColor,
   spacing,
   items[] {
-    ${gridItemFragment}
+    ${timelineItemFragment}
   },
 `;
 

@@ -23,13 +23,15 @@ export type HeroFullscreenFragmentType = Extract<SectionType, { _type: 'heroFull
 export type HeroMinimalFragmentType = Extract<SectionType, { _type: 'heroMinimal' }>;
 
 export type HeaderFragmentType = Extract<RowComponentType, { _type: 'header' }>;
+export type DetailFragmentType = NonNullable<HeaderFragmentType['details']>[number];
+
 export type TableFragmentType = Extract<RowComponentType, { _type: 'table' }>;
 export type FeaturedTextFragmentType = Extract<RowComponentType, { _type: 'featuredText' }>;
 
-export type DetailFragmentType = NonNullable<HeaderDetailsFragmentType['details']>[number];
-
 export type GridFragmentType = Extract<RowComponentType, { _type: 'grid' }>;
 export type GridItemFragmentType = NonNullable<GridFragmentType['items']>[number];
+export type CardFragmentType = Extract<GridItemFragmentType, { _type: 'card' }>;
+export type GridLinkItemFragmentType = Extract<GridItemFragmentType, { _type: 'linkItem' }>;
 
 export type LinkListFragmentType = Extract<RowComponentType, { _type: 'linkList' }>;
 export type LinkItemFragmentType = NonNullable<LinkListFragmentType['items']>[number];

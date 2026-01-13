@@ -33,12 +33,15 @@ import accordionItem from './objects/accordionItem';
 
 import grid from './objects/grid';
 import gridItem from './objects/gridItem';
+import card from './objects/card';
+import stepItem from './objects/stepItem';
 
 import linkList from './objects/linkList';
 import linkItem from './objects/linkItem';
 
 import list from './objects/list';
 import timeline from './objects/timeline';
+import timelineItem from './objects/timelineItem';
 
 import coverImage from './objects/coverImage';
 import videoSection from './objects/videoSection';
@@ -89,6 +92,8 @@ export const schemaTypes = [
   gallery,
   grid,
   gridItem,
+  card,
+  stepItem,
   linkList,
   linkItem,
   list,
@@ -97,6 +102,7 @@ export const schemaTypes = [
   coverImage,
   table,
   timeline,
+  timelineItem,
 
   ...seoTypes,
 ];

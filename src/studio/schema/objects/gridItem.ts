@@ -1,8 +1,6 @@
-import { Square } from 'lucide-react';
 import { defineField, defineType } from 'sanity';
 import { heading } from '../fields/heading';
 import { content } from '../fields/content';
-import { image } from '../fields/image';
 
 // Use the global heading schema field, but don't use headingLevel 
 const gridItemHeading = defineField({
@@ -13,23 +11,38 @@ const gridItemHeading = defineField({
 export default defineType({
   name: 'gridItem',
   type: 'object',
-  icon: Square,
   title: 'Grid Item',
   fields: [
-    image,
+    defineField({
+      name: 'icon',
+      title: 'Icon',
+      type: 'string',
+      description: 'Select an icon for this grid item',
+      options: {
+        list: [
+          { title: 'Clock', value: 'IconClock' },
+          { title: 'Fish', value: 'IconFish' },
+          { title: 'Gauge', value: 'IconGauge' },
+          { title: 'Ship', value: 'IconShip' },
+          { title: 'Whale', value: 'IconWhale' },
+          { title: 'Hard Hat', value: 'IconHardHat' },
+          { title: 'Tree', value: 'IconTree' },
+          { title: 'Worker', value: 'IconWorker' },
+        ],
+      },
+    }),
     gridItemHeading,
     content,
   ],
   preview: {
     select: {
       headingContent: 'heading.content',
-      image: 'image'
+      icon: 'icon',
     },
-    prepare({ image, headingContent }) {
+    prepare({ icon, headingContent }) {
       return {
-        title: headingContent,
-        subtitle: 'Grid Item',
-        media: image
+        title: 'Grid Item',
+        subtitle: `${headingContent ? headingContent : '' } • ${icon ? icon : ''}`,
       };
     },
   },

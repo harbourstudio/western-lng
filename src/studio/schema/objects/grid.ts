@@ -1,5 +1,4 @@
 import { defineField, defineType } from 'sanity';
-import { backgroundColor } from '../fields/backgroundColor';
 import { textColor } from '../fields/textColor';
 import { spacing } from '../fields/spacing';
 
@@ -12,24 +11,43 @@ export default defineType({
       name: 'items',
       title: 'Grid Items',
       type: 'array',
-      of: [{ type: 'gridItem' }],
+      of: [
+        { type: 'gridItem' },
+        { type: 'card' },
+        { type: 'linkItem' },
+        { type: 'stepItem' },
+      ],
       validation: (Rule) => Rule.min(1).error('Add at least one grid item'),
     }),
     defineField({
-        name: 'level',
-        title: 'Heading Level',
+      name: 'level',
+      title: 'Heading Level',
+      type: 'string',
+      options: {
+          list: [
+              { title: 'H1', value: 'h1' },
+              { title: 'H2', value: 'h2' },
+              { title: 'H3', value: 'h3' },
+              { title: 'H4', value: 'h4' },
+              { title: 'H5', value: 'h5' },
+              { title: 'H6', value: 'h6' },
+          ],
+      },
+      initialValue: 'h5',
+    }),
+     defineField({
+        name: 'headingColor',
+        title: 'Heading Color',
         type: 'string',
         options: {
             list: [
-                { title: 'H1', value: 'h1' },
-                { title: 'H2', value: 'h2' },
-                { title: 'H3', value: 'h3' },
-                { title: 'H4', value: 'h4' },
-                { title: 'H5', value: 'h5' },
-                { title: 'H6', value: 'h6' },
+                { title: 'Default', value: '' },
+                { title: 'White', value: 'text-white' },
+                { title: 'Base', value: 'text-base' },
+                { title: 'Dark', value: 'text-dark' },
+                { title: 'Primary', value: 'text-primary' },
             ],
         },
-        initialValue: 'h2',
     }),
     defineField({
       name: 'borderColor',
@@ -44,6 +62,7 @@ export default defineType({
       },
       initialValue: 'dark'
     }),
+    textColor,
     defineField({
       name: 'tabletColumns',
       title: 'Tablet Columns',
@@ -79,8 +98,6 @@ export default defineType({
       },
     }),
     spacing,
-    backgroundColor,
-    textColor
   ],
   preview: {
     select: {
