@@ -16,6 +16,7 @@ import hero from './objects/sections/hero';
 import mediaText from './objects/mediaText';
 import postList from './objects/sections/postList';
 import subscribe from './objects/sections/subscribe';
+import subnavigation from './objects/sections/subnavigation';
 
 import seoTypes from './objects/seo';
 import blogPage from './singletons/blogPage';
@@ -75,6 +76,7 @@ export const schemaTypes = [
   stickyGrid,
   divider,
   subscribe,
+  subnavigation,
 
   section,
   featuredText,

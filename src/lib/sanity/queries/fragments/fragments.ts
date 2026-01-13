@@ -249,6 +249,23 @@ export const subscribeSectionFragment = /* groq */ `
   text
 `;
 
+export const subnavigationSectionFragment = /* groq */ `
+  _type,
+  _key,
+  items[] {
+    _key,
+    label,
+    type,
+    anchor,
+    external,
+    openInNewTab,
+    internal->{
+      _type,
+      slug
+    }
+  }
+`;
+
 export const mediaCardFragment = /* groq */ `
   _key,
   _type,
@@ -615,6 +632,7 @@ export const pageBuilderFragment = /* groq */ `
     _type == 'mediaText' => {${mediaTextFragment}},
     _type == 'postList' => {${postListSectionFragment}},
     _type == 'subscribe' => {${subscribeSectionFragment}},
+    _type == 'subnavigation' => {${subnavigationSectionFragment}},
     _type == 'coverImage' => {${coverImageFragment}},
   },
 `;

@@ -9,6 +9,7 @@ import Divider from '../modules/Divider';
 import Hero from './Hero';
 import PostList from './PostList';
 import Subscribe from './Subscribe';
+import Subnavigation from './Subnavigation';
 
 import Section from './Section';
 import HeroFullscreen from './HeroFullscreen';
@@ -23,6 +24,7 @@ const SECTION_COMPONENTS: Record<PageSectionstype, ElementType> = {
   subscribe: Subscribe,
   postList: PostList,
   divider: Divider,
+  subnavigation: Subnavigation,
   section: Section,
   heroFullscreen: HeroFullscreen,
   heroMinimal: HeroMinimal,
