@@ -38,8 +38,8 @@ export const sites: Record<string, SiteConfig> = {
     dataset: 'western-lng',
     domains: ['pgrt.localhost', 'pgrt.com', 'www.pgrt.com'],
     theme: {
-      primary: '#1E40AF',
-      secondary: '#0F172A'
+      primary: '#6290C8',
+      secondary: '#002366'
     },
   },
 };
