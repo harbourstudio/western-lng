@@ -1,4 +1,5 @@
 import { defineField, defineType } from 'sanity';
+import { spacing } from '../fields/spacing';
 
 export default defineType({
   name: 'videoSection',
@@ -32,6 +33,7 @@ export default defineType({
         }),
       ],
     }),
+    spacing
   ],
   preview: {
     select: {

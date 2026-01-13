@@ -7,7 +7,6 @@ import StickyGrid from '../modules/StickyGrid';
 import LinkList from '../modules/LinkList';
 import VideoSection from '../modules/VideoSection';
 import MediaText from '../modules/MediaText';
-import HeaderDetails from '../modules/HeaderDetails';
 import Divider from '../modules/Divider';
 import CoverImage from './CoverImage';
 import Table from '../modules/Table';
@@ -24,7 +23,6 @@ const componentMap = {
   grid: Grid,
   videoSection: VideoSection,
   mediaText: MediaText,
-  headerDetails: HeaderDetails,
   divider: Divider,
   coverImage: CoverImage,
   linkList: LinkList,

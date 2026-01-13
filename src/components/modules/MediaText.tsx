@@ -56,12 +56,13 @@ function getEmbedUrl(url: string): string | null {
 function resolveLinkHref(link: {
   type?: string;
   external?: string;
+  href?: string;
   internal?: { _type?: string; slug?: string };
 }): string | null {
   if (!link?.type) return null;
-  
+
   if (link.type === 'external') {
-    return link.external || null;
+    return link.href || link.external || null;
   }
   if (link.type === 'internal' && link.internal?.slug) {
     const prefix = link.internal._type === 'post' ? '/blog' : '';
