@@ -24,41 +24,43 @@ export default function Timeline( { section, }: { section: TimelineFragmentType;
   return (
       <div className={`lg:flex gap-5 ${spacingBottom} ${spacingTop}`}>
         {heading && (
-          <div className='w-full lg:w-1/3 lg:pr-7 '>
+          <div className='w-full lg:w-5/12 lg:pr-8'>
             <h2 className='!text-inherit lg:sticky lg:top-8'>{heading}</h2>
           </div>
         )}
         
-        {section?.items?.length > 0  && 
-          <ul className='lg:w-2/3'>
+        {section?.items?.length > 0  &&
+          <ul className='lg:w-7/12'>
             {section?.items.map((item) => {
-          return (
-            <li 
-              key={item._key} 
-              className={`timeline-item flex flex-col lg:flex-row gap-5 py-4 border-solid border-t-1 border-${borderColor}`}
-            >
-              {item.image?.asset && (
-                <figure className='lg:max-w-[13.5rem] lg:aspect-square lg:rounded-sm'>
-                  <Image
-                    alt={item.image?.alt || ''}
-                    width={600}
-                    height={600}
-                    src={urlForImage(item.image)?.width(1000).height(667).url() as string}
-                    className=''
-                  />
-                </figure>
-              )}
-              <div className='grow'>
-                {item?.heading?.content && (
-                    <h4 className='!text-inherit'>{item.heading.content}</h4>
-                )}
-                {item?.content && (
-                    <PortableText value={item.content as PortableTextBlock[]} />
-                )}
-              </div>
-            </li>
-          );
-        })}
+              return (
+                <li
+                  key={item._key}
+                  className={`timeline-item border-solid border-t-1 border-${borderColor}`}
+                >
+                  <div className='flex flex-col lg:flex-row gap-5 py-4'>
+                    {item.image?.asset && (
+                      <figure className='shrink-0 lg:max-w-[13.5rem] lg:aspect-square lg:rounded-sm'>
+                        <Image
+                          alt={item.image?.alt || ''}
+                          width={600}
+                          height={600}
+                          src={urlForImage(item.image)?.width(1000).height(667).url() as string}
+                          className=''
+                        />
+                      </figure>
+                    )}
+                    <div className='grow'>
+                      {item?.heading?.content && (
+                          <h4 className='!text-inherit mt-6'>{item.heading.content}</h4>
+                      )}
+                      {item?.content && (
+                          <PortableText value={item.content as PortableTextBlock[]} />
+                      )}
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         }
       </div>
