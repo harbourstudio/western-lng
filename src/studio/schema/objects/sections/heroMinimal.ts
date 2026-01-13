@@ -7,9 +7,16 @@ import { backgroundColor } from '../../fields/backgroundColor';
 export default defineType({
   name: 'heroMinimal',
   type: 'object',
-  title: 'Hero Minimal',
+  title: 'Hero - Minimal',
   fields: [
-    heading,
+    {...heading, 
+      fields: heading.fields?.map((field) => {
+        if (field.name === 'size') {
+          return { ...field, initialValue: 'text-4xl'}
+        }
+        return field;
+      })
+    },
     content,
     image,
     {
@@ -26,8 +33,21 @@ export default defineType({
         direction: 'horizontal',
       },
     },
-    spacing,
-    backgroundColor
+    {
+      ...spacing,
+      fields: spacing.fields?.map((field) => {
+        if (field.name === 'top') {
+          return { ...field, initialValue: 'pt-9' };
+        }
+        if (field.name === 'bottom') {
+          return { ...field, initialValue: 'pb-8' };
+        }
+        return field;
+      }),
+    },
+    { ...backgroundColor,
+      initialValue: 'bg-secondary',
+    }
   ],
   preview: {
     select: {
@@ -36,7 +56,7 @@ export default defineType({
     },
     prepare({ headingContent, layout }) {
       return {
-        title: `Hero (Minimal)`,
+        title: `Hero - Minimal`,
         subtitle: `${headingContent} • Layout: ${layout || 'split'}`,
       };
     },

@@ -7,7 +7,7 @@ import { backgroundColor } from '../../fields/backgroundColor';
 export default defineType({
   name: 'heroFullscreen',
   type: 'object',
-  title: 'Fullscreen Hero Banner',
+  title: 'Hero - Fullscreen ',
   fields: [
     defineField({
       name: 'heading',
@@ -17,7 +17,9 @@ export default defineType({
     content,
     image,
     video,
-    backgroundColor,
+    { ...backgroundColor,
+      initialValue: 'bg-secondary',
+    },
     defineField({
       name: 'gradientColor',
       title: 'Gradient Color',
@@ -35,13 +37,13 @@ export default defineType({
   ],
   preview: {
     select: {
-      headingContent: 'heading.content',
+      heading: 'heading',
       image: 'image'
     },
-    prepare({ headingContent, image }) {
+    prepare({ heading, image }) {
       return {
-        title: 'Fullscreen Hero Banner',
-        subtitle: `${headingContent}`,
+        title: 'Hero - Fullscreen',
+        subtitle: `${heading}`,
         media: image,
       };
     },

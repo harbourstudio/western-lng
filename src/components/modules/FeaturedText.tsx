@@ -4,6 +4,7 @@ import { Image } from 'next-sanity/image';
 import PortableText from '@/components/modules/PortableText';
 import { urlForImage } from '@/lib/sanity/client/utils';
 import ButtonsGroup from '../modules/ButtonsGroup';
+import { cn } from '@/lib/utils';
 
 // Function to remove zero-width and invisible Unicode characters so that TW can match classes
 function cleanString(str: string | undefined): string {
@@ -17,11 +18,9 @@ function cleanString(str: string | undefined): string {
 export default function FeaturedText({ section }: { section: FeaturedTextFragmentType }) {
     const spacingTop = cleanString(section?.spacing?.top) || '';
     const spacingBottom = cleanString(section?.spacing?.bottom) || '';
-    const bgColor = cleanString(section?.backgroundColor) || '';
-
 
   return (
-    <div className="flex gap-5 justify-between">
+    <div className={cn('flex gap-5 justify-between', spacingTop, spacingBottom)}>
       {section.image?.asset && (
           <div className='w-full lg:w-3/12'>
               <Image

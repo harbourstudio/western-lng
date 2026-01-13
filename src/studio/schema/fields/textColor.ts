@@ -9,6 +9,7 @@ export const textColor = defineField({
         { title: 'White', value: 'text-white' },
         { title: 'Base', value: 'text-base' },
         { title: 'Dark', value: 'text-dark' },
+        { title: 'Primary', value: 'text-primary' },
       ],
     },
     initialValue: '',

@@ -5,6 +5,7 @@ import { Image } from 'next-sanity/image';
 import type { VideoSectionFragmentType } from '@/lib/sanity/queries/fragments/fragment.types';
 import { urlForImage } from '@/lib/sanity/client/utils';
 import { cn } from '@/lib/utils';
+import { spacing } from '@/studio/schema/fields/spacing';
 
 // Function to remove zero-width and invisible Unicode characters
 function cleanString(str: string | undefined): string {
@@ -86,70 +87,76 @@ export default function VideoSection({ section }: { section: VideoSectionFragmen
   };
 
   const coverImageUrl = getCoverImageUrl();
+  
+  const spacingTop = cleanString(section?.spacing?.top) || '';
+  const spacingBottom = cleanString(section?.spacing?.bottom) || '';
+
 
   return (
-    <div className="relative aspect-video rounded-base overflow-hidden bg-dark">
-        {!isPlaying && coverImageUrl ? (
-          // Show cover image with play button
-          <button
-            onClick={handlePlay}
-            className="absolute inset-0 w-full h-full group cursor-pointer"
-            aria-label="Play video"
-          >
-            <Image
-              src={coverImageUrl}
-              alt={section.coverImage?.alt || 'Video cover'}
-              fill
-              className="object-cover"
-            />
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
-            {/* Play button */}
-            <div className="w-20 h-20 absolute inset-0 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center justify-center transition-all group-hover:scale-110">
-              <svg width="54" height="58" viewBox="0 0 54 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M52.286 27.1873C53.6745 27.9456 53.6745 29.9396 52.286 30.6979L2.95863 57.6377C1.62586 58.3655 -2.77385e-06 57.401 -2.70747e-06 55.8824L-3.52324e-07 2.00282C-2.85944e-07 0.484236 1.62586 -0.480344 2.95863 0.247541L52.286 27.1873Z" fill="white"/>
-              </svg>
-            </div>
-          </button>
-        ) : (
-          // Show video player
-          <>
-            {videoFileUrl ? (
-              // Native video player (uploaded file)
-              <video
-                className="absolute inset-0 w-full h-full object-cover"
-                controls
-                autoPlay={isPlaying}
-                playsInline
-                preload="metadata"
-              >
-                <source src={videoFileUrl} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            ) : videoUrl && isEmbeddableUrl(videoUrl) ? (
-              // Embedded video (YouTube/Vimeo)
-              <iframe
-                src={isPlaying || !coverImageUrl ? getEmbedUrl(videoUrl) : undefined}
-                className="absolute inset-0 w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                title="Video player"
+    <div className={cn(spacingTop, spacingBottom)}>
+      <div className='relative aspect-video rounded-base overflow-hidden bg-dark'>
+          {!isPlaying && coverImageUrl ? (
+            // Show cover image with play button
+            <button
+              onClick={handlePlay}
+              className="absolute inset-0 w-full h-full group cursor-pointer"
+              aria-label="Play video"
+            >
+              <Image
+                src={coverImageUrl}
+                alt={section.coverImage?.alt || 'Video cover'}
+                fill
+                className="object-cover"
               />
-            ) : videoUrl ? (
-              // Direct URL video
-              <video
-                className="absolute inset-0 w-full h-full object-cover"
-                controls
-                autoPlay={isPlaying}
-                playsInline
-                preload="metadata"
-              >
-                <source src={videoUrl} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            ) : null}
-          </>
-        )}
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+              {/* Play button */}
+              <div className="w-20 h-20 absolute inset-0 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center justify-center transition-all group-hover:scale-110">
+                <svg width="54" height="58" viewBox="0 0 54 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M52.286 27.1873C53.6745 27.9456 53.6745 29.9396 52.286 30.6979L2.95863 57.6377C1.62586 58.3655 -2.77385e-06 57.401 -2.70747e-06 55.8824L-3.52324e-07 2.00282C-2.85944e-07 0.484236 1.62586 -0.480344 2.95863 0.247541L52.286 27.1873Z" fill="white"/>
+                </svg>
+              </div>
+            </button>
+          ) : (
+            // Show video player
+            <>
+              {videoFileUrl ? (
+                // Native video player (uploaded file)
+                <video
+                  className="absolute inset-0 w-full h-full object-cover"
+                  controls
+                  autoPlay={isPlaying}
+                  playsInline
+                  preload="metadata"
+                >
+                  <source src={videoFileUrl} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              ) : videoUrl && isEmbeddableUrl(videoUrl) ? (
+                // Embedded video (YouTube/Vimeo)
+                <iframe
+                  src={isPlaying || !coverImageUrl ? getEmbedUrl(videoUrl) : undefined}
+                  className="absolute inset-0 w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  title="Video player"
+                />
+              ) : videoUrl ? (
+                // Direct URL video
+                <video
+                  className="absolute inset-0 w-full h-full object-cover"
+                  controls
+                  autoPlay={isPlaying}
+                  playsInline
+                  preload="metadata"
+                >
+                  <source src={videoUrl} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              ) : null}
+            </>
+          )}
+      </div>
     </div>
   );
 }

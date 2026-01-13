@@ -29,7 +29,9 @@ export default function Header({ section }: { section: HeaderFragmentType }) {
   const HeadingTag = getHeadingTag(section?.heading?.level);
   const headingContent = section?.heading?.content;
   const headingSize = section?.heading?.size;
-  
+  const headingColor = section?.heading?.color;
+
+
   const spacingTop = cleanString(section?.spacing?.top) || '';
   const spacingBottom = cleanString(section?.spacing?.bottom) || '';
 
@@ -37,9 +39,9 @@ export default function Header({ section }: { section: HeaderFragmentType }) {
     <>
       {section?.layout === 'split' ? (
         <div className={cn('flex gap-5 justify-between', spacingTop, spacingBottom)}>
-          <div className="w-full lg:w-6/12 lg:pr-7">
+          <div className="w-full lg:w-7/12 lg:pr-7">
             {headingContent && (
-              <HeadingTag className={`mb-0 ${headingSize}`}>
+              <HeadingTag className={`mb-0 ${headingSize} ${headingColor}`}>
                 {headingContent}
               </HeadingTag>
             )}
@@ -48,11 +50,11 @@ export default function Header({ section }: { section: HeaderFragmentType }) {
             )}
           </div>
 
-          <div className="w-full lg:w-6/12 flex flex-col items-end justify-end">
+          <div className="w-full lg:w-5/12 flex flex-col items-end">
             {section?.content && (
               <PortableText
                 value={section.content as PortableTextBlock[]}
-                className="mb-5 font-semibold text-lg"
+                className="font-semibold text-lg [&_*]:not-last:mb-5"
               />
             )}
             {section?.details && section.details.length > 0 && (
@@ -71,7 +73,7 @@ export default function Header({ section }: { section: HeaderFragmentType }) {
         <div className={cn('flex flex-wrap justify-between items-end', spacingTop, spacingBottom)}>
           <div className="w-full lg:w-8/12">
             {headingContent && (
-              <HeadingTag className={`mb-0 ${headingSize}`}>
+              <HeadingTag className={`mb-0 ${headingSize} ${headingColor}`}>
                 {headingContent}
               </HeadingTag>
             )}
@@ -79,7 +81,7 @@ export default function Header({ section }: { section: HeaderFragmentType }) {
             {section?.content && (
               <PortableText
                 value={section.content as PortableTextBlock[]}
-                className="font-semibold text-lg max-w-3xl mt-5"
+                className="font-semibold text-lg max-w-3xl mt-5 [&_*]:not-last:mb-5"
               />
             )}
 
@@ -105,7 +107,7 @@ export default function Header({ section }: { section: HeaderFragmentType }) {
         <div className={cn('flex flex-wrap justify-between items-end', spacingTop, spacingBottom)}>
           {headingContent && (
             <div className="w-full lg:w-10/12">
-              <HeadingTag className={`mb-0 ${headingSize}`}>
+              <HeadingTag className={`mb-0 ${headingSize} ${headingColor}`}>
               {headingContent}
             </HeadingTag>
             </div>
@@ -113,7 +115,7 @@ export default function Header({ section }: { section: HeaderFragmentType }) {
           {section?.content && (
             <PortableText
               value={section.content as PortableTextBlock[]}
-              className="font-semibold text-lg max-w-5xl mt-5"
+              className="font-semibold text-lg max-w-5xl mt-5 [&_*]:not-last:mb-5"
             />
           )}
 

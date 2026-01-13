@@ -50,7 +50,14 @@ export default defineType({
       },
       initialValue: 'items-start',
     }),
-    spacing
+    {...spacing, 
+      fields: spacing.fields?.map((field) => {
+        if (field.name === 'top') {
+          return {...field, initialValue: 'pt-10'};
+        }
+        return field;
+      })
+    }
   ],
   preview: {
     select: {

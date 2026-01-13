@@ -76,7 +76,7 @@ export default defineType({
           return { ...field, initialValue: 'pt-10' };
         }
         if (field.name === 'bottom') {
-          return { ...field, initialValue: 'pt-9' };
+          return { ...field, initialValue: 'pb-9' };
         }
         return field;
       }),
