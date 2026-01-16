@@ -1,7 +1,9 @@
+import Image from 'next/image';
+import Link from 'next/link';
 import { siteSanityFetch } from '@/lib/sanity/client/fetch';
 import { settingsQuery } from '@/lib/sanity/queries/queries';
-import Logo from '../icons/Logo';
-import { Button } from '../ui/Button';
+import { urlForImage } from '@/lib/sanity/client/utils';
+import { getLinkByLinkObject } from '@/lib/links';
 
 export default async function Footer() {
   const settings = await siteSanityFetch({
@@ -9,15 +11,35 @@ export default async function Footer() {
     tags: ['settings'],
   });
 
-  if (!settings) {
+  if (!settings || !settings.site) {
     return null;
   }
 
+  const { site } = settings;
+  const secondaryColor = site.theme?.secondary || '#000000';
+  const logoUrl = site.logo ? urlForImage(site.logo)?.url() : null;
+  const menuItems = settings.menu || [];
+
+  // Group menu items into columns (max 4 columns for menu, 5th is contact)
+  const menuColumns = menuItems.slice(0, 4);
+
   return (
-    <footer className="bg-secondary text-white [&_h1,h2,h3,h4,h5,h6]:!text-white pt-9 pb-5">
+    <footer className="text-white [&_h1,h2,h3,h4,h5,h6]:!text-white pt-9 pb-5" style={{ backgroundColor: secondaryColor }}>
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="flex flex-wrap items-center justify-between gap-6 mb-8">
-          <Logo />
+          <Link href="/" className="inline-flex">
+            {logoUrl ? (
+              <Image
+                src={logoUrl}
+                alt={site.logo?.alt || site.name || 'Logo'}
+                width={224}
+                height={32}
+                className="h-6 lg:h-7 w-auto"
+              />
+            ) : (
+              <span className="text-white font-bold">{site.name}</span>
+            )}
+          </Link>
           <div className="flex gap-3">
               <svg width="10" height="16" viewBox="0 0 10 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <title>Facebook</title>
@@ -41,11 +63,39 @@ export default async function Footer() {
             </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-5 gap-5 mb-8">
-          <code>Menu</code>
-          <code>Menu</code>
-          <code>Menu</code>
-          <code>Menu</code>
-            
+          {menuColumns.map((menuItem) => (
+            <div key={menuItem._key}>
+              <h6 className="mb-3">{menuItem.text}</h6>
+              {menuItem.childMenu && menuItem.childMenu.length > 0 ? (
+                <ul className="space-y-2">
+                  {menuItem.childMenu.map((child) => (
+                    <li key={child._key}>
+                      <Link
+                        href={child.link ? getLinkByLinkObject(child.link) || '#' : '#'}
+                        className="text-sm hover:underline"
+                        {...(child.link?.openInNewTab
+                          ? { target: '_blank', rel: 'noopener noreferrer' }
+                          : {})}
+                      >
+                        {child.text}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : menuItem.link ? (
+                <Link
+                  href={getLinkByLinkObject(menuItem.link) || '#'}
+                  className="text-sm hover:underline"
+                  {...(menuItem.link?.openInNewTab
+                    ? { target: '_blank', rel: 'noopener noreferrer' }
+                    : {})}
+                >
+                  {menuItem.text}
+                </Link>
+              ) : null}
+            </div>
+          ))}
+
           <div>
             <h6>Contact</h6>
             <code>wip dynamic settings text</code>

@@ -19,6 +19,17 @@ export const settingsQuery = defineQuery(`*[_type == "settings" && (!defined(sit
       alt
     }
   },
+  site->{
+    name,
+    logo {
+      asset,
+      alt
+    },
+    theme {
+      primary,
+      secondary
+    }
+  },
   ${menuFragment}
 }`);
 
