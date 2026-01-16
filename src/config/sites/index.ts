@@ -32,11 +32,11 @@ export const sites: Record<string, SiteConfig> = {
       secondary: '#00438C'
     },
   },
-  'pgrt': {
-    id: 'pgrt',
-    name: 'PGRT',
+  'prgt': {
+    id: 'prgt',
+    name: 'PRGT',
     dataset: 'western-lng',
-    domains: ['pgrt.localhost', 'pgrt.com', 'www.pgrt.com'],
+    domains: ['prgt.localhost', 'prgt.com', 'www.prgt.com'],
     theme: {
       primary: '#6290C8',
       secondary: '#002366'
