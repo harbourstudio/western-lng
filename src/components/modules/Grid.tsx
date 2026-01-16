@@ -13,7 +13,8 @@ import IconWhale from '@/components/icons/IconWhale';
 import IconHardHat from '@/components/icons/IconHardHat';
 import IconTree from '@/components/icons/IconTree';
 import IconWorker from '@/components/icons/IconWorker';
-
+import IconErosion from '@/components/icons/IconErosion';
+import IconPlant from '@/components/icons/IconPlant';
 
 // Function to remove zero-width and invisible Unicode characters
 function cleanString(str: string | undefined): string {
@@ -80,7 +81,9 @@ const iconComponents: Record<string, React.ComponentType> = {
   IconWhale,
   IconHardHat,
   IconTree,
-  IconWorker
+  IconWorker,
+  IconErosion,
+  IconPlant
 };
 
 export default function Grid({ section }: { section: GridFragmentType }) {

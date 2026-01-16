@@ -28,6 +28,8 @@ export default defineType({
           { title: 'Hard Hat', value: 'IconHardHat' },
           { title: 'Tree', value: 'IconTree' },
           { title: 'Worker', value: 'IconWorker' },
+          { title: 'Erosion', value: 'IconErosion' },
+          { title: 'Plant', value: 'IconPlant' },
         ],
       },
     }),
