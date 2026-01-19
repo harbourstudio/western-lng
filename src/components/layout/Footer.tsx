@@ -4,6 +4,11 @@ import { siteSanityFetch } from '@/lib/sanity/client/fetch';
 import { settingsQuery } from '@/lib/sanity/queries/queries';
 import { urlForImage } from '@/lib/sanity/client/utils';
 import { getLinkByLinkObject } from '@/lib/links';
+import InlineSvg from '@/components/ui/InlineSvg';
+
+function isSvgAsset(asset?: { _ref?: string }): boolean {
+  return asset?._ref?.includes('-svg') ?? false;
+}
 
 export default async function Footer() {
   const settings = await siteSanityFetch({
@@ -19,16 +24,23 @@ export default async function Footer() {
   const secondaryColor = site.theme?.secondary || '#000000';
   const logoUrl = site.logo ? urlForImage(site.logo)?.url() : null;
   const menuItems = settings.menu || [];
+  const isSvg = isSvgAsset(site.logo?.asset);
 
   // Group menu items into columns (max 4 columns for menu, 5th is contact)
   const menuColumns = menuItems.slice(0, 4);
 
   return (
-    <footer className="text-white [&_h1,h2,h3,h4,h5,h6]:!text-white pt-9 pb-5" style={{ backgroundColor: secondaryColor }}>
-      <div className="container mx-auto px-4 max-w-7xl">
+    <footer className="site-footer text-white [&_h1,h2,h3,h4,h5,h6]:!text-white pt-9 pb-5" style={{ backgroundColor: secondaryColor }}>
+      <div className="container mx-auto">
         <div className="flex flex-wrap items-center justify-between gap-6 mb-8">
           <Link href="/" className="inline-flex">
-            {logoUrl ? (
+            {logoUrl && isSvg ? (
+              <InlineSvg
+                url={logoUrl}
+                className="w-auto max-h-[2rem] [&_.lighten]:fill-white"
+                title={site.logo?.alt || site.name || 'Logo'}
+              />
+            ) : logoUrl ? (
               <Image
                 src={logoUrl}
                 alt={site.logo?.alt || site.name || 'Logo'}
