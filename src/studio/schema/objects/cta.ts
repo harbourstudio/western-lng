@@ -1,6 +1,7 @@
 import { defineField, defineType } from 'sanity';
 import { backgroundColor } from '../fields/backgroundColor';
 import { spacing } from '../fields/spacing';
+import { content } from '../fields/content';
 
 export default defineType({
   name: 'cta',
@@ -12,6 +13,7 @@ export default defineType({
       title: 'Heading',
       type: 'string'
     }),
+    content,
     defineField({
       name: 'colorScheme',
       title: 'Color Scheme',

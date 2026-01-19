@@ -24,6 +24,12 @@ export default function Cta({ section }: { section: CtaFragmentType }) {
         {section?.heading &&
           <div className='lg:w-4/12'>
             <h4 className={`${colorScheme == 'light' ? '!text-white' : '!text-dark' }`}>{section?.heading}</h4>
+            {section?.content && (
+              <PortableText
+                value={section.content as PortableTextBlock[]}
+                className="[&_*]:not-last:mb-5"
+              />
+            )}
           </div>
         }
         <div className='lg:w-7/12'>
