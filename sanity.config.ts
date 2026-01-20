@@ -138,7 +138,7 @@ export default defineConfig([
     projectId: clientEnv.NEXT_PUBLIC_SANITY_PROJECT_ID,
     dataset: SHARED_DATASET,
     plugins: [
-      createPresentationTool('western-lng', 'http://localhost:3000'),
+      createPresentationTool('western-lng', 'https://western-lng.vercel.app'),
       structureTool({
         structure: createSiteStructure('western-lng'),
       }),
@@ -180,12 +180,12 @@ export default defineConfig([
   },
   {
     name: 'ksi-lisims-lng',
-    title: 'KSI-LISIMS-LNG',
+    title: 'Ksi Lisims LNG',
     basePath: '/studio/ksi-lisims-lng',
     projectId: clientEnv.NEXT_PUBLIC_SANITY_PROJECT_ID,
     dataset: SHARED_DATASET,
     plugins: [
-      createPresentationTool('ksi-lisims-lng', 'http://ksi-lisims-lng.localhost:3000'),
+      createPresentationTool('ksi-lisims-lng', 'https://ksi-lisims-lng.vercel.app'),
       structureTool({
         structure: createSiteStructure('ksi-lisims-lng'),
       }),
@@ -232,7 +232,7 @@ export default defineConfig([
     projectId: clientEnv.NEXT_PUBLIC_SANITY_PROJECT_ID,
     dataset: SHARED_DATASET,
     plugins: [
-      createPresentationTool('prgt', 'http://prgt.localhost:3000'),
+      createPresentationTool('prgt', 'https://prgt.vercel.app'),
       structureTool({
         structure: createSiteStructure('prgt'),
       }),

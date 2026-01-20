@@ -16,7 +16,7 @@ export const sites: Record<string, SiteConfig> = {
     id: 'western-lng',
     name: 'Western LNG',
     dataset: 'western-lng',
-    domains: ['localhost', 'western-lng.localhost', 'western-lng', 'www.western-lng.com'],
+    domains: ['localhost', 'western-lng.localhost', 'western-lng', 'western-lng.com', 'western-lng.vercel.app'],
     theme: {
       primary: '#FFC000',
       secondary: '#004578'
@@ -26,7 +26,7 @@ export const sites: Record<string, SiteConfig> = {
     id: 'ksi-lisims-lng',
     name: 'KSI-LISIMS-LNG',
     dataset: 'western-lng',
-    domains: ['ksi-lisims-lng.localhost', 'ksi-lisims.com', 'www.ksi-lisims.com'],
+    domains: ['ksi-lisims-lng.localhost', 'ksi-lisims.com', 'ksi-lisims.com', 'ksi-lisims-lng.vercel.app'],
     theme: {
       primary: '#009ADA',
       secondary: '#00438C'
@@ -36,7 +36,7 @@ export const sites: Record<string, SiteConfig> = {
     id: 'prgt',
     name: 'PRGT',
     dataset: 'western-lng',
-    domains: ['prgt.localhost', 'prgt.com', 'www.prgt.com'],
+    domains: ['prgt.localhost', 'prgt.com', 'www.prgt.com', 'prgt.vercel.app'],
     theme: {
       primary: '#6290C8',
       secondary: '#002366'
