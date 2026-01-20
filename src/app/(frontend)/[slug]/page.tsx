@@ -5,6 +5,7 @@ import { siteSanityFetch } from '@/lib/sanity/client/fetch';
 import { formatMetaData } from '@/lib/sanity/client/seo';
 import { getPageQuery } from '@/lib/sanity/queries/queries';
 import { getCurrentSite } from '@/lib/get-current-site';
+import type { GetPageQueryResult } from '@/sanity.types';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -13,7 +14,7 @@ type Props = {
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
 
-  const page = await siteSanityFetch({
+  const page = await siteSanityFetch<GetPageQueryResult>({
     query: getPageQuery,
     params,
     tags: ['page'],
@@ -30,7 +31,7 @@ export default async function Page(props: Props) {
   const params = await props.params;
   const site = await getCurrentSite();
 
-  const page = await siteSanityFetch({
+  const page = await siteSanityFetch<GetPageQueryResult>({
     query: getPageQuery,
     params,
     tags: ['page'],
