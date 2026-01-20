@@ -7,6 +7,42 @@ export default defineType({
   type: 'object',
   fields: [
     defineField({
+      name: 'layout',
+      title: 'Layout',
+      type: 'string',
+      options: {
+        list: [
+          { value: 'columns', title: 'Columns' },
+          { value: 'featured', title: 'Featured' },
+        ]
+      },
+      initialValue: 'columns',
+    }),
+    defineField({
+      name: 'categories',
+      title: 'Filter by Categories',
+      description: 'Only show posts from selected categories. Leave empty to show all posts.',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'category' }],
+          options: {
+            filter: ({ document }) => {
+              const siteRef = (document?.site as { _ref?: string })?._ref;
+              if (siteRef) {
+                return {
+                  filter: 'site._ref == $siteId',
+                  params: { siteId: siteRef },
+                };
+              }
+              return {};
+            },
+          },
+        },
+      ],
+    }),
+    defineField({
       name: 'numberOfPosts',
       title: 'Number of Posts to Show',
       type: 'number',
@@ -17,12 +53,13 @@ export default defineType({
   ],
   preview: {
     select: {
-      heading: 'heading',
+      numberOfPosts: 'numberOfPosts',
+      layout: 'layout'
     },
-    prepare(selection) {
-      const { heading } = selection;
+    prepare({ numberOfPosts, layout }) {
       return {
         title: 'Post List',
+        subtitle: `Number of Posts: ${numberOfPosts} • Layout: ${layout} `
       };
     },
   },

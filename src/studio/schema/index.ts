@@ -14,8 +14,6 @@ import cta from './objects/cta';
 import divider from './objects/sections/divider';
 import hero from './objects/sections/hero';
 import mediaText from './objects/mediaText';
-import postList from './objects/sections/postList';
-import subscribe from './objects/sections/subscribe';
 import subnavigation from './objects/sections/subnavigation';
 
 import seoTypes from './objects/seo';
@@ -47,7 +45,7 @@ import timelineItem from './objects/timelineItem';
 import coverImage from './objects/coverImage';
 import videoSection from './objects/videoSection';
 import gallery from './objects/gallery';
-
+import postList from './objects/postList';
 import featuredText from './objects/featuredText';
 import header from './objects/header';
 import table from './objects/table';
@@ -71,11 +69,9 @@ export const schemaTypes = [
   cta,
   hero,
   mediaText,
-  postList,
   mediaCard,
   stickyGrid,
   divider,
-  subscribe,
   subnavigation,
 
   section,
@@ -103,6 +99,7 @@ export const schemaTypes = [
   videoSection,
   coverImage,
   table,
+  postList,
   timeline,
   timelineItem,
 

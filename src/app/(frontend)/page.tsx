@@ -3,6 +3,7 @@ import PageSections from '@/components/sections/PageSections';
 import { siteSanityFetch } from '@/lib/sanity/client/fetch';
 import { formatMetaData } from '@/lib/sanity/client/seo';
 import { homePageQuery } from '@/lib/sanity/queries/queries';
+import { getCurrentSite } from '@/lib/get-current-site';
 
 export async function generateMetadata() {
   const homePage = await siteSanityFetch({
@@ -18,6 +19,7 @@ export async function generateMetadata() {
 }
 
 export default async function Page() {
+  const site = await getCurrentSite();
   const homePage = await siteSanityFetch({
     query: homePageQuery,
     tags: ['homePage'],
@@ -29,5 +31,5 @@ export default async function Page() {
 
   const { _id, _type, pageSections} = homePage;
 
-  return <PageSections documentId={_id} documentType={_type} sections={pageSections} />;
+  return <PageSections documentId={_id} documentType={_type} sections={pageSections} siteId={site.id} />;
 }

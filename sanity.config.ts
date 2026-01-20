@@ -54,11 +54,19 @@ function createPresentationTool(siteSlug: string, previewOrigin: string) {
       // The Main Document Resolver API provides a method of resolving a main document from a given route or route pattern.
       mainDocuments: defineDocuments([
         {
+          route: '/',
+          filter: `_type == "homePage" && site->slug.current == "${siteSlug}"`,
+        },
+        {
+          route: '/news',
+          filter: `_type == "blogPage" && site->slug.current == "${siteSlug}"`,
+        },
+        {
           route: '/:slug',
           filter: `_type == "page" && slug.current == $slug && site->slug.current == "${siteSlug}"`,
         },
         {
-          route: '/blog/:slug',
+          route: '/news/:slug',
           filter: `_type == "post" && slug.current == $slug && site->slug.current == "${siteSlug}"`,
         },
       ]),
@@ -67,6 +75,21 @@ function createPresentationTool(siteSlug: string, previewOrigin: string) {
         settings: defineLocations({
           locations: [homeLocation],
           message: 'This document is used on all pages',
+          tone: 'positive',
+        }),
+        homePage: defineLocations({
+          locations: [homeLocation],
+          message: 'This is the home page',
+          tone: 'positive',
+        }),
+        blogPage: defineLocations({
+          locations: [
+            {
+              title: 'News',
+              href: '/news',
+            },
+          ],
+          message: 'This is the blog/news page',
           tone: 'positive',
         }),
         page: defineLocations({
@@ -95,8 +118,8 @@ function createPresentationTool(siteSlug: string, previewOrigin: string) {
                 href: resolveHref('post', doc?.slug)!,
               },
               {
-                title: 'Home',
-                href: '/',
+                title: 'News',
+                href: '/news',
               } satisfies DocumentLocation,
             ].filter(Boolean) as DocumentLocation[],
           }),

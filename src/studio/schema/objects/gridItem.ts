@@ -30,6 +30,7 @@ export default defineType({
           { title: 'Worker', value: 'IconWorker' },
           { title: 'Erosion', value: 'IconErosion' },
           { title: 'Plant', value: 'IconPlant' },
+          { title: 'Holly Berry', value: 'IconHollyBerry' },
         ],
       },
     }),

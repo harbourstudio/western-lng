@@ -241,6 +241,12 @@
     letter-spacing: -0.01em;
   }
 
+  .portableTextWrapper {
+    p:not(last-child) {
+      @apply text-md mb-5;
+    }
+  }
+
   figure:has(img) {
     @apply overflow-hidden;
 
@@ -250,6 +256,22 @@
   }
 
   /* Utilities */
+  .row {
+    @apply flex flex-wrap;
+
+  }
+
+  .row {
+    @apply gap-y-6 flex flex-wrap;
+    width: calc(100% + var(--spacing-5));
+    margin-left: calc((var(--spacing-5) / 2) * -1);
+  }
+
+  .col {
+    @apply w-full;
+    padding-inline: calc(var(--spacing-5) / 2)
+  }
+
   .badge {
     @apply w-fit inline-block py-2 px-3 rounded text-xs bg-teal text-seafoam;
   }

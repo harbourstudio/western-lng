@@ -16,7 +16,6 @@ export type DividerSectionFragmentType = Extract<SectionType, { _type: 'divider'
 export type HeroSectionFragmentType = Extract<SectionType, { _type: 'hero' }>;
 export type mediaTextFragmentType = Extract<SectionType, { _type: 'mediaText' }>;
 export type PostListSectionFragmentType = Extract<SectionType, { _type: 'postList' }>;
-export type SubscribeSectionFragmentType = Extract<SectionType, { _type: 'subscribe' }>;
 export type SubnavigationFragmentType = Extract<SectionType, { _type: 'subnavigation' }>;
 
 export type SectionFragmentType = Extract<SectionType, { _type: 'section' }>;

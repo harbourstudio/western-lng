@@ -53,12 +53,12 @@ export default function HeroMinimal({ section }: { section: HeroMinimalFragmentT
           // Vertical layout: stacked
           <div className="max-w-3xl">
             {section?.heading?.content && (
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+              <h1 className="text-4xl md:text-5xl tracking-tight mb-4">
                 {section?.heading?.content}
               </h1>
             )}
             {section?.content && (
-              <div className={cn(isDarkBg ? 'text-white/90' : 'text-gray-600')}>
+              <div className={cn('max-w-lg', isDarkBg ? 'text-white' : 'text-gray-600')}>
                 <PortableText value={section.content as PortableTextBlock[]} />
               </div>
             )}

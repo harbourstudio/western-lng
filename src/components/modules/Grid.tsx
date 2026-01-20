@@ -15,6 +15,7 @@ import IconTree from '@/components/icons/IconTree';
 import IconWorker from '@/components/icons/IconWorker';
 import IconErosion from '@/components/icons/IconErosion';
 import IconPlant from '@/components/icons/IconPlant';
+import IconHollyBerry from '@/components/icons/IconHollyBerry';
 
 // Function to remove zero-width and invisible Unicode characters
 function cleanString(str: string | undefined): string {
@@ -83,7 +84,8 @@ const iconComponents: Record<string, React.ComponentType> = {
   IconTree,
   IconWorker,
   IconErosion,
-  IconPlant
+  IconPlant,
+  IconHollyBerry
 };
 
 export default function Grid({ section }: { section: GridFragmentType }) {
@@ -161,18 +163,18 @@ export default function Grid({ section }: { section: GridFragmentType }) {
                     className='link-item-header flex justify-between gap-5'
                   >
                     {headingContent}
-                    <span className='shrink-0' aria-hidden>
-                      <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M15.4688 7.45312L9.28125 13.3594C8.92969 13.6758 8.40234 13.6758 8.08594 13.3242C7.76953 12.9727 7.76953 12.4453 8.12109 12.1289L12.7969 7.66406H0.84375C0.351562 7.66406 0 7.3125 0 6.82031C0 6.36328 0.351562 5.97656 0.84375 5.97656H12.7969L8.12109 1.54688C7.76953 1.23047 7.76953 0.667969 8.08594 0.351562C8.40234 0 8.96484 0 9.28125 0.316406L15.4688 6.22266C15.6445 6.39844 15.75 6.60938 15.75 6.82031C15.75 7.06641 15.6445 7.27734 15.4688 7.45312Z" fill="#009ADA"/>
+                    <span className='shrink-0 text-primary' aria-hidden>
+                      <svg width="25" height="28" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.4688 7.45312L9.28125 13.3594C8.92969 13.6758 8.40234 13.6758 8.08594 13.3242C7.76953 12.9727 7.76953 12.4453 8.12109 12.1289L12.7969 7.66406H0.84375C0.351562 7.66406 0 7.3125 0 6.82031C0 6.36328 0.351562 5.97656 0.84375 5.97656H12.7969L8.12109 1.54688C7.76953 1.23047 7.76953 0.667969 8.08594 0.351562C8.40234 0 8.96484 0 9.28125 0.316406L15.4688 6.22266C15.6445 6.39844 15.75 6.60938 15.75 6.82031C15.75 7.06641 15.6445 7.27734 15.4688 7.45312Z" fill="currentColor"/>
                       </svg>
                     </span>
                   </Link>
                 ) : (
                   <div className='link-item-header flex justify-between gap-5'>
                     {headingContent}
-                    <span className='shrink-0' aria-hidden>
-                      <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M15.4688 7.45312L9.28125 13.3594C8.92969 13.6758 8.40234 13.6758 8.08594 13.3242C7.76953 12.9727 7.76953 12.4453 8.12109 12.1289L12.7969 7.66406H0.84375C0.351562 7.66406 0 7.3125 0 6.82031C0 6.36328 0.351562 5.97656 0.84375 5.97656H12.7969L8.12109 1.54688C7.76953 1.23047 7.76953 0.667969 8.08594 0.351562C8.40234 0 8.96484 0 9.28125 0.316406L15.4688 6.22266C15.6445 6.39844 15.75 6.60938 15.75 6.82031C15.75 7.06641 15.6445 7.27734 15.4688 7.45312Z" fill="#009ADA"/>
+                    <span className='shrink-0 text-primary' aria-hidden>
+                      <svg width="25" height="28" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.4688 7.45312L9.28125 13.3594C8.92969 13.6758 8.40234 13.6758 8.08594 13.3242C7.76953 12.9727 7.76953 12.4453 8.12109 12.1289L12.7969 7.66406H0.84375C0.351562 7.66406 0 7.3125 0 6.82031C0 6.36328 0.351562 5.97656 0.84375 5.97656H12.7969L8.12109 1.54688C7.76953 1.23047 7.76953 0.667969 8.08594 0.351562C8.40234 0 8.96484 0 9.28125 0.316406L15.4688 6.22266C15.6445 6.39844 15.75 6.60938 15.75 6.82031C15.75 7.06641 15.6445 7.27734 15.4688 7.45312Z" fill="currentColor"/>
                       </svg>
                     </span>
                   </div>

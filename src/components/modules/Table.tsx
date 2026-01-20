@@ -43,7 +43,7 @@ export default function Table({ section }: { section: TableFragmentType }) {
             {rows.map((row, rowIndex) => (
               <tr
                 key={row._key}
-                className={`rowIndex % 2 === 1 ? 'bg-gray-200' : 'bg-white' `}
+                className="odd:bg-white even:bg-gray-100"
               >
                 {row.cells?.map((cell, cellIndex) => (
                   <td

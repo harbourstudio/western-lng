@@ -107,6 +107,19 @@ export const personSlugs = defineQuery(`
   *[_type == "person" && defined(slug.current) && site->slug.current == $site][0..$limit].slug.current
 `);
 
+// Query for PostList component - fetches posts by category IDs
+export const postListQuery = defineQuery(`
+  *[
+    _type == "post"
+    && site->slug.current == $site
+    && (
+      !defined($categoryIds) || count($categoryIds) == 0 || references($categoryIds)
+    )
+  ] | order(date desc, _createdAt desc, _id desc) [0...$limit] {
+    ${postCardFragment}
+  }
+`);
+
 export const postsArchiveQuery = defineQuery(`
   {
     "allResults": *[

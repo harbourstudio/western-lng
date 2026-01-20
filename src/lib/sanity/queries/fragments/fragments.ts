@@ -229,10 +229,9 @@ export const postListSectionFragment = /* groq */ `
     _type,
     heading,
     numberOfPosts,
+    layout,
     spacing,
-    "posts": *[_type == 'post'] | order(_createdAt desc, _id desc) [0...20] {
-      ${postFragment}
-    }
+    categories,
 `;
 
 export const dividerSectionFragment = /* groq */ `
@@ -247,12 +246,6 @@ export const ctaFragment = /* groq */ `
   backgroundColor,
   innerBackgroundColor,
   spacing
-`;
-
-export const subscribeSectionFragment = /* groq */ `
-  _type,
-  heading,
-  text
 `;
 
 export const subnavigationSectionFragment = /* groq */ `
@@ -617,6 +610,7 @@ export const sectionFragment = /* groq */ `
     _type == 'list' => {${listFragment}},
     _type == 'videoSection' => {${videoSectionFragment}},
     _type == 'mediaText' => {${mediaTextFragment}},
+    _type == 'postList' => {${postListSectionFragment}},
     _type == 'coverImage' => {${coverImageFragment}},
     _type == 'table' => {${tableFragment}},
     _type == 'featuredText' => {${featuredTextFragment}},
@@ -636,9 +630,6 @@ export const pageBuilderFragment = /* groq */ `
     _type == 'hero' => {${heroSectionFragment}},
     _type == 'heroFullscreen' => {${heroFullscreenFragment}},
     _type == 'heroMinimal' => {${heroMinimalFragment}},
-    _type == 'mediaText' => {${mediaTextFragment}},
-    _type == 'postList' => {${postListSectionFragment}},
-    _type == 'subscribe' => {${subscribeSectionFragment}},
     _type == 'subnavigation' => {${subnavigationSectionFragment}},
     _type == 'coverImage' => {${coverImageFragment}},
   },

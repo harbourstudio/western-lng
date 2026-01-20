@@ -9,6 +9,7 @@ import { siteSanityFetch } from '@/lib/sanity/client/fetch';
 import { formatMetaData } from '@/lib/sanity/client/seo';
 import { allCategoriesQuery, blogPageQuery, postsArchiveQuery } from '@/lib/sanity/queries/queries';
 import type { AllCategoriesQueryResult, BlogPageQueryResult, PostsArchiveQueryResult } from '@/sanity.types';
+import { getCurrentSite } from '@/lib/get-current-site';
 
 type Props = {
   searchParams: Promise<{
@@ -82,6 +83,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function BlogPage(props: Props) {
   const searchParams = await props.searchParams;
+  const site = await getCurrentSite();
   const routeData = await loadPostsPageData(searchParams);
 
   if (!routeData.posts || !routeData.blogPage) {
@@ -98,6 +100,7 @@ export default async function BlogPage(props: Props) {
           documentId={_id}
           documentType={_type}
           sections={pageSections}
+          siteId={site.id}
         />
       )}
 

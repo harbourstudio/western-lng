@@ -1,6 +1,7 @@
 import type { CtaFragmentType } from '@/lib/sanity/queries/fragments/fragment.types';
 import type { PortableTextBlock } from 'next-sanity';
 import PortableText from '@/components/modules/PortableText';
+import { MailIcon } from 'lucide-react';
 
 // Function to remove zero-width and invisible Unicode characters so that TW can match classes
 function cleanString(str: string | undefined): string {
@@ -36,10 +37,11 @@ export default function Cta({ section }: { section: CtaFragmentType }) {
             <div className={`flex border-solid border-1 rounded-sm px-5 py-4
               ${colorScheme == 'light' ? 'border-white' : 'border-dark' }`}>
               <form className='flex justify-between w-full gap-5'>
+                <MailIcon className='opacity-50'/>
                 <input
                   type="email"
                   placeholder="Enter your email address"
-                  className='grow placeholder:text-dark placeholder:opacity-50'
+                  className='grow placeholder:text-inherit placeholder:opacity-50'
                 />
       
                 <input type="submit" value={'Subscribe'} className={`font-medium ${colorScheme == 'light' ? 'text-white' : 'text-dark' }`}/>
