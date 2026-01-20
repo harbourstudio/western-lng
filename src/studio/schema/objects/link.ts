@@ -2,7 +2,7 @@ import { Link } from 'lucide-react';
 import { defineField, defineType } from 'sanity';
 import { createRadioListLayout } from '@/utils/schema';
 
-const allLinkableTypes = [{ type: 'post' }, { type: 'page' }];
+const allLinkableTypes = [{ type: 'post' }, { type: 'page' }, { type: 'blogPage' }];
 
 export default defineType({
   name: 'link',
@@ -39,7 +39,21 @@ export default defineType({
     defineField({
       name: 'internal',
       type: 'reference',
-      options: { disableNew: true },
+      options: {
+        disableNew: true,
+        filter: ({ document }) => {
+          // Get the site reference from the parent document
+          const siteRef = (document?.site as { _ref?: string })?._ref;
+          if (siteRef) {
+            return {
+              filter: 'site._ref == $siteId',
+              params: { siteId: siteRef },
+            };
+          }
+          // Fallback: show all if no site is set
+          return {};
+        },
+      },
       hidden: ({ parent }) => parent?.type !== 'internal',
       to: allLinkableTypes,
     }),
