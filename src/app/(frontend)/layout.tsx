@@ -43,7 +43,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         Current Site: <strong>{site.name}</strong> | Dataset: <strong>{site.dataset}</strong>
       </div> */}
 
-      <section className="min-h-screen">
+      <section className="min-h-screen max-w-full overflow-hidden">
         <Toaster />
         {isDraftMode && (
           <>

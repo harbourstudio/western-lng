@@ -33,9 +33,9 @@ export default async function Header() {
         <div className='container mx-auto py-2'>
           <nav>
             <ul className='flex flex-wrap gap-x-6  text-sm'>
-              <li><a href='https://www.westernlng.com/' target='_blank'>Western LNG</a></li>
-              <li><a href='https://www.ksilisimslng.com/' target='_blank'>KSI LISIMS LNG</a></li>
-              <li><a href='https://www.westernlng.com/' target='_blank'>PRGT</a></li>
+              <li><a href='https://western-lng.vercel.app/' target='_blank'>Western LNG</a></li>
+              <li><a href='https://ksi-lisims-lng.vercel.app/' target='_blank'>Ksi Lisims LNG</a></li>
+              <li><a href='https://prgt.vercel.app/' target='_blank'>PRGT</a></li>
 
             </ul>
           </nav>
