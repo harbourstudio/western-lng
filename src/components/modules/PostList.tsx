@@ -32,7 +32,7 @@ export default function PostListSection({ section }: { section: PostListSectionF
       <div className="border-solid border-t-1 border-gray-600 flex flex-wrap justify-between py-4 mb-6">
         <div>
           <Button asChild>
-            <Link href="/blog">
+            <Link href="/news">
               View All Posts <ArrowRight />
             </Link>
           </Button>

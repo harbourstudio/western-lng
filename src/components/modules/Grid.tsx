@@ -47,7 +47,7 @@ function resolveLinkHref(link: {
     return link.href || link.external || '#';
   }
   if (link.type === 'internal' && link.internal?.slug?.current) {
-    const prefix = link.internal._type === 'post' ? '/blog' : '';
+    const prefix = link.internal._type === 'post' ? '/news' : '';
     return `${prefix}/${link.internal.slug.current}`;
   }
   return '#';
@@ -116,7 +116,7 @@ export default function Grid({ section }: { section: GridFragmentType }) {
   return (
     <div className={cn(spacingTop, spacingBottom)}>
       <div className={cn(
-        'grid grid-cols-1',
+        'grid grid-cols-1 gap-y-6',
         tabletColClass,
         desktopColClass,
         hasCardItems && 'pt-4 border-t-1 border-solid',

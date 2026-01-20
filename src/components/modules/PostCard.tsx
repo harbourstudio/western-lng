@@ -14,47 +14,54 @@ export default function PostCard({ post }: { post: PostCardFragmentType }) {
   const featuredCategory = categories?.[0];
 
   return (
-    <article className="relative overflow-hidden flex flex-col items-center px-4 first:pl-0 last:pr-0">
-      {image && (
-        <Link href={`/blog/${post.slug}`} className='block grow aspect-[3/2] rounded-base w-full h-auto overflow-hidden'>
-          <Image
-            src={urlForImage(image)?.width(1000).height(667).url() as string}
-            alt={image?.alt || 'Blog Post Image'}
-            width={768}
-            height={400}
-            className='w-full h-full object-cover\'
-          />
-        </Link>
-      )}
+    <article className="border border-gray-200 rounded-base relative overflow-hidden flex flex-col items-center" style={{ containerType: 'inline-size' }}>
+      <div className='flex flex-col h-full' style={{minHeight: 'calc(100cqw * 5 / 4)' }}>
 
-      <div className="flex flex-col justify-center pt-6">
-        {featuredCategory && (
-          <Link href={getDocumentLink(featuredCategory)} className='mb-5 w-fit'>{featuredCategory.title}</Link>
-        )}
-        
-        <h4 className='mb-0 mb-1'>
-          <Link href={`/blog/${post.slug}`}>
-            {title}
+        {image && (
+          <Link href={`/news/${post.slug}`} className='block shrink-0 aspect-[3/2] w-full h-auto overflow-hidden'>
+            <Image
+              src={urlForImage(image)?.width(1000).height(667).url() as string}
+              alt={image?.alt || 'Blog Post Image'}
+              width={768}
+              height={400}
+              className='w-full h-full object-cover'
+            />
           </Link>
-        </h4>
-        {excerpt ? <p className="text-sm">{excerpt}</p> : null}
-        
-        <div className='mt-6 mb-5'>
-          <Button asChild variant={'link'}>
-            <Link href={`/blog/${post.slug}`}>
-              {date ? (
-              <time>
+        )}
+        <div className='flex flex-col grow p-5 pt-6'>
+
+          {(featuredCategory || date ) && 
+            <div className='flex flex-wrap items-center gap-3 mb-5'>
+              {featuredCategory && (
+                <Link href={getDocumentLink(featuredCategory)} className='badge'>{featuredCategory.title}</Link>
+              )}
+              {date &&
+                <time className='text-xs'>
                   {new Date(date).toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",
                     year: "numeric",
                   })}
                 </time>
-                ) : 'Read More'
               }
-              <ArrowRight />
+            </div>
+          }
+
+          <h4>
+            <Link href={`/news/${post.slug}`}>
+              {title}
             </Link>
-          </Button>
+          </h4>
+          {excerpt ? <p className="text-sm">{excerpt}</p> : null}
+          
+          <div className='flex flex-col grow justify-end items-start mt-6'>
+            <Button asChild variant={'link'}>
+              <Link href={`/news/${post.slug}`}>
+                Read the Article
+                <ArrowRight />
+              </Link>
+            </Button>
+          </div>
         </div>
       </div>
     </article>

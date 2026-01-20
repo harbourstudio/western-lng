@@ -1,5 +1,10 @@
 import { clientEnv } from '@/env/clientEnv';
-import type { LinkFragmentType } from './sanity/queries/fragments/fragment.types';
+
+type LinkType = {
+  type?: string | null;
+  external?: string | null;
+  internal?: { _type: string; slug: string | null } | null;
+};
 
 export const getBaseURL = () => {
   return clientEnv.NEXT_PUBLIC_SITE_URL || '';
@@ -18,7 +23,7 @@ export const getDocumentLink = (
     case 'page':
       return `${linkBase}/${slug}`;
     case 'post':
-      return `${linkBase}/blog/${slug}`;
+      return `${linkBase}/news/${slug}`;
     case 'category':
       return `${linkBase}/category/${slug}`;
     case 'homePage':
@@ -28,9 +33,7 @@ export const getDocumentLink = (
   }
 };
 
-export const getLinkByLinkObject = (
-  link: Pick<LinkFragmentType, 'type' | 'external' | 'internal'>,
-) => {
+export const getLinkByLinkObject = (link: LinkType) => {
   const { type, external, internal } = link;
 
   if (type === 'external') {

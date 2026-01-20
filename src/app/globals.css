@@ -12,6 +12,9 @@
   --color-dark: #050505;
   --color-primary: #FFC000;
   --color-secondary: #004578;
+  --color-teal: #9EDBDB;
+  --color-seafoam: #1C7272;
+
   /* Spacing */
   --spacing-1: 4px;
   --spacing-2: 8px;
@@ -244,6 +247,23 @@
     img {
       @apply w-full h-full object-cover;
     }
+  }
+
+  /* Utilities */
+  .badge {
+    @apply w-fit inline-block py-2 px-3 rounded text-xs bg-teal text-seafoam;
+  }
+
+  .btn {
+    @apply bg-secondary text-white px-6 py-5 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-sm text-sm cursor-pointer transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive;
+  }
+
+  .btn-sm {
+    @apply px-4 py-5;
+  }
+
+  .btn-link {
+    @apply p-0 bg-transparent text-secondary hover:underline;
   }
 
   /* Form */

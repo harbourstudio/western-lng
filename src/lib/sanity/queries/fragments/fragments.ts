@@ -197,7 +197,13 @@ export const postCardFragment = /* groq */ `
   "status": select(_originalId in path("drafts.**") => "draft", "published"),
   "title": coalesce(title, "Untitled"),
   "slug": slug.current,
-  excerpt,
+  "excerpt": coalesce(
+    excerpt,
+    select(
+      defined(pt::text(content)) => array::join(string::split(pt::text(content), " ")[0...30], " ") + "...",
+      null
+    )
+  ),
   image,
   "categories": categories[]->{${categoryFragment}},
   "date": coalesce(date, _updatedAt),

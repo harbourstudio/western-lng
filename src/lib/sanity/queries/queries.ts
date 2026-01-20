@@ -95,6 +95,14 @@ export const categorySlugs = defineQuery(`
   *[_type == "category" && defined(slug.current) && site->slug.current == $site][0..$limit].slug.current
 `);
 
+export const allCategoriesQuery = defineQuery(`
+  *[_type == "category" && site->slug.current == $site] | order(title asc) {
+    _id,
+    title,
+    "slug": slug.current
+  }
+`);
+
 export const personSlugs = defineQuery(`
   *[_type == "person" && defined(slug.current) && site->slug.current == $site][0..$limit].slug.current
 `);
@@ -107,21 +115,21 @@ export const postsArchiveQuery = defineQuery(`
       site->slug.current == $site
       &&
       (
-        !defined( $filters.categorySlug ) || references(*[_type == "category" && slug.current == $filters.categorySlug && site->slug.current == $site]._id)
+        !defined($filters.categorySlugs) || count($filters.categorySlugs) == 0 || references(*[_type == "category" && slug.current in $filters.categorySlugs && site->slug.current == $site]._id)
       )
       &&
       (
-        !defined( $filters.personSlug ) || references(*[_type == "person" && slug.current == $filters.personSlug && site->slug.current == $site]._id)
+        !defined($filters.personSlug) || references(*[_type == "person" && slug.current == $filters.personSlug && site->slug.current == $site]._id)
       )
-      //
-      // Add more filter here if needed
-      //
-      // The filter value should be passed as a property of the $filter parameter
-      //
-      // (
-      //   !defined( $filters.anotherFilter ) || fieldname == $filters.anotherFilter)
-      // )
-    ] | order(_createdAt desc, _id desc)
+      &&
+      (
+        !defined($filters.search) || title match $filters.search + "*" || pt::text(content) match $filters.search + "*"
+      )
+      &&
+      (
+        !defined($filters.dateFilters) || count($filters.dateFilters) == 0 || (string::split(date, "-")[0] + "-" + string::split(date, "-")[1]) in $filters.dateFilters
+      )
+    ] | order(date desc, _createdAt desc, _id desc)
   }
   {
     "total": count(allResults),

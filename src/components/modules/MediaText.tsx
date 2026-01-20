@@ -65,7 +65,7 @@ function resolveLinkHref(link: {
     return link.href || link.external || null;
   }
   if (link.type === 'internal' && link.internal?.slug) {
-    const prefix = link.internal._type === 'post' ? '/blog' : '';
+    const prefix = link.internal._type === 'post' ? '/news' : '';
     return `${prefix}/${link.internal.slug}`;
   }
   return null;

@@ -18,7 +18,7 @@ export default function PostListSection({ section }: { section: PostListSectionF
         <div className="border-t border-dark py-4 flex justify-between items-center gap-5">
           <h3>{section?.heading}</h3>
           <Button asChild>
-            <Link href={'/blog'}>
+            <Link href={'/news'}>
               View All Posts <ArrowRight />
             </Link>
           </Button>
