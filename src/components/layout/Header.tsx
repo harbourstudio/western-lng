@@ -27,15 +27,13 @@ export default async function Header() {
 
   return (
     <header className={`site-header site-${(site.name || 'default').toLowerCase().replace(/\s+/g, '-')} w-screen z-999`}>
-      <div className='site-header-top text-white'
-        style={{ backgroundColor: site.theme?.primary || '#000000'}}
-      >
+      <div className='site-header-top bg-primary text-white'>
         <div className='container mx-auto py-2'>
           <nav>
             <ul className='flex flex-wrap gap-x-6  text-sm'>
-              <li><a href='https://western-lng.vercel.app/' target='_blank'>Western LNG</a></li>
-              <li><a href='https://ksi-lisims-lng.vercel.app/' target='_blank'>Ksi Lisims LNG</a></li>
-              <li><a href='https://prgt.vercel.app/' target='_blank'>PRGT</a></li>
+              <li><a href='https://western-lng.vercel.app/'>Western LNG</a></li>
+              <li><a href='https://ksi-lisims-lng.vercel.app/'>Ksi Lisims LNG</a></li>
+              <li><a href='https://prgt.vercel.app/'>PRGT</a></li>
 
             </ul>
           </nav>

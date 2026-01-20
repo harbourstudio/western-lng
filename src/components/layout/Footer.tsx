@@ -22,7 +22,6 @@ export default async function Footer() {
   }
 
   const { site } = settings;
-  const secondaryColor = site.theme?.secondary || '#000000';
   const logoUrl = site.logo ? urlForImage(site.logo)?.url() : null;
   const menuItems = settings.menu || [];
   const isSvg = isSvgAsset(site.logo?.asset);
@@ -31,7 +30,7 @@ export default async function Footer() {
   const menuColumns = menuItems.slice(0, 4);
 
   return (
-    <footer className="site-footer text-white [&_h1,h2,h3,h4,h5,h6]:!text-white pt-9 pb-5" style={{ backgroundColor: secondaryColor }}>
+    <footer className="site-footer bg-secondary text-white [&_h1,h2,h3,h4,h5,h6]:!text-white pt-9 pb-5">
       <div className="container mx-auto">
         <div className="flex flex-wrap items-center justify-between gap-6 mb-8">
           <Link href="/" className="inline-flex">
