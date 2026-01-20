@@ -11,7 +11,6 @@ export type SeoFragmentType = NonNullable<PageFragmentType['seo']>;
 export type SectionsType = PageFragmentType['pageSections'];
 export type SectionType = NonNullable<SectionsType>[number];
 
-export type CtaFragmentType = Extract<SectionType, { _type: 'cta' }>;
 export type DividerSectionFragmentType = Extract<SectionType, { _type: 'divider' }>;
 export type HeroSectionFragmentType = Extract<SectionType, { _type: 'hero' }>;
 export type mediaTextFragmentType = Extract<SectionType, { _type: 'mediaText' }>;
@@ -21,6 +20,9 @@ export type SubnavigationFragmentType = Extract<SectionType, { _type: 'subnaviga
 export type SectionFragmentType = Extract<SectionType, { _type: 'section' }>;
 export type HeroFullscreenFragmentType = Extract<SectionType, { _type: 'heroFullscreen' }>;
 export type HeroMinimalFragmentType = Extract<SectionType, { _type: 'heroMinimal' }>;
+
+// Row components are nested inside section.components
+export type RowComponentType = NonNullable<SectionFragmentType['components']>[number];
 
 export type HeaderFragmentType = Extract<RowComponentType, { _type: 'header' }>;
 export type DetailFragmentType = NonNullable<HeaderFragmentType['details']>[number];
@@ -49,4 +51,7 @@ export type MediaCardFragmentType = NonNullable<StickyGridFragmentType['items']>
 export type CoverImageFragmentType = Extract<RowComponentType, { _type: 'coverImage' }>;
 export type VideoSectionFragmentType = Extract<RowComponentType, { _type: 'videoSection' }>;
 export type GalleryFragmentType = Extract<RowComponentType, { _type: 'gallery' }>;
+export type CtaFragmentType = Extract<RowComponentType, { _type: 'cta' }>;
+
+export type ButtonFragmentType = NonNullable<HeroSectionFragmentType['buttons']>[number];
 

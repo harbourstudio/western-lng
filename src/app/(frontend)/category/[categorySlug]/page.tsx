@@ -6,6 +6,7 @@ import { POSTS_PER_PAGE } from '@/lib/constants';
 import { getDocumentLink } from '@/lib/links';
 import { paginatedData } from '@/lib/pagination';
 import { siteSanityFetch } from '@/lib/sanity/client/fetch';
+import type { CategoryQueryResult, PostsArchiveQueryResult } from '@/sanity.types';
 import { categoryQuery, postsArchiveQuery } from '@/lib/sanity/queries/queries';
 
 export const dynamicParams = true;
@@ -21,12 +22,12 @@ const loadData = async (props: Props) => {
   const to = POSTS_PER_PAGE - 1;
 
   const [archiveData, categoryData] = await Promise.all([
-    siteSanityFetch({
+    siteSanityFetch<PostsArchiveQueryResult>({
       query: postsArchiveQuery,
       params: { from, to, filters: { categorySlug } },
       tags: ['post'],
     }),
-    siteSanityFetch({
+    siteSanityFetch<CategoryQueryResult>({
       query: categoryQuery,
       params: { slug: categorySlug },
       tags: ['category'],

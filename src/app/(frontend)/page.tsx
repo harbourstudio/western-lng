@@ -4,9 +4,10 @@ import { siteSanityFetch } from '@/lib/sanity/client/fetch';
 import { formatMetaData } from '@/lib/sanity/client/seo';
 import { homePageQuery } from '@/lib/sanity/queries/queries';
 import { getCurrentSite } from '@/lib/get-current-site';
+import type { HomePageQueryResult } from '@/sanity.types';
 
 export async function generateMetadata() {
-  const homePage = await siteSanityFetch({
+  const homePage = await siteSanityFetch<HomePageQueryResult>({
     query: homePageQuery,
     tags: ['homePage'],
   });
@@ -20,7 +21,7 @@ export async function generateMetadata() {
 
 export default async function Page() {
   const site = await getCurrentSite();
-  const homePage = await siteSanityFetch({
+  const homePage = await siteSanityFetch<HomePageQueryResult>({
     query: homePageQuery,
     tags: ['homePage'],
   });

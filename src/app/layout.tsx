@@ -26,7 +26,7 @@ const overusedGrotesk = localFont({
   variable: '--font-overused-grotesk',
 })
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children } : { children: React.ReactNode }) {
   return (
     <html lang="en" className={overusedGrotesk.variable}>
       <body className='bg-white'>{children}</body>

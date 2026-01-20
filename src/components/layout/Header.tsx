@@ -5,13 +5,14 @@ import { settingsQuery } from '@/lib/sanity/queries/queries';
 import { urlForImage } from '@/lib/sanity/client/utils';
 import NavBar from './NavBar';
 import InlineSvg from '@/components/ui/InlineSvg';
+import type { SettingsQueryResult } from '@/sanity.types';
 
-function isSvgAsset(asset?: { _ref?: string }): boolean {
+function isSvgAsset(asset?: { _ref?: string } | null): boolean {
   return asset?._ref?.includes('-svg') ?? false;
 }
 
 export default async function Header() {
-  const settings = await siteSanityFetch({
+  const settings = await siteSanityFetch<SettingsQueryResult>({
     query: settingsQuery,
     tags: ['settings'],
   });
@@ -25,9 +26,9 @@ export default async function Header() {
   const isSvg = isSvgAsset(site.logo?.asset);
 
   return (
-    <header className={`site-header site-${site.name.toLowerCase().replace(/\s+/g, '-')} w-screen z-999`}>
+    <header className={`site-header site-${(site.name || 'default').toLowerCase().replace(/\s+/g, '-')} w-screen z-999`}>
       <div className='site-header-top text-white'
-        style={{ backgroundColor: site.theme.primary}}
+        style={{ backgroundColor: site.theme?.primary || '#000000'}}
       >
         <div className='container mx-auto py-2'>
           <nav>

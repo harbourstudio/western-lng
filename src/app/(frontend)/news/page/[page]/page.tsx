@@ -28,11 +28,11 @@ const loadPostsPageData = async (
   }
 
   const [blogPageData, posts] = await Promise.all([
-    siteSanityFetch({
+    siteSanityFetch<BlogPageQueryResult>({
       query: blogPageQuery,
       tags: ['blogPage'],
     }),
-    siteSanityFetch({
+    siteSanityFetch<PostsArchiveQueryResult>({
       query: postsArchiveQuery,
       params: {
         from: (pageNumber - 1) * POSTS_PER_PAGE,

@@ -1,15 +1,27 @@
 import Link from 'next/link';
 import { getLinkByLinkObject } from '@/lib/links';
-import type { ButtonFragmentType } from '@/lib/sanity/queries/fragments/fragment.types';
 import { cn } from '@/lib/utils';
 import { Button } from '../ui/Button';
 import { ArrowRight } from 'lucide-react';
+
+interface ButtonItem {
+  _key: string;
+  variant?: 'default' | 'secondary' | 'outline' | 'link' | null;
+  icon?: string | null;
+  text?: string | null;
+  link?: {
+    type?: string | null;
+    external?: string | null;
+    internal?: { _type: string; slug: string | null } | null;
+    openInNewTab?: boolean | null;
+  } | null;
+}
 
 export default function ButtonsGroup({
   buttons,
   className,
 }: {
-  buttons: ButtonFragmentType[];
+  buttons: ButtonItem[];
   className?: string;
 }) {
   return (

@@ -16,7 +16,7 @@
     "dev": "npm-run-all --parallel --race next:dev watch-typegen",
     "built": "npm run next:build",
     "start": "npm run next:start",
-    "sanity:typegen": "mkdir -p ./.sanity && sanity schema extract --path=.sanity/schema.json && sanity typegen generate",
+    "sanity:typegen": "mkdir -p ./.sanity && sanity schema extract --workspace=western-lng --path=.sanity/schema.json && sanity typegen generate",
     "typecheck": "tsc --noEmit",
     "watch-typegen": "tsx watch-typegen.ts",
     "test": "vitest",

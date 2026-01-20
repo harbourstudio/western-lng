@@ -9,7 +9,7 @@ const imageBuilder = createImageUrlBuilder({
   dataset: clientEnv.NEXT_PUBLIC_SANITY_DATASET,
 });
 
-export const urlForImage = (source: { asset?: { _ref?: string } }) => {
+export const urlForImage = (source: { asset?: { _ref?: string } | null }) => {
   if (!source?.asset?._ref) {
     return undefined;
   }

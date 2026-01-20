@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import type { PortableTextBlock } from 'next-sanity';
 import { Image } from 'next-sanity/image';
-import type { AccordionFragmentType } from '@/lib/sanity/queries/fragments/fragment.types';
+import type { AccordionFragmentType, AccordionItemFragmentType } from '@/lib/sanity/queries/fragments/fragment.types';
 import { urlForImage } from '@/lib/sanity/client/utils';
 import { cn } from '@/lib/utils';
 import PortableText from '@/components/modules/PortableText';
@@ -183,9 +183,9 @@ export default function Accordion({ section }: { section: AccordionFragmentType 
 
   // Get video URLs using reusable video field structure
   const videoUrl = section?.video?.videoUrl;
-  const videoFileUrl = 
-    section?.video?.videoFile?.asset?.url || 
-    (section?.video?.videoFile?.asset?._ref ? buildFileUrl(section.video.videoFile.asset._ref) : null);
+  const videoFileUrl = section?.video?.videoFile?.asset?._ref
+    ? buildFileUrl(section.video.videoFile.asset._ref)
+    : null;
 
   const hasVideo = !!(videoUrl || videoFileUrl);
   const isEmbed = videoUrl && isEmbeddableUrl(videoUrl);
@@ -297,14 +297,8 @@ export default function Accordion({ section }: { section: AccordionFragmentType 
               hasMedia && orientation === 'left' && 'lg:max-w-lg lg:ml-8'
             )}
           >
-            {section?.heading?.content && (
-              <h3>{section.heading.content}</h3>
-            )}
-            {section?.content && (
-              <PortableText value={section.content as PortableTextBlock[]} className="mt-4 pb-5" />
-            )}
-            <div className="accordion-group mt-5">
-              {section?.items?.map((item) => (
+            <div className="accordion-group">
+              {section?.items?.map((item: AccordionItemFragmentType) => (
                 <AccordionItem
                   key={item._key}
                   title={item.title || ''}

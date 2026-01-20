@@ -5,13 +5,14 @@ import { settingsQuery } from '@/lib/sanity/queries/queries';
 import { urlForImage } from '@/lib/sanity/client/utils';
 import { getLinkByLinkObject } from '@/lib/links';
 import InlineSvg from '@/components/ui/InlineSvg';
+import type { SettingsQueryResult } from '@/sanity.types';
 
-function isSvgAsset(asset?: { _ref?: string }): boolean {
+function isSvgAsset(asset?: { _ref?: string } | null): boolean {
   return asset?._ref?.includes('-svg') ?? false;
 }
 
 export default async function Footer() {
-  const settings = await siteSanityFetch({
+  const settings = await siteSanityFetch<SettingsQueryResult>({
     query: settingsQuery,
     tags: ['settings'],
   });

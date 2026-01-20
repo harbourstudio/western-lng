@@ -4,9 +4,10 @@ import { Image } from 'next-sanity/image';
 import { urlForImage } from '@/lib/sanity/client/utils';
 import type { PortableTextBlock } from 'next-sanity';
 import PortableText from '@/components/modules/PortableText';
+import type { SettingsQueryResult } from '@/sanity.types';
 
 export default async function PreFooter() {
-  const settings = await siteSanityFetch({
+  const settings = await siteSanityFetch<SettingsQueryResult>({
     query: settingsQuery,
     tags: ['settings'],
   });
