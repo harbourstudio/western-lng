@@ -98,7 +98,7 @@ export default function Header({ section }: { section: HeaderFragmentType }) {
           </div>
 
           {section?.buttons && section.buttons.length > 0 && (
-            <div className="w-full lg:w-4/12 flex justify-end">
+            <div className="w-full lg:w-4/12 flex lg:justify-end">
               <ButtonsGroup buttons={section.buttons} />
             </div>
           )}
@@ -108,15 +108,15 @@ export default function Header({ section }: { section: HeaderFragmentType }) {
           {headingContent && (
             <div className="w-full lg:w-10/12">
               <HeadingTag className={`mb-0 ${headingSize} ${headingColor}`}>
-              {headingContent}
-            </HeadingTag>
+                {headingContent}
+              </HeadingTag>
+              {section?.content && (
+                <PortableText
+                  value={section.content as PortableTextBlock[]}
+                  className="font-semibold text-lg max-w-5xl mt-5 [&_*]:not-last:mb-5"
+                />
+              )}
             </div>
-          )}
-          {section?.content && (
-            <PortableText
-              value={section.content as PortableTextBlock[]}
-              className="font-semibold text-lg max-w-5xl mt-5 [&_*]:not-last:mb-5"
-            />
           )}
 
           {section?.details && section.details.length > 0 && (
