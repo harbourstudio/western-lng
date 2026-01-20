@@ -39,7 +39,7 @@ export default defineType({
       options: {
         source: 'title',
         maxLength: 96,
-        isUnique: (value, context) => context.defaultIsUnique(value, context),
+        isUnique: () => true, // Disable default global uniqueness; handled by isUniquePerSite
       },
       validation: (Rule) => Rule.required().custom(async (value, context) => {
         if (!value?.current) return true;

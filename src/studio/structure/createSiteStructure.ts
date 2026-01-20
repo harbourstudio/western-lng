@@ -12,7 +12,7 @@ export function createSiteStructure(siteId: string): StructureResolver {
           .child(
             S.documentList()
               .title('Home Page')
-              .filter(`_type == "homePage" && (!defined(site) || site->slug.current == $siteId)`)
+              .filter(`_type == "homePage" && site->slug.current == $siteId`)
               .params({ siteId })
           )
           .icon(HomeIcon),
@@ -21,7 +21,7 @@ export function createSiteStructure(siteId: string): StructureResolver {
           .child(
             S.documentList()
               .title('Blog Page')
-              .filter(`_type == "blogPage" && (!defined(site) || site->slug.current == $siteId)`)
+              .filter(`_type == "blogPage" && site->slug.current == $siteId`)
               .params({ siteId })
           )
           .icon(DocumentIcon),
@@ -73,7 +73,7 @@ export function createSiteStructure(siteId: string): StructureResolver {
           .child(
             S.documentList()
               .title('Site Settings')
-              .filter(`_type == "settings" && (!defined(site) || site->slug.current == $siteId)`)
+              .filter(`_type == "settings" && site->slug.current == $siteId`)
               .params({ siteId })
           )
           .icon(CogIcon),

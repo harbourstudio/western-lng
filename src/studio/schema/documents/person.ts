@@ -43,6 +43,7 @@ export default defineType({
       options: {
         source: (doc) => `${doc?.firstName}-${doc?.lastName}`.toLowerCase(),
         maxLength: 96,
+        isUnique: () => true, // Disable default global uniqueness; handled by isUniquePerSite
       },
     }),
     defineField({

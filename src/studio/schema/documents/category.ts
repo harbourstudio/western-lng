@@ -30,6 +30,7 @@ export default defineType({
       options: {
         source: 'title',
         maxLength: 96,
+        isUnique: () => true, // Disable default global uniqueness; handled by isUniquePerSite
       },
     }),
     defineField({
