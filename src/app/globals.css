@@ -306,3 +306,17 @@
     }
   }
 }
+
+@layer utilities {
+  @media (width >=48rem) {
+    .container {
+      max-width: none;
+    }
+  }
+
+  @media (width >=64rem) {
+    .container {
+      max-width: 80rem;
+    }
+  }
+}
