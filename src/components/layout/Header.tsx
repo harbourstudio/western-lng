@@ -1,6 +1,3 @@
-'use client';
-
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { siteSanityFetch } from '@/lib/sanity/client/fetch';
@@ -14,46 +11,11 @@ function isSvgAsset(asset?: { _ref?: string } | null): boolean {
   return asset?._ref?.includes('-svg') ?? false;
 }
 
-export default function Header() {
-  const [settings, setSettings] = useState<SettingsQueryResult | null>(null);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  // Fetch settings on mount
-  useEffect(() => {
-    const fetchSettings = async () => {
-      const data = await siteSanityFetch<SettingsQueryResult>({
-        query: settingsQuery,
-        tags: ['settings'],
-      });
-      setSettings(data);
-    };
-    
-    fetchSettings();
-  }, []);
-
-  // Handle scroll behavior
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      // Show header when scrolling up, hide when scrolling down
-      // Also show header when at the top of the page
-      if (currentScrollY < lastScrollY || currentScrollY < 10) {
-        setIsVisible(true);
-      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsVisible(false);
-      }
-      
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [lastScrollY]);
+export default async function Header() {
+  const settings = await siteSanityFetch<SettingsQueryResult>({
+    query: settingsQuery,
+    tags: ['settings'],
+  });
 
   if (!settings || !settings.site) {
     return null;
@@ -64,11 +26,7 @@ export default function Header() {
   const isSvg = isSvgAsset(site.logo?.asset);
 
   return (
-    <header 
-      className={`site-header site-${(site.name || 'default').toLowerCase().replace(/\s+/g, '-')} w-screen z-999 fixed top-0 left-0 right-0 transition-transform duration-300 ${
-        isVisible ? 'translate-y-0' : '-translate-y-full'
-      }`}
-    >
+    <header className={`site-header site-${(site.name || 'default').toLowerCase().replace(/\s+/g, '-')} w-screen z-999`}>
       <div className='site-header-top bg-primary text-white'>
         <div className='container mx-auto py-2'>
           <nav>
@@ -76,12 +34,13 @@ export default function Header() {
               <li><a href='https://western-lng.vercel.app/'>Western LNG</a></li>
               <li><a href='https://ksi-lisims-lng.vercel.app/'>Ksi Lisims LNG</a></li>
               <li><a href='https://prgt.vercel.app/'>PRGT</a></li>
+
             </ul>
           </nav>
         </div>
       </div>
       <div className="container mx-auto py-4 flex justify-between items-center">
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-6">PH
           <Link className="h-6 lg:h-7 inline-flex items-center justify-center" href="/">
             {logoUrl && isSvg ? (
               <InlineSvg

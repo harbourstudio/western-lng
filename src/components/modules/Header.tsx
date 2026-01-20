@@ -131,7 +131,7 @@ export default function Header({ section }: { section: HeaderFragmentType }) {
           )}
 
           {section?.buttons && section.buttons.length > 0 && (
-            <div className="w-full lg:w-2/12 flex justify-end">
+            <div className="w-full lg:w-2/12 flex lg:justify-end">
               <ButtonsGroup buttons={section.buttons} />
             </div>
           )}

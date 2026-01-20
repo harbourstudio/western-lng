@@ -118,7 +118,7 @@ export default function Grid({ section }: { section: GridFragmentType }) {
   return (
     <div className={cn(spacingTop, spacingBottom)}>
       <div className={cn(
-        'grid grid-cols-1 gap-y-6',
+        'grid grid-cols-1 gap-6',
         tabletColClass,
         desktopColClass,
         hasCardItems && 'pt-4 border-t-1 border-solid',
@@ -138,8 +138,8 @@ export default function Grid({ section }: { section: GridFragmentType }) {
           const borderStyle = item._type === 'linkItem' ?
               'py-5 border-t mb-4 mr-5'
             : item._type === 'stepItem' ?
-              'pr-7 pb-5 [&:not(:first-child)]:ml-7 [&:not(:last-child)]:border-r'
-            : 'pr-5 pb-5 [&:not(:first-child)]:ml-5 [&:not(:last-child)]:border-r';
+              'pr-7 pb-5 border-r'
+            : 'pr-5 pb-5 border-r';
 
           // Handle linkItem with link wrapping
           if (item._type === 'linkItem') {
