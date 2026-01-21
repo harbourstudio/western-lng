@@ -27,6 +27,30 @@ export default defineType({
     }),
     pageSections,
     defineField({
+      name: 'headerType',
+      title: 'Header Type',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Default', value: 'default' },
+          { title: 'Transparent', value: 'transparent' },
+        ],
+      },
+      initialValue: 'default'
+    }),
+    defineField({
+      name: 'prefooterType',
+      title: 'Pre-Footer Type',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Subscribe Form', value: 'subscribe' },
+          { title: 'Contact Information', value: 'Contact' },
+        ],
+      },
+      initialValue: 'subscribe'
+    }),
+    defineField({
       title: 'SEO & Metadata',
       name: 'seo',
       type: 'seoMetaFields',

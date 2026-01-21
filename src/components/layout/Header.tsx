@@ -26,7 +26,8 @@ export default async function Header() {
   const isSvg = isSvgAsset(site.logo?.asset);
 
   return (
-    <header className={`site-header site-${(site.name || 'default').toLowerCase().replace(/\s+/g, '-')} w-screen z-999`}>
+    <>
+    <header className={`site-header site-${(site.name || 'default').toLowerCase().replace(/\s+/g, '-')} w-screen z-999 border-b-1 border-white`}>
       <div className='site-header-top bg-primary text-white'>
         <div className='container mx-auto py-2'>
           <nav>
@@ -34,18 +35,17 @@ export default async function Header() {
               <li><a href='https://western-lng.vercel.app/'>Western LNG</a></li>
               <li><a href='https://ksi-lisims-lng.vercel.app/'>Ksi Lisims LNG</a></li>
               <li><a href='https://prgt.vercel.app/'>PRGT</a></li>
-
             </ul>
           </nav>
         </div>
       </div>
-      <div className="container mx-auto py-4 flex justify-between items-center">
+      <div className="site-header-main container mx-auto py-4 flex justify-between items-center">
         <div className="flex items-center gap-6">
           <Link className="h-6 lg:h-7 inline-flex items-center justify-center" href="/">
             {logoUrl && isSvg ? (
               <InlineSvg
                 url={logoUrl}
-                className="lg:h-[2rem] w-auto"
+                className="site-header-logo lg:h-[2rem] w-auto"
                 title={site.logo?.alt || site.name || 'Logo'}
               />
             ) : logoUrl ? (
@@ -85,5 +85,59 @@ export default async function Header() {
         </div>
       </div>
     </header>
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `
+          (function() {
+            let lastScrollY = 0;
+            const header = document.querySelector('.site-header');
+            header.classList.add('scroll-top');
+
+            function setHeaderHeight() {
+              const height = header.offsetHeight;
+              document.documentElement.style.setProperty('--header-height', height + 'px');
+            }
+
+            setHeaderHeight();
+            window.addEventListener('resize', setHeaderHeight);
+
+            // Apply header type class from data attribute (wait for DOM)
+            function applyHeaderType() {
+              const content = document.querySelector('[data-header-type]');
+              if (content) {
+                const headerType = content.getAttribute('data-header-type');
+                if (headerType && headerType !== 'default') {
+                  header.classList.add('type-' + headerType);
+                }
+              }
+            }
+
+            if (document.readyState === 'loading') {
+              document.addEventListener('DOMContentLoaded', applyHeaderType);
+            } else {
+              applyHeaderType();
+            }
+
+            window.addEventListener('scroll', function() {
+              let currentScrollY = window.scrollY;
+              if (currentScrollY <= 0) {
+                header.classList.add('scroll-top');
+                header.classList.remove('scrolled', 'header-visible');
+              } else if (currentScrollY > 150) {
+                header.classList.remove('scroll-top');
+                header.classList.add('scrolled');
+                if (currentScrollY < lastScrollY) {
+                  header.classList.add('header-visible');
+                } else {
+                  header.classList.remove('header-visible');
+                }
+              }
+              lastScrollY = currentScrollY;
+            }, { passive: true });
+          })();
+        `,
+      }}
+    />
+    </>
   );
 }

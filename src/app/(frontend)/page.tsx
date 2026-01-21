@@ -30,7 +30,7 @@ export default async function Page() {
     notFound();
   }
 
-  const { _id, _type, pageSections} = homePage;
+  const { _id, _type, pageSections, headerType } = homePage;
 
-  return <PageSections documentId={_id} documentType={_type} sections={pageSections} siteId={site.id} />;
+  return <PageSections documentId={_id} documentType={_type} sections={pageSections} siteId={site.id} headerType={headerType} />;
 }

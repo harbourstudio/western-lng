@@ -29,7 +29,7 @@ const overusedGrotesk = localFont({
 export default function RootLayout({ children } : { children: React.ReactNode }) {
   return (
     <html lang="en" className={overusedGrotesk.variable}>
-      <body className='bg-white'>{children}</body>
+      <body>{children}</body>
     </html>
   )
 }

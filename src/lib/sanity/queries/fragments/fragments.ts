@@ -23,6 +23,13 @@ export const galleryFragment = /* groq */ `
   },
 `;
 
+export const headingFragment = /* groq */ `
+  content,
+  level,
+  size,
+  color,
+`;
+
 // Video field fragment (for embedding inside other components like mediaText)
 export const videoFieldFragment = /* groq */ `
   videoUrl,
@@ -262,6 +269,7 @@ export const ctaFragment = /* groq */ `
   heading,
   ${contentFragment}
   backgroundColor,
+  colorScheme,
   innerBackgroundColor,
   spacing
 `;
@@ -336,9 +344,8 @@ export const heroFullscreenFragment = /* groq */ `
 export const heroMinimalFragment = /* groq */ `
   _type,
   _key,
-  heading {
-    content,
-    headingLevel
+  heading{
+    ${headingFragment}
   },
   ${contentFragment}
   image {
@@ -380,9 +387,9 @@ export const accordionFragment = /* groq */ `
 export const headerSectionFragment = /* groq */ `
   _type,
   _key,
-  heading,
-  headingLevel,
-  headingSize,
+  heading{
+    ${headingFragment}
+  },
   content[]{
     ...,
     markDefs[]{
@@ -426,6 +433,7 @@ export const cardFragment = /* groq */ `
     ${imageFragment}
     alt
   },
+  imageType,
   heading {
     content
   },
@@ -485,6 +493,7 @@ export const gridFragment = /* groq */ `
     }
   },
   headingLevel,
+  headingColor,
   borderColor,
   tabletColumns,
   desktopColumns,

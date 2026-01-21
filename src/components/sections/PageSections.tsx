@@ -32,6 +32,7 @@ type PageSectionsProps = {
   documentType: string;
   sections?: SectionsType;
   siteId?: string;
+  headerType?: string | null;
 };
 
 type PageData = SanityDocument<{
@@ -43,6 +44,7 @@ export default function PageSections({
   documentType,
   sections: initialSections = [],
   siteId,
+  headerType,
 }: PageSectionsProps) {
   const sections = useOptimistic<SectionsType, PageData>(
     initialSections ?? [],
@@ -70,6 +72,7 @@ export default function PageSections({
         type: documentType,
         path: 'pageSections',
       }, siteId)}
+      data-header-type={headerType || 'default'}
     >
       {sections?.map((section) => {
         const { _key, _type, ...sectionProps } = section;

@@ -4,6 +4,7 @@ import PortableText from '@/components/modules/PortableText';
 import { cn } from '@/lib/utils';
 import { Image } from 'next-sanity/image';
 import { urlForImage } from '@/lib/sanity/client/utils';
+import { textColor } from '@/studio/schema/fields/textColor';
 // Function to remove zero-width and invisible Unicode characters
 function cleanString(str: string | undefined): string {
   if (!str) return '';
@@ -31,7 +32,7 @@ export default function HeroMinimal({ section }: { section: HeroMinimalFragmentT
 
 
   return (
-    <section className={cn(bgColor, textColorClass)}>
+    <section className={`hero-minimal ${bgColor} ${textColorClass}`}>
       <div className={cn('container mx-auto', spacingTop, spacingBottom)}>
         {isSplit ? (
           // Split layout: heading left, content right

@@ -107,7 +107,7 @@ export default function HeroFullscreen({ section }: { section: HeroFullscreenFra
 
   return (
     <>
-      <section className={cn('h-screen relative text-white', bgColor)}>
+      <section className={`hero-fullscreen h-screen relative text-white ${bgColor}`}>
         {/* Background Media */}
         {(hasVideo || hasImage) && (
           <div

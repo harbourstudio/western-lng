@@ -34,7 +34,7 @@ function getHeadingTag(level: string | undefined): HeadingLevel {
   if (validHeadingLevels.includes(cleaned as HeadingLevel)) {
     return cleaned as HeadingLevel;
   }
-  return 'h2';
+  return 'h4';
 }
 
 // Helper to resolve link href
@@ -149,7 +149,7 @@ export default function Grid({ section }: { section: GridFragmentType }) {
             const openInNewTab = item.link?.openInNewTab;
 
             const headingContent = item.heading && (
-              <HeadingTag className={`mb-3 ${headingColor}`}>{item.heading}</HeadingTag>
+              <HeadingTag className={cn('mb-3', headingColor)}>{item.heading}</HeadingTag>
             );
 
             return (
@@ -199,7 +199,7 @@ export default function Grid({ section }: { section: GridFragmentType }) {
                   {stepNumber}
                 </span>
                 {item?.heading?.content && (
-                  <HeadingTag className={`mb-3 ${headingColor}`}>{item.heading.content}</HeadingTag>
+                  <HeadingTag className={cn('mb-3', headingColor)}>{item.heading.content}</HeadingTag>
                 )}
                 {item?.content && (
                   <PortableText value={item.content as PortableTextBlock[]} className='text-inherit'/>
@@ -236,7 +236,7 @@ export default function Grid({ section }: { section: GridFragmentType }) {
                 </figure>
               )}
               {item?.heading?.content && (
-                <HeadingTag className={`mb-3 ${headingColor}`}>{item.heading.content}</HeadingTag>
+                <HeadingTag className={cn('mb-3', headingColor)}>{item.heading.content}</HeadingTag>
               )}
               {item?.content && (
                 <PortableText value={item.content as PortableTextBlock[]} className='text-inherit'/>

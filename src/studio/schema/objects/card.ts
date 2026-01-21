@@ -23,7 +23,7 @@ export default defineType({
     }),
     defineField({
       ...heading,
-      fields: heading.fields.filter((field) => field.name !== 'level' && field.name !== 'size'),
+      fields: heading.fields.filter((field) => field.name !== 'level' && field.name !== 'size' && field.name !== 'color' ),
     }),
     content,
     defineField({
