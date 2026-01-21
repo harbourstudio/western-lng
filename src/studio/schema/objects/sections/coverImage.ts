@@ -34,6 +34,7 @@ export default defineType({
       description: 'Maximum height in pixels',
       validation: (Rule) => Rule.min(0),
     }),
+    spacing
   ],
   validation: (Rule) =>
     Rule.custom((fields) => {
