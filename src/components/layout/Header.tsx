@@ -89,20 +89,22 @@ export default async function Header() {
       dangerouslySetInnerHTML={{
         __html: `
           (function() {
-            let lastScrollY = 0;
-            const header = document.querySelector('.site-header');
-            header.classList.add('scroll-top');
+            function init() {
+              let lastScrollY = 0;
+              const header = document.querySelector('.site-header');
+              if (!header) return;
 
-            function setHeaderHeight() {
-              const height = header.offsetHeight;
-              document.documentElement.style.setProperty('--header-height', height + 'px');
-            }
+              header.classList.add('scroll-top');
 
-            setHeaderHeight();
-            window.addEventListener('resize', setHeaderHeight);
+              function setHeaderHeight() {
+                const height = header.offsetHeight;
+                document.documentElement.style.setProperty('--header-height', height + 'px');
+              }
 
-            // Apply header type class from data attribute (wait for DOM)
-            function applyHeaderType() {
+              setHeaderHeight();
+              window.addEventListener('resize', setHeaderHeight);
+
+              // Apply header type class from data attribute
               const content = document.querySelector('[data-header-type]');
               if (content) {
                 const headerType = content.getAttribute('data-header-type');
@@ -110,30 +112,30 @@ export default async function Header() {
                   header.classList.add('type-' + headerType);
                 }
               }
+
+              window.addEventListener('scroll', function() {
+                let currentScrollY = window.scrollY;
+                if (currentScrollY <= 0) {
+                  header.classList.add('scroll-top');
+                  header.classList.remove('scrolled', 'header-visible');
+                } else if (currentScrollY > 150) {
+                  header.classList.remove('scroll-top');
+                  header.classList.add('scrolled');
+                  if (currentScrollY < lastScrollY) {
+                    header.classList.add('header-visible');
+                  } else {
+                    header.classList.remove('header-visible');
+                  }
+                }
+                lastScrollY = currentScrollY;
+              }, { passive: true });
             }
 
             if (document.readyState === 'loading') {
-              document.addEventListener('DOMContentLoaded', applyHeaderType);
+              document.addEventListener('DOMContentLoaded', init);
             } else {
-              applyHeaderType();
+              init();
             }
-
-            window.addEventListener('scroll', function() {
-              let currentScrollY = window.scrollY;
-              if (currentScrollY <= 0) {
-                header.classList.add('scroll-top');
-                header.classList.remove('scrolled', 'header-visible');
-              } else if (currentScrollY > 150) {
-                header.classList.remove('scroll-top');
-                header.classList.add('scrolled');
-                if (currentScrollY < lastScrollY) {
-                  header.classList.add('header-visible');
-                } else {
-                  header.classList.remove('header-visible');
-                }
-              }
-              lastScrollY = currentScrollY;
-            }, { passive: true });
           })();
         `,
       }}
