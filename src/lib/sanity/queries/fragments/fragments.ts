@@ -241,7 +241,13 @@ export const postListSectionFragment = /* groq */ `
     layout,
     spacing,
     categories,
-    "posts": *[_type == 'post' && site->slug.current == $site] | order(_createdAt desc, _id desc) [0...20] {
+    "posts": *[
+      _type == 'post'
+      && site->slug.current == $site
+      && (
+        !defined(^.categories) || count(^.categories) == 0 || references(^.categories[]._ref)
+      )
+    ] | order(_createdAt desc, _id desc) [0...20] {
       ${postFragment}
     }
 `;

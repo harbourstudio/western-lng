@@ -15,9 +15,11 @@ function cleanString(str: string | undefined): string {
 }
 
 export default function PostListSection({ section }: { section: PostListSectionFragmentType }) {
+  const heading = cleanString(section?.heading) || '';
   const spacingTop = cleanString(section?.spacing?.top) || '';
   const spacingBottom = cleanString(section?.spacing?.bottom) || '';
   const layout = cleanString(section?.layout) || '';
+
 
 
   // Add fallback to empty array to prevent "Cannot read properties of undefined"
@@ -34,9 +36,11 @@ export default function PostListSection({ section }: { section: PostListSectionF
 
   return (
     <div className={`post-list layout-${layout} ${spacingTop} ${spacingBottom}`}>
-      <div className="border-solid border-t-1 border-gray-600 flex flex-wrap items-center justify-between gap-5 pt-4 mb-6">
-        <h2>News & Stories</h2>
-        <Button asChild className='hidden lg:block'>
+      <div className={`flex flex-wrap items-center justify-between gap-5 pt-4 mb-6 ${layout === 'columns' ? 'border-solid border-t-1 border-gray-600' : ''} `}>
+        {heading &&
+          <h2>{heading}</h2>
+        }
+        <Button asChild className='hidden lg:inline-flex'>
           <Link href="/news">
             View All Posts <ArrowRight />
           </Link>

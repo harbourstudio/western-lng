@@ -17,7 +17,7 @@ export default function PostCard({ post, className }: { post: PostCardFragmentTy
     <article className={`post-card border border-gray-200 rounded-base relative overflow-hidden ${className ?? ''}`} style={{ containerType: 'inline-size' }}>
       <div className='post-card-inner flex flex-col h-full' style={{minHeight: 'calc(100cqw * 5 / 4)' }}>
         {image && (
-          <Link href={`/news/${post.slug}`} className='block shrink-0 aspect-[3/2] w-full h-auto overflow-hidden'>
+          <Link href={`/news/${post.slug}`} className='post-card-image block shrink-0 aspect-[3/2] w-full h-auto overflow-hidden'>
             <Image
               src={urlForImage(image)?.width(1000).height(667).url() as string}
               alt={image?.alt || 'Blog Post Image'}

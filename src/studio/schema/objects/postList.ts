@@ -19,6 +19,12 @@ export default defineType({
       initialValue: 'columns',
     }),
     defineField({
+      name: 'heading',
+      title: 'Heading',
+      type: 'string',
+      initialValue: 'News & Stories'
+    }),
+    defineField({
       name: 'categories',
       title: 'Filter by Categories',
       description: 'Only show posts from selected categories. Leave empty to show all posts.',

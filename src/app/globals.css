@@ -322,6 +322,10 @@
     .post-card:not(.post-card-featured) {
       @apply !rounded-none !border-0 !border-t-1;
 
+      .post-card-image {
+        @apply !hidden;
+      }
+
       .post-card-inner {
         @apply !min-h-fit;
       }
@@ -342,6 +346,10 @@
 
       .post-card-content {
         @apply !p-0;
+      }
+
+      .post-card-image {
+        @apply rounded-base mb-6;
       }
     }
   }
