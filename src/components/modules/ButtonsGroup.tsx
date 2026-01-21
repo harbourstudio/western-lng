@@ -32,25 +32,33 @@ export default function ButtonsGroup({
 }) {
   return (
     <div className={cn('flex flex-col md:flex-row gap-6 mt-6', className)}>
-      {buttons.map((button) => (
-        <Button
-          asChild
-          variant={button.variant}
-          key={button._key}
-          className={cn({
-            'has-arrow-left': button.icon === 'arrow-left',
-            'has-arrow-right': button.icon === 'arrow-right',
-          })}
-        >
-          <Link
-            href={button.link ? getLinkByLinkObject(button.link) || '' : ''}
-            target={button.link?.openInNewTab ? '_blank' : '_self'}
+      {buttons.map((button) => {
+        // Add debugging
+        console.log('Button data:', button);
+        console.log('Link object:', button.link);
+        const href = button.link ? getLinkByLinkObject(button.link) : '';
+        console.log('Generated href:', href);
+        
+        return (
+          <Button
+            asChild
+            variant={button.variant}
+            key={button._key}
+            className={cn({
+              'has-arrow-left': button.icon === 'arrow-left',
+              'has-arrow-right': button.icon === 'arrow-right',
+            })}
           >
-            {button.text}
-            <ArrowRight />
-          </Link>
-        </Button>
-      ))}
+            <Link
+              href={href || '/'}
+              target={button.link?.openInNewTab ? '_blank' : '_self'}
+            >
+              {button.text}
+              <ArrowRight />
+            </Link>
+          </Button>
+        );
+      })}
     </div>
   );
 }
