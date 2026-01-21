@@ -1,11 +1,24 @@
 import { defineField, defineType } from 'sanity';
 import { image } from '../../fields/image';
+import { spacing } from '../fields/spacing';
 
 export default defineType({
   name: 'coverImage',
   title: 'Cover Image',
   type: 'object',
   fields: [
+    defineField({
+      name: 'layout',
+      title: 'Layout',
+      type: 'string',
+      options: {
+          list: [
+              { title: 'Full-Width', value: '' },
+              { title: 'Contained', value: 'contained' },
+          ],
+      },
+      initialValue: '',
+    }),
     image,
     defineField({
       name: 'minHeight',

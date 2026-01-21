@@ -523,6 +523,7 @@ export const timelineFragment = /* groq */ `
 export const coverImageFragment = /* groq */ `
   _type,
   _key,
+  layout,
   image {
     asset-> {
       _id,
