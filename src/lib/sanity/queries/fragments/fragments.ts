@@ -121,7 +121,7 @@ export const linkFragment = /* groq */ `
   openInNewTab,
   external,
   href,
-  internal->{
+  "internal": internal->{
     _type,
     _id,
     "slug": slug.current
@@ -154,8 +154,17 @@ export const buttonFragment = /* groq */ `
   variant,
   icon,
   text,
-  link {
-    ${linkFragment}
+  "link": link{
+    _type,
+    type,
+    openInNewTab,
+    external,
+    href,
+    "internal": internal->{
+      _type,
+      _id,
+      "slug": slug.current
+    },
   },
 `;
 
