@@ -40,7 +40,7 @@ export default async function Header() {
         </div>
       </div>
       <div className="container mx-auto py-4 flex justify-between items-center">
-        <div className="flex items-center gap-6">PH
+        <div className="flex items-center gap-6">
           <Link className="h-6 lg:h-7 inline-flex items-center justify-center" href="/">
             {logoUrl && isSvg ? (
               <InlineSvg

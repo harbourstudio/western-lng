@@ -1,4 +1,4 @@
-import { getCurrentSite } from '@/lib/get-current-site';
+import { getCurrentSite } from '@/lib/get-current-site.app';
 import { getLive } from './live';
 
 /**

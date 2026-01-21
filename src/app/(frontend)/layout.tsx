@@ -9,7 +9,7 @@ import Main from '@/components/layout/Main';
 import PreFooter from '@/components/layout/PreFooter';
 import { getLive } from '@/lib/sanity/client/live';
 import { handleError } from './client-utils';
-import { getCurrentSite } from '@/lib/get-current-site';
+import { getCurrentSite } from '@/lib/get-current-site.app';
 
 const DraftModeToast = dynamic(() => import('@/components/modules/DraftModeToast'));
 const Toaster = dynamic(() => import('sonner').then((mod) => mod.Toaster));

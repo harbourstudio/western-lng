@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { getCurrentSite } from '@/lib/get-current-site';
+import { getCurrentSite } from '@/lib/get-current-site.app';
 import { getClient } from '@/lib/sanity/client/client';
 import { getSitemapQuery } from '@/lib/sanity/queries/queries';
 import { getBaseUrl } from '@/utils/getBaseUrl';

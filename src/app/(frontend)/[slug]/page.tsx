@@ -4,7 +4,7 @@ import PageSections from '@/components/sections/PageSections';
 import { siteSanityFetch } from '@/lib/sanity/client/fetch';
 import { formatMetaData } from '@/lib/sanity/client/seo';
 import { getPageQuery } from '@/lib/sanity/queries/queries';
-import { getCurrentSite } from '@/lib/get-current-site';
+import { getCurrentSite } from '@/lib/get-current-site.app';
 import type { GetPageQueryResult } from '@/sanity.types';
 
 type Props = {

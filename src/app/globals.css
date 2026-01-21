@@ -316,7 +316,7 @@
 
   @media (width >=64rem) {
     .container {
-      max-width: 80rem;
+      max-width: 92.5rem;
     }
   }
 }

@@ -159,7 +159,7 @@ export default function PostFilters({ categories }: PostFiltersProps) {
   }));
 
   return (
-    <div className="postFilters mb-7">
+    <div className="postFilters mb-7 flex gap-5">
       <div className="filter-fields grow grid grid-cols-1 md:grid-cols-3 gap-5">
         {/* Search */}
         <div>
@@ -197,11 +197,11 @@ export default function PostFilters({ categories }: PostFiltersProps) {
       </div>
 
       {/* Action Buttons */}
-      <div className="filter-actions flex justify-end gap-4 mt-4">
+      <div className="filter-actions flex justify-end items-end gap-4 mt-4">
         <button
           type="button"
           onClick={applyFilters}
-          className="btn"
+          className="btn h-[4.75rem]"
         >
           {isPending ? 
           <span className='inline-flex justify-center items-center'>
@@ -219,7 +219,7 @@ export default function PostFilters({ categories }: PostFiltersProps) {
             type="button"
             onClick={clearFilters}
             disabled={isPending}
-            className="btn !bg-gray-200 text-heading"
+            className="btn !bg-gray-200 text-heading h-[4.75rem]"
           >
             Reset
           </button>

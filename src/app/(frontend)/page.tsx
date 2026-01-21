@@ -3,7 +3,7 @@ import PageSections from '@/components/sections/PageSections';
 import { siteSanityFetch } from '@/lib/sanity/client/fetch';
 import { formatMetaData } from '@/lib/sanity/client/seo';
 import { homePageQuery } from '@/lib/sanity/queries/queries';
-import { getCurrentSite } from '@/lib/get-current-site';
+import { getCurrentSite } from '@/lib/get-current-site.app';
 import type { HomePageQueryResult } from '@/sanity.types';
 
 export async function generateMetadata() {

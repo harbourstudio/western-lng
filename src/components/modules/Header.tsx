@@ -71,7 +71,7 @@ export default function Header({ section }: { section: HeaderFragmentType }) {
         </div>
       ) : section?.layout === 'vertical-narrow' ? (
         <div className={cn('flex flex-wrap justify-between items-end', spacingTop, spacingBottom)}>
-          <div className="w-full lg:w-8/12">
+          <div className={`w-full ${section?.buttons && section.buttons.length > 0 ? 'lg:w-8/12' : 'lg:w-10/12'}`}>
             {headingContent && (
               <HeadingTag className={`mb-0 ${headingSize} ${headingColor}`}>
                 {headingContent}
