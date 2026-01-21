@@ -247,11 +247,19 @@
     }
   }
 
-  figure:has(img) {
+  figure:not(.logo):has(img) {
     @apply overflow-hidden;
 
     img {
       @apply w-full h-full object-cover;
+    }
+  }
+
+  figure.logo:has(img) {
+    @apply w-[10rem] h-[10rem];
+
+    img {
+      @apply w-full h-full object-contain;
     }
   }
 

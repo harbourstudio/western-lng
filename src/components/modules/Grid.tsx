@@ -226,8 +226,12 @@ export default function Grid({ section }: { section: GridFragmentType }) {
                   <Image
                     alt={item.image?.alt || ''}
                     width={600}
-                    height={600}
-                    src={urlForImage(item.image)?.width(1000).height(667).url() as string}
+                    height={imageType === 'logo' ? 600 : 400}
+                    src={
+                      imageType === 'logo'
+                        ? (urlForImage(item.image)?.width(600).url() as string)
+                        : (urlForImage(item.image)?.width(1000).height(667).url() as string)
+                    }
                   />
                 </figure>
               )}
