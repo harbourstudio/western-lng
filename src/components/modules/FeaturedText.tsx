@@ -33,7 +33,7 @@ export default function FeaturedText({ section }: { section: FeaturedTextFragmen
           </div>
       )}
 
-      <div className='w-full lg:w-8/12'>
+      <div className='w-full lg:w-10/12 xl:w-8/12'>
           <PortableText className="text-xl font-semibold" value={section.content as PortableTextBlock[]} />
           {section?.buttons && section.buttons.length > 0 && (
             <ButtonsGroup className="w-full md:w-auto mt-7" buttons={section.buttons} />
