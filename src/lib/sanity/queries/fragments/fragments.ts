@@ -423,6 +423,7 @@ export const gridItemFragment = /* groq */ `
   heading {
     content
   },
+  imageType,
   ${contentFragment}
 `;
 

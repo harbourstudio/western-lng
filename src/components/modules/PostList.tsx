@@ -36,7 +36,7 @@ export default function PostListSection({ section }: { section: PostListSectionF
 
   return (
     <div className={`post-list layout-${layout} ${spacingTop} ${spacingBottom}`}>
-      <div className={`flex flex-wrap items-center justify-between gap-5 pt-4 mb-6 ${layout === 'columns' ? 'border-solid border-t-1 border-gray-600' : ''} `}>
+      {/* <div className={`flex flex-wrap items-center justify-between gap-5 pt-4 mb-6 ${layout === 'columns' ? 'border-solid border-t-1 border-gray-600' : ''} `}>
         {heading &&
           <h2>{heading}</h2>
         }
@@ -45,7 +45,7 @@ export default function PostListSection({ section }: { section: PostListSectionF
             View All Posts <ArrowRight />
           </Link>
         </Button>
-      </div>
+      </div> */}
       {layout === 'featured' ? (
         <div className='grid grid-cols-1 lg:grid-cols-12 gap-5'>
           <div className='lg:col-span-6'>
@@ -76,13 +76,13 @@ export default function PostListSection({ section }: { section: PostListSectionF
           ))}
         </div>
       )}
-      <div className='flex items-center justify-center mt-6 lg:hidden'>
+      {/* <div className='flex items-center justify-center mt-6 lg:hidden'>
         <Button asChild>
           <Link href="/news">
             View All Posts <ArrowRight />
           </Link>
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 }
