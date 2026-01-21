@@ -39,11 +39,18 @@ export const getDocumentLink = (
 export const getLinkByLinkObject = (link: LinkType) => {
   const { type, external, href, internal } = link;
   
+  console.log('getLinkByLinkObject input:', { type, external, href, internal });
+  
   if (type === 'external') {
-    return external || href || '';
+    return external || href || '/';
   }
   
   if (type === 'internal' && internal) {
+    console.log('Internal link found:', internal);
+    if (!internal.slug) {
+      console.warn('Internal link missing slug:', internal);
+      return '/';
+    }
     return getDocumentLink(internal, false);
   }
   
