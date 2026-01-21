@@ -1,6 +1,6 @@
 import { defineField, defineType } from 'sanity';
 import { image } from '../../fields/image';
-import { spacing } from '../fields/spacing';
+import { spacing } from '../../fields/spacing';
 
 export default defineType({
   name: 'coverImage',
