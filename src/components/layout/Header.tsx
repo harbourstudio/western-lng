@@ -89,30 +89,17 @@ export default async function Header() {
       dangerouslySetInnerHTML={{
         __html: `
           (function() {
-            function init() {
-              let lastScrollY = 0;
-              const header = document.querySelector('.site-header');
+            let lastScrollY = 0;
+            let header = null;
+
+            function setHeaderHeight() {
               if (!header) return;
+              const height = header.offsetHeight;
+              document.documentElement.style.setProperty('--header-height', height + 'px');
+              console.log('[DEBUG] Set --header-height:', height + 'px');
+            }
 
-              header.classList.add('scroll-top');
-
-              function setHeaderHeight() {
-                const height = header.offsetHeight;
-                document.documentElement.style.setProperty('--header-height', height + 'px');
-              }
-
-              setHeaderHeight();
-              window.addEventListener('resize', setHeaderHeight);
-
-              // Apply header type class from data attribute
-              const content = document.querySelector('[data-header-type]');
-              if (content) {
-                const headerType = content.getAttribute('data-header-type');
-                if (headerType && headerType !== 'default') {
-                  header.classList.add('type-' + headerType);
-                }
-              }
-
+            function setupScrollHandler() {
               window.addEventListener('scroll', function() {
                 let currentScrollY = window.scrollY;
                 if (currentScrollY <= 0) {
@@ -131,10 +118,41 @@ export default async function Header() {
               }, { passive: true });
             }
 
+            function init(attempt) {
+              attempt = attempt || 1;
+              header = document.querySelector('.site-header');
+
+              console.log('[DEBUG] Init attempt', attempt, '- header found:', !!header);
+
+              if (!header) {
+                if (attempt < 10) {
+                  setTimeout(function() { init(attempt + 1); }, 100);
+                } else {
+                  console.warn('[Header] Could not find .site-header after 10 attempts');
+                }
+                return;
+              }
+
+              header.classList.add('scroll-top');
+              setHeaderHeight();
+              window.addEventListener('resize', setHeaderHeight);
+
+              // Apply header type class from data attribute
+              const content = document.querySelector('[data-header-type]');
+              if (content) {
+                const headerType = content.getAttribute('data-header-type');
+                if (headerType && headerType !== 'default') {
+                  header.classList.add('type-' + headerType);
+                }
+              }
+
+              setupScrollHandler();
+            }
+
             if (document.readyState === 'loading') {
-              document.addEventListener('DOMContentLoaded', init);
+              document.addEventListener('DOMContentLoaded', function() { init(1); });
             } else {
-              init();
+              init(1);
             }
           })();
         `,
