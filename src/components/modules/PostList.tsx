@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import type { PostListSectionFragmentType } from '@/lib/sanity/queries/fragments/fragment.types';
+import type { PostListSectionFragmentType, PostCardFragmentType } from '@/lib/sanity/queries/fragments/fragment.types';
 import PostCard from './PostCard';
 import { Button } from '../ui/Button';
 import { cn } from '@/lib/utils';
@@ -17,6 +17,8 @@ function cleanString(str: string | undefined): string {
 export default function PostListSection({ section }: { section: PostListSectionFragmentType }) {
   const spacingTop = cleanString(section?.spacing?.top) || '';
   const spacingBottom = cleanString(section?.spacing?.bottom) || '';
+  const layout = cleanString(section?.layout) || '';
+
 
   // Add fallback to empty array to prevent "Cannot read properties of undefined"
   const posts = section?.posts ?? [];
@@ -31,20 +33,51 @@ export default function PostListSection({ section }: { section: PostListSectionF
   const numberOfPosts = section?.numberOfPosts ?? 3;
 
   return (
-    <div className={cn(spacingTop, spacingBottom)}>
-      <div className="border-solid border-t-1 border-gray-600 flex flex-wrap justify-between py-4 mb-6">
-        <div>
-          <Button asChild>
-            <Link href="/news">
-              View All Posts <ArrowRight />
-            </Link>
-          </Button>
-        </div>
+    <div className={`post-list layout-${layout} ${spacingTop} ${spacingBottom}`}>
+      <div className="border-solid border-t-1 border-gray-600 flex flex-wrap items-center justify-between gap-5 pt-4 mb-6">
+        <h2>News & Stories</h2>
+        <Button asChild className='hidden lg:block'>
+          <Link href="/news">
+            View All Posts <ArrowRight />
+          </Link>
+        </Button>
       </div>
-      <div className="border-solid border-t-1 border-gray-300 flex divide-x-1 divide-gray-200 pt-4 [&_article]:px-4 [&_article:first-child]:pl-0 [&_article:last-child]:pr-0">
-        {posts.slice(0, numberOfPosts).map((post) => (
-          <PostCard key={post._id} post={post} />
-        ))}
+      {layout === 'featured' ? (
+        <div className='grid grid-cols-1 lg:grid-cols-12 gap-5'>
+          <div className='lg:col-span-6'>
+            {posts.slice(0, 1).map((post: PostCardFragmentType) => (
+              <PostCard
+                key={post._id}
+                post={post}
+                className='post-card-featured'
+              />
+            ))}
+          </div>
+          <div className='lg:col-span-6 grid grid-cols-1 gap-5 h-fit'>
+            {posts.slice(1, numberOfPosts).map((post: PostCardFragmentType) => (
+              <PostCard
+                key={post._id}
+                post={post}
+              />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className='grid grid-cols-1 lg:grid-cols-3 gap-5 border-t border-gray-200 pt-4'>
+          {posts.slice(0, numberOfPosts).map((post: PostCardFragmentType) => (
+            <PostCard
+              key={post._id}
+              post={post}
+            />
+          ))}
+        </div>
+      )}
+      <div className='flex items-center justify-center mt-6 lg:hidden'>
+        <Button asChild>
+          <Link href="/news">
+            View All Posts <ArrowRight />
+          </Link>
+        </Button>
       </div>
     </div>
   );

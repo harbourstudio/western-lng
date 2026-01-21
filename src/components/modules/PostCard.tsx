@@ -8,15 +8,14 @@ import { urlForImage } from '@/lib/sanity/client/utils';
 import type { PostCardFragmentType } from '@/lib/sanity/queries/fragments/fragment.types';
 import { Button } from '../ui/Button';
 
-export default function PostCard({ post }: { post: PostCardFragmentType }) {
+export default function PostCard({ post, className }: { post: PostCardFragmentType; className?: string }) {
   const { title, excerpt, date, author, image, categories } = post;
 
   const featuredCategory = categories?.[0];
 
   return (
-    <article className="border border-gray-200 rounded-base relative overflow-hidden flex flex-col items-center" style={{ containerType: 'inline-size' }}>
-      <div className='flex flex-col h-full' style={{minHeight: 'calc(100cqw * 5 / 4)' }}>
-
+    <article className={`post-card border border-gray-200 rounded-base relative overflow-hidden ${className ?? ''}`} style={{ containerType: 'inline-size' }}>
+      <div className='post-card-inner flex flex-col h-full' style={{minHeight: 'calc(100cqw * 5 / 4)' }}>
         {image && (
           <Link href={`/news/${post.slug}`} className='block shrink-0 aspect-[3/2] w-full h-auto overflow-hidden'>
             <Image
@@ -28,7 +27,8 @@ export default function PostCard({ post }: { post: PostCardFragmentType }) {
             />
           </Link>
         )}
-        <div className='flex flex-col grow p-5 pt-6'>
+
+        <div className='post-card-content flex flex-col grow p-5 pt-6'>
 
           {(featuredCategory || date ) && 
             <div className='flex flex-wrap items-center gap-3 mb-5'>
@@ -52,7 +52,7 @@ export default function PostCard({ post }: { post: PostCardFragmentType }) {
               {title}
             </Link>
           </h4>
-          {excerpt ? <p className="text-sm">{excerpt}</p> : null}
+          {excerpt ? <p className="text-sm max-w-lg">{excerpt}</p> : null}
           
           <div className='flex flex-col grow justify-end items-start mt-6'>
             <Button asChild variant={'link'}>
