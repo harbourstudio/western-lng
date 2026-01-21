@@ -313,7 +313,7 @@
       .post-card-content {
         @apply bg-primary;
 
-        * {
+        *:not(.badge) {
           @apply text-white;
         }
       }
