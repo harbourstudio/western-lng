@@ -542,6 +542,8 @@ export const coverImageFragment = /* groq */ `
   },
   minHeight,
   maxHeight,
+  layout,
+  spacing
 `;
 
 export const mediaTextFragment = /* groq */ `
@@ -594,7 +596,6 @@ export const tableFragment = /* groq */ `
   headerBackgroundColor,
   spacing,
 `;
-
 
 export const sectionFragment = /* groq */ `
   _type,

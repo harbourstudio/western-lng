@@ -54,6 +54,16 @@ export default defineType({
         defineField({ name: 'secondary', title: 'Secondary Color', type: 'string' }),
       ],
     }),
+    defineField({
+      name: 'socials',
+      title: 'Socials',
+      type: 'object',
+      fields: [
+        defineField({ name: 'facebook', title: 'Facebook', type: 'string' }),
+        defineField({ name: 'linkedin', title: 'LinkedIn', type: 'string' }),
+        defineField({ name: 'twitter', title: 'Twitter', type: 'string' }),
+      ],
+    }),
   ],
   preview: {
     select: { title: 'name', subtitle: 'slug.current' },

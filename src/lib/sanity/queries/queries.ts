@@ -28,6 +28,11 @@ export const settingsQuery = defineQuery(`*[_type == "settings" && (!defined(sit
     theme {
       primary,
       secondary
+    },
+    socials {
+      facebook,
+      linkedin,
+      twitter
     }
   },
   ${menuFragment}
