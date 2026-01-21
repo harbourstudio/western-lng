@@ -221,7 +221,7 @@ export default function Grid({ section }: { section: GridFragmentType }) {
               )}
               {item.image?.asset && (
                 <figure className={`mb-5 ${
-                  imageType === 'logo' ? 'rounded-base aspect-[3/2]' : ''
+                  imageType === 'logo' ? 'logo' : 'rounded-base aspect-[3/2]'
                 }`}>
                   <Image
                     alt={item.image?.alt || ''}
