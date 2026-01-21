@@ -45,7 +45,11 @@ export default function CoverImage({ section }: { section: CoverImageFragmentTyp
 
   return (
     <div className={cn(spacingTop, spacingBottom)}>
-      <div className="relative w-full overflow-hidden aspect-32/9">
+      <div className={`relative w-full overflow-hidden ${
+        layout === 'contained' 
+          ? 'aspect-20/9 rounded-base' 
+          : 'aspect-32/9'
+      }`}>
         <Image
           alt={section.image?.alt || ''}
           fill

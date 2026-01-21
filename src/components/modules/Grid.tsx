@@ -94,6 +94,8 @@ export default function Grid({ section }: { section: GridFragmentType }) {
   const textColor = cleanString(section?.textColor) || '';
   const headingColor = cleanString(section?.headingColor) || '';
 
+  const imageType = cleanString(section?.imageType) || '';
+
   const borderColor = cleanString(section?.borderColor) || '';
 
   const tabletCols = section?.tabletColumns || 2;
@@ -218,7 +220,9 @@ export default function Grid({ section }: { section: GridFragmentType }) {
                 </div>
               )}
               {item.image?.asset && (
-                <figure className='mb-5 rounded-base aspect-[3/2]'>
+                <figure className={`mb-5 ${
+                  imageType === 'logo' ? 'rounded-base aspect-[3/2]' : ''
+                }`}>
                   <Image
                     alt={item.image?.alt || ''}
                     width={600}

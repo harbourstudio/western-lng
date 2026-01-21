@@ -11,6 +11,17 @@ export default defineType({
   fields: [
     image,
     defineField({
+        name: 'imageType',
+        title: 'Image Type',
+        type: 'string',
+        options: {
+            list: [
+                { title: 'Default', value: '' },
+                { title: 'Logo', value: 'logo' },
+            ],
+        },
+    }),
+    defineField({
       ...heading,
       fields: heading.fields.filter((field) => field.name !== 'level' && field.name !== 'size'),
     }),

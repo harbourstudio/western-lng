@@ -42,7 +42,7 @@ import list from './objects/list';
 import timeline from './objects/timeline';
 import timelineItem from './objects/timelineItem';
 
-import coverImage from './objects/coverImage';
+import coverImage from './objects/sections/coverImage';
 import videoSection from './objects/videoSection';
 import gallery from './objects/gallery';
 import postList from './objects/postList';
