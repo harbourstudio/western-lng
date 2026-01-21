@@ -10,9 +10,15 @@ interface ButtonItem {
   icon?: string | null;
   text?: string | null;
   link?: {
+    _type?: string;
     type?: string | null;
     external?: string | null;
-    internal?: { _type: string; slug: string | null } | null;
+    href?: string | null;
+    internal?: { 
+      _type: string; 
+      _id?: string;
+      slug: string | null;
+    } | null;
     openInNewTab?: boolean | null;
   } | null;
 }

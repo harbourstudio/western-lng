@@ -3,6 +3,7 @@ import { clientEnv } from '@/env/clientEnv';
 type LinkType = {
   type?: string | null;
   external?: string | null;
+  href?: string | null; // Add this
   internal?: { _type: string; slug: string | null } | null;
 };
 
@@ -36,13 +37,15 @@ export const getDocumentLink = (
 };
 
 export const getLinkByLinkObject = (link: LinkType) => {
-  const { type, external, internal } = link;
-
+  const { type, external, href, internal } = link;
+  
   if (type === 'external') {
-    return external || '';
+    return external || href || '';
   }
-
+  
   if (type === 'internal' && internal) {
     return getDocumentLink(internal, false);
   }
+  
+  return '/';
 };
