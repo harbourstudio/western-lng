@@ -24,8 +24,8 @@ export default function PostListSection({ section }: { section: PostListSectionF
   // if (posts.length === 0) {
     //   return null;
     // }
-  console.log('section', section);
-  console.log('posts fetched:', posts.map(p => p.title));
+  // console.log('section', section);
+  // console.log('posts fetched:', posts.map(p => p.title));
 
   const numberOfPosts = section?.numberOfPosts ?? 3;
 

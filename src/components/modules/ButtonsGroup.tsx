@@ -33,11 +33,7 @@ export default function ButtonsGroup({
   return (
     <div className={cn('flex flex-col md:flex-row gap-6 mt-6', className)}>
       {buttons.map((button) => {
-        // Add debugging
-        console.log('Button data:', button);
-        console.log('Link object:', button.link);
         const href = button.link ? getLinkByLinkObject(button.link) : '';
-        console.log('Generated href:', href);
         
         return (
           <Button

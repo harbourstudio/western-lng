@@ -388,7 +388,7 @@ export const headerSectionFragment = /* groq */ `
   },
   layout,
   spacing,
-  ${buttonsFragment},
+  ${buttonsFragment}
   hasDetails,
   details[]{
     heading,
@@ -628,7 +628,6 @@ export const sectionFragment = /* groq */ `
     _type == 'table' => {${tableFragment}},
     _type == 'featuredText' => {${featuredTextFragment}},
     _type == 'cta' => {${ctaFragment}},
-    _type == 'postList' => {${postListSectionFragment}},
   },
   spacing,
   backgroundColor,
@@ -646,6 +645,7 @@ export const pageBuilderFragment = /* groq */ `
     _type == 'heroMinimal' => {${heroMinimalFragment}},
     _type == 'subnavigation' => {${subnavigationSectionFragment}},
     _type == 'coverImage' => {${coverImageFragment}},
+    _type == 'section' => {${sectionFragment}},
   },
 `;
 

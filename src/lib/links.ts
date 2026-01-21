@@ -51,28 +51,29 @@ type LinkType = {
 
 export const getLinkByLinkObject = (link: LinkType) => {
   const { type, external, href, internal } = link;
-  
+
   if (type === 'external') {
     const externalUrl = external || href || '/';
     // Don't return # as a valid external link
     return externalUrl === '#' ? '/' : externalUrl;
   }
-  
+
   if (type === 'internal' && internal) {
     // Check if it's a reference that wasn't dereferenced
     if ('_ref' in internal) {
       console.error('Internal link was not dereferenced. Check your GROQ query for proper -> usage:', internal);
       return '/';
     }
-    
+
     // At this point, internal should have slug
     if (!internal.slug) {
       console.warn('Internal link missing slug:', internal);
       return '/';
     }
-    
-    return getDocumentLink(internal, false);
+
+    const result = getDocumentLink(internal, false);
+    return result;
   }
-  
+
   return '/';
 };
