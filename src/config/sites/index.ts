@@ -1,7 +1,15 @@
+
 export interface SiteTheme {
   primary: string;
   secondary: string;
 }
+
+export interface SiteSocials {
+  facebook: string;
+  linkedin: string;
+  twitter: string;
+}
+
 
 export interface SiteConfig {
   id: string; // Also serves as the site slug (matches slug.current in Sanity)
@@ -9,6 +17,7 @@ export interface SiteConfig {
   dataset: string;
   domains: string[];
   theme: SiteTheme;
+  socials: SiteSocials;
 }
 
 export const sites: Record<string, SiteConfig> = {
@@ -21,6 +30,11 @@ export const sites: Record<string, SiteConfig> = {
       primary: '#FFC000',
       secondary: '#004578'
     },
+    socials: {
+      facebook: '',
+      linkedin: '',
+      twitter: '',
+    },
   },
   'ksi-lisims-lng': {
     id: 'ksi-lisims-lng',
@@ -31,6 +45,11 @@ export const sites: Record<string, SiteConfig> = {
       primary: '#009ADA',
       secondary: '#00438C'
     },
+    socials: {
+      facebook: '',
+      linkedin: '',
+      twitter: '',
+    },
   },
   'prgt': {
     id: 'prgt',
@@ -40,6 +59,11 @@ export const sites: Record<string, SiteConfig> = {
     theme: {
       primary: '#6290C8',
       secondary: '#002366'
+    },
+    socials: {
+      facebook: '',
+      linkedin: '',
+      twitter: '',
     },
   },
 };
