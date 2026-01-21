@@ -39,16 +39,6 @@ export const getDocumentLink = (
   }
 };
 
-type LinkType = {
-  type?: string | null;
-  external?: string | null;
-  href?: string | null;
-  internal?: 
-    | { _type: string; slug: string | null; _id?: string }
-    | { _ref: string; _type: 'reference' }
-    | null;
-};
-
 export const getLinkByLinkObject = (link: LinkType) => {
   const { type, external, href, internal } = link;
 
@@ -65,8 +55,10 @@ export const getLinkByLinkObject = (link: LinkType) => {
       return '/';
     }
 
-    // At this point, internal should have slug
-    if (!internal.slug) {
+    // Singletons (blogPage, homePage) don't have slugs - that's expected
+    // Only warn for document types that should have slugs
+    const singletonTypes = ['blogPage', 'homePage'];
+    if (!internal.slug && !singletonTypes.includes(internal._type)) {
       console.warn('Internal link missing slug:', internal);
       return '/';
     }
