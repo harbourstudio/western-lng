@@ -94,8 +94,6 @@ export default function Grid({ section }: { section: GridFragmentType }) {
   const textColor = cleanString(section?.textColor) || '';
   const headingColor = cleanString(section?.headingColor) || '';
 
-  const imageType = cleanString(section?.imageType) || '';
-
   const borderColor = cleanString(section?.borderColor) || '';
 
   const tabletCols = section?.tabletColumns || 2;
@@ -135,6 +133,8 @@ export default function Grid({ section }: { section: GridFragmentType }) {
           const IconComponent = item._type === 'gridItem' && item.icon
             ? iconComponents[item.icon]
             : null;
+
+          const imageType = cleanString(item?.imageType) || '';
 
           // Determine border styling based on item type
           const borderStyle = item._type === 'linkItem' ?
