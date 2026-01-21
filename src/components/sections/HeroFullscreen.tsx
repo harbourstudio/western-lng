@@ -149,7 +149,7 @@ export default function HeroFullscreen({ section }: { section: HeroFullscreenFra
         {/* Content */}
         <div className="container mx-auto relative z-[1] pt-7 pb-8 h-full flex flex-col justify-between">
           {section?.heading && (
-            <div className="lg:w-8/12">
+            <div className="lg:w-10/12 xl:w-8/12">
               <h1 className="!text-white">{section.heading}</h1>
             </div>
           )}
