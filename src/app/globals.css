@@ -256,7 +256,7 @@
   }
 
   figure.logo:has(img) {
-    @apply w-[10rem] h-[10rem];
+    @apply w-[10rem] h-[6rem];
 
     img {
       @apply w-full h-full object-contain;
