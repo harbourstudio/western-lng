@@ -119,7 +119,8 @@ export const linkFragment = /* groq */ `
   _type,
   type,
   openInNewTab,
-  "external": href,
+  external,
+  href,
   internal->{
     _type,
     _id,

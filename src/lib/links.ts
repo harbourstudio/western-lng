@@ -3,8 +3,11 @@ import { clientEnv } from '@/env/clientEnv';
 type LinkType = {
   type?: string | null;
   external?: string | null;
-  href?: string | null; // Add this
-  internal?: { _type: string; slug: string | null } | null;
+  href?: string | null;
+  internal?: 
+    | { _type: string; slug: string | null; _id?: string }
+    | { _ref: string; _type: 'reference' }
+    | null;
 };
 
 export const getBaseURL = () => {
@@ -36,21 +39,38 @@ export const getDocumentLink = (
   }
 };
 
+type LinkType = {
+  type?: string | null;
+  external?: string | null;
+  href?: string | null;
+  internal?: 
+    | { _type: string; slug: string | null; _id?: string }
+    | { _ref: string; _type: 'reference' }
+    | null;
+};
+
 export const getLinkByLinkObject = (link: LinkType) => {
   const { type, external, href, internal } = link;
   
-  console.log('getLinkByLinkObject input:', { type, external, href, internal });
-  
   if (type === 'external') {
-    return external || href || '/';
+    const externalUrl = external || href || '/';
+    // Don't return # as a valid external link
+    return externalUrl === '#' ? '/' : externalUrl;
   }
   
   if (type === 'internal' && internal) {
-    console.log('Internal link found:', internal);
+    // Check if it's a reference that wasn't dereferenced
+    if ('_ref' in internal) {
+      console.error('Internal link was not dereferenced. Check your GROQ query for proper -> usage:', internal);
+      return '/';
+    }
+    
+    // At this point, internal should have slug
     if (!internal.slug) {
       console.warn('Internal link missing slug:', internal);
       return '/';
     }
+    
     return getDocumentLink(internal, false);
   }
   

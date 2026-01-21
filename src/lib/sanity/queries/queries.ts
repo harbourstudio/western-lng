@@ -41,15 +41,15 @@ export const settingsQuery = defineQuery(`*[_type == "settings" && (!defined(sit
 export const homePageQuery = defineQuery(`*[_type == "homePage" && (!defined(site) || site->slug.current == $site)][0]{
   _id,
   _type,
-  ...,
   ${pageFragment}
+  ...,
 }`);
 
 export const blogPageQuery = defineQuery(`*[_type == "blogPage" && (!defined(site) || site->slug.current == $site)][0]{
   _id,
   _type,
-  ...,
   ${pageFragment}
+  ...,
 }`);
 
 export const getPageQuery = defineQuery(`
