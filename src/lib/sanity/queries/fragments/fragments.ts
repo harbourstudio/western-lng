@@ -668,6 +668,15 @@ export const menuFragment = /* groq */ `
   }
 `;
 
+export const menuFooterFragment = /* groq */ `
+  menuFooter[]{
+    ${menuItemFragment}
+    childMenu[]{
+      ${menuItemFragment}
+    }
+  }
+`;
+
 export const pageFragment = /* groq */ `
   ${pageBuilderFragment}
   site->{

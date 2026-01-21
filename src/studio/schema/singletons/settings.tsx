@@ -35,10 +35,70 @@ export default defineType({
       description: 'Build a menu to display on the header of your site.',
     }),
     defineField({
+      name: 'menuFooter',
+      type: 'array',
+      of: [{ type: 'menuItem' }],
+      description: 'Build a menu to display on the Footer of your site.',
+    }),
+    defineField({
       name: 'description',
       description: 'Used both for the <meta> description tag for SEO, and the blog subheader.',
       title: 'Description',
       type: 'text',
+    }),
+    defineField({
+      name: 'preFooter',
+      title: 'Pre-Footer',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'heading',
+          title: 'Heading',
+          type: 'string',
+        }),
+        defineField({
+          name: 'content',
+          title: 'Content',
+          type: 'blockContent', 
+        }),
+        defineField({
+          name: 'image',
+          title: 'Image',
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            {
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+            },
+          ],
+        }),
+      ],
+    }),
+    defineField({
+      name: 'footer',
+      title: 'Footer',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'content',
+          title: 'Content',
+          type: 'blockContent'
+        })
+      ]
+    }),
+    defineField({
+      name: 'socials',
+      title: 'Socials',
+      type: 'object',
+      fields: [
+        defineField({ name: 'facebook', title: 'Facebook', type: 'string' }),
+        defineField({ name: 'linkedin', title: 'LinkedIn', type: 'string' }),
+        defineField({ name: 'twitter', title: 'Twitter', type: 'string' }),
+      ],
     }),
     defineField({
       name: 'ogImage',
@@ -80,38 +140,6 @@ export default defineType({
               More information
             </a>
           ),
-        }),
-      ],
-    }),
-    defineField({
-      name: 'preFooter',
-      title: 'Pre-Footer',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'heading',
-          title: 'Heading',
-          type: 'string',
-        }),
-        defineField({
-          name: 'content',
-          title: 'Content',
-          type: 'blockContent', 
-        }),
-        defineField({
-          name: 'image',
-          title: 'Image',
-          type: 'image',
-          options: {
-            hotspot: true,
-          },
-          fields: [
-            {
-              name: 'alt',
-              title: 'Alt Text',
-              type: 'string',
-            },
-          ],
         }),
       ],
     }),

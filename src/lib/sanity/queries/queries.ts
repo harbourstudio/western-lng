@@ -2,6 +2,7 @@ import { defineQuery } from 'next-sanity';
 import {
   categoryFragment,
   menuFragment,
+  menuFooterFragment,
   pageFragment,
   personFragment,
   postCardFragment,
@@ -19,6 +20,14 @@ export const settingsQuery = defineQuery(`*[_type == "settings" && (!defined(sit
       alt
     }
   },
+  footer {
+    content
+  },
+  socials {
+    facebook,
+    linkedin,
+    twitter
+  },
   site->{
     name,
     logo {
@@ -29,13 +38,9 @@ export const settingsQuery = defineQuery(`*[_type == "settings" && (!defined(sit
       primary,
       secondary
     },
-    socials {
-      facebook,
-      linkedin,
-      twitter
-    }
   },
-  ${menuFragment}
+  ${menuFragment},
+  ${menuFooterFragment}
 }`);
 
 export const homePageQuery = defineQuery(`*[_type == "homePage" && (!defined(site) || site->slug.current == $site)][0]{

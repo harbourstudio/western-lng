@@ -20,8 +20,9 @@ export default function PostListSection({ section }: { section: PostListSectionF
 
   // Add fallback to empty array to prevent "Cannot read properties of undefined"
   const posts = section?.posts ?? [];
+  // const { posts } = section;
 
-  // if (posts.length === 0) {
+  // if (!posts.length) {
     //   return null;
     // }
   // console.log('section', section);
