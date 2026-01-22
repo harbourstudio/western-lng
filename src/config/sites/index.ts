@@ -2,6 +2,7 @@
 export interface SiteTheme {
   primary: string;
   secondary: string;
+  tertiary: string;
 }
 
 export interface SiteConfig {
@@ -20,7 +21,8 @@ export const sites: Record<string, SiteConfig> = {
     domains: ['localhost', 'western-lng.localhost', 'western-lng', 'western-lng.com', 'western-lng.vercel.app'],
     theme: {
       primary: '#FFC000',
-      secondary: '#004578'
+      secondary: '#004578',
+      tertiary: '#02365D'
     }
   },
   'ksi-lisims-lng': {
@@ -30,7 +32,8 @@ export const sites: Record<string, SiteConfig> = {
     domains: ['ksi-lisims-lng.localhost', 'ksi-lisims.com', 'ksi-lisims.com', 'ksi-lisims-lng.vercel.app'],
     theme: {
       primary: '#009ADA',
-      secondary: '#00438C'
+      secondary: '#00438C',
+      tertiary: '#002A58'
     }
   },
   'prgt': {
@@ -40,7 +43,8 @@ export const sites: Record<string, SiteConfig> = {
     domains: ['prgt.localhost', 'prgt.com', 'www.prgt.com', 'prgt.vercel.app'],
     theme: {
       primary: '#6290C8',
-      secondary: '#002366'
+      secondary: '#002366',
+      tertiary: '#021740'
     }
   },
 };

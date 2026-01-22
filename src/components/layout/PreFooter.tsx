@@ -20,7 +20,7 @@ export default async function PreFooter() {
   const { heading, content, image } = settings.preFooter;
 
   return (
-    <section className="bg-[#02365D]">
+    <section className="bg-tertiary">
       <div className="container mx-auto">
         <div className="flex flex-col lg:flex-row">
           <div className="lg:w-1/2 flex flex-col justify-center">

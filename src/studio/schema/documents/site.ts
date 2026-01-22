@@ -52,6 +52,7 @@ export default defineType({
       fields: [
         defineField({ name: 'primary', title: 'Primary Color', type: 'string' }),
         defineField({ name: 'secondary', title: 'Secondary Color', type: 'string' }),
+        defineField({ name: 'tertiary', title: 'Tertiary Color', type: 'string' }),
       ],
     }),
   ],

@@ -34,7 +34,7 @@ function getHeadingTag(level: string | undefined): HeadingLevel {
   if (validHeadingLevels.includes(cleaned as HeadingLevel)) {
     return cleaned as HeadingLevel;
   }
-  return 'h4';
+  return 'h5';
 }
 
 // Helper to resolve link href

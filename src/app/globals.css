@@ -12,6 +12,7 @@
   --color-dark: #050505;
   --color-primary: #FFC000;
   --color-secondary: #004578;
+  --color-tertiary: #02365D;
   --color-teal: #9EDBDB;
   --color-seafoam: #1C7272;
 
@@ -126,8 +127,10 @@
   /* modified */
   --primary-foreground: oklch(0.985 0 0);
   --secondary: var(--color-secondary);
+  --tertiary: var(--color-tertiary);
   /* modified */
   --secondary-foreground: oklch(0.985 0 0);
+  --tertiary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
@@ -163,6 +166,8 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+  --color-tertiary: var(--tertiary);
+  --color-tertiary-foreground: var(--tertiary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);

@@ -31,6 +31,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             :root {
               --color-primary: ${site.theme.primary};
               --color-secondary: ${site.theme.secondary};
+              --color-tertiary: ${site.theme.tertiary};
             }
           `,
         }}
