@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 
@@ -47,14 +45,42 @@ function resolveLinkHref(link: {
 export default function Subnavigation({ section }: SubnavigationProps) {
   const [isSticky, setIsSticky] = useState(false);
   const [headerHeight, setHeaderHeight] = useState(0);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Get the header height to offset the sticky position
-    const header = document.querySelector('header');
+    const header = document.querySelector('.site-header');
     const headerH = header?.offsetHeight || 0;
     setHeaderHeight(headerH);
+
+    // Check for the scroll state of the .site-header
+    const checkHeaderVisibility = () => {
+      if (header) {
+        const isScrolled = header.classList.contains('scrolled');
+        const isVisible = header.classList.contains('header-visible');
+
+        setIsHeaderVisible(isScrolled && isVisible);
+      }
+    }
+
+    checkHeaderVisibility(); // init call
+
+    // Mutation Observer for .site-header class changes
+    const mutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          checkHeaderVisibility();
+        }
+      });
+    });
+
+    if (header) {
+      mutationObserver.observe(header, {
+        attributes: true
+      });
+    };
 
     const container = containerRef.current;
     if (!container) return;
@@ -64,17 +90,13 @@ export default function Subnavigation({ section }: SubnavigationProps) {
         // The container starts just above the nav. When it goes out of view at the header boundary, make nav sticky
         setIsSticky(!entry.isIntersecting && entry.boundingClientRect.top < headerH);
       },
-      {
-        threshold: [0, 1],
-        // Create a boundary at the header height
-        rootMargin: `-${headerH}px 0px 0px 0px`,
-      }
     );
 
     observer.observe(container);
-
+    
     return () => {
       observer.disconnect();
+      mutationObserver.disconnect();
     };
   }, []);
 
@@ -89,8 +111,7 @@ export default function Subnavigation({ section }: SubnavigationProps) {
           w-full bg-gray-100 transition-all duration-300 z-10
           ${isSticky ? 'fixed left-0 right-0 shadow-xs' : 'relative'}
         `}
-        // style={isSticky ? { top: `${headerHeight}px` } : undefined}
-        style={isSticky ? { top: '0px' } : undefined}
+        style={isSticky ? { top: isHeaderVisible ? `${headerHeight}px` : '0px' } : undefined}
 
       >
         <nav className="container mx-auto py-5 flex justify-between gap-x-6">
