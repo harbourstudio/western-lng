@@ -135,6 +135,9 @@ export default async function Header() {
 
               header.classList.add('scroll-top');
               setHeaderHeight();
+              // Re-set after hydration (React may wipe inline styles)
+              setTimeout(setHeaderHeight, 0);
+              requestAnimationFrame(setHeaderHeight);
               window.addEventListener('resize', setHeaderHeight);
 
               // Apply header type class from data attribute
@@ -149,10 +152,11 @@ export default async function Header() {
               setupScrollHandler();
             }
 
-            if (document.readyState === 'loading') {
-              document.addEventListener('DOMContentLoaded', function() { init(1); });
-            } else {
+            // Wait for window.onload to ensure React hydration is complete
+            if (document.readyState === 'complete') {
               init(1);
+            } else {
+              window.addEventListener('load', function() { init(1); });
             }
           })();
         `,
