@@ -1,10 +1,10 @@
+import type { GridFragmentType } from '@/lib/sanity/queries/fragments/fragment.types';
 import type { PortableTextBlock } from 'next-sanity';
 import Link from 'next/link';
 import { Image } from 'next-sanity/image';
 import { urlForImage } from '@/lib/sanity/client/utils';
-import type { GridFragmentType } from '@/lib/sanity/queries/fragments/fragment.types';
 import PortableText from '@/components/modules/PortableText';
-import { cn } from '@/lib/utils';
+import { cn, cleanString } from '@/lib/utils';
 import IconClock from '@/components/icons/IconClock';
 import IconFish from '@/components/icons/IconFish';
 import IconGauge from '@/components/icons/IconGauge';
@@ -16,15 +16,6 @@ import IconWorker from '@/components/icons/IconWorker';
 import IconErosion from '@/components/icons/IconErosion';
 import IconPlant from '@/components/icons/IconPlant';
 import IconHollyBerry from '@/components/icons/IconHollyBerry';
-
-// Function to remove zero-width and invisible Unicode characters
-function cleanString(str: string | undefined): string {
-  if (!str) return '';
-  return str
-    .replace(/[\u200B-\u200D\uFEFF\u202A-\u202E]/g, '')
-    .replace(/[\u061C\u180E\u2066-\u2069]/g, '')
-    .trim();
-}
 
 const validHeadingLevels = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] as const;
 type HeadingLevel = (typeof validHeadingLevels)[number];
@@ -93,7 +84,6 @@ export default function Grid({ section }: { section: GridFragmentType }) {
   const spacingBottom = cleanString(section?.spacing?.bottom) || '';
   const textColor = cleanString(section?.textColor) || '';
   const headingColor = cleanString(section?.headingColor) || '';
-
   const borderColor = cleanString(section?.borderColor) || '';
 
   const tabletCols = section?.tabletColumns || 2;
@@ -117,8 +107,43 @@ export default function Grid({ section }: { section: GridFragmentType }) {
 
   return (
     <div className={cn(spacingTop, spacingBottom)}>
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          .component-grid > * {
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            padding-right: 1.25rem;
+            padding-bottom: 1.25rem;
+          }
+          .component-grid > *:last-child {
+            border-right-width: 0;
+          }
+          @media (min-width: 768px) {
+            .component-grid > * {
+              border-bottom: 0px;
+              border-right-width: 1px;
+              border-right-style: solid;
+            }
+            .component-grid > *:last-child {
+              border-right-width: 0;
+            }
+            .component-grid > *:nth-child(${tabletCols}n) {
+              border-right-width: 0;
+            }
+          }
+          @media (min-width: 1024px) {
+            .component-grid > *:nth-child(${tabletCols}n) {
+              border-right-width: 1px;
+            }
+            .component-grid > *:nth-child(${desktopCols}n) {
+              border-right-width: 0;
+            }
+          }
+        `
+      }} />
+      
       <div className={cn(
-        'grid grid-cols-1 gap-6',
+        'component-grid grid grid-cols-1 gap-6',
         tabletColClass,
         desktopColClass,
         hasCardItems && 'pt-4 border-t-1 border-solid',
@@ -136,13 +161,6 @@ export default function Grid({ section }: { section: GridFragmentType }) {
 
           const imageType = cleanString(item?.imageType) || '';
 
-          // Determine border styling based on item type
-          const borderStyle = item._type === 'linkItem' ?
-              'py-5 border-t mb-4 mr-5'
-            : item._type === 'stepItem' ?
-              'pr-7 pb-5 border-r'
-            : 'pr-5 pb-5 border-r';
-
           // Handle linkItem with link wrapping
           if (item._type === 'linkItem') {
             const href = item.link ? resolveLinkHref(item.link) : null;
@@ -155,7 +173,7 @@ export default function Grid({ section }: { section: GridFragmentType }) {
             return (
               <div
                 key={item._key}
-                className={cn('link-item', borderStyle, borderClass, textColor)}
+                className={cn('link-item py-5 border-t mb-4 mr-5', borderClass, textColor)}
               >
                 {href ? (
                   <Link
@@ -193,7 +211,7 @@ export default function Grid({ section }: { section: GridFragmentType }) {
             return (
               <div
                 key={item._key}
-                className={cn('step-item flex flex-col', borderStyle, borderClass, textColor)}
+                className={cn('step-item flex flex-col', borderClass, textColor)}
               >
                 <span className="text-4xl font-semibold text-primary">
                   {stepNumber}
@@ -212,7 +230,7 @@ export default function Grid({ section }: { section: GridFragmentType }) {
           return (
             <div
               key={item._key}
-              className={cn('grid-item flex flex-col', borderStyle, borderClass, textColor)}
+              className={cn('grid-item flex flex-col', borderClass, textColor)}
             >
               {IconComponent && (
                 <div className="mb-5 w-[1.75rem] h-[1.75rem] fill-primary">
