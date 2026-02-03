@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, FormEvent } from 'react';
 import type { PortableTextBlock } from 'next-sanity';
 import type { FormFragmentType, FormFieldFragmentType } from '@/lib/sanity/queries/fragments/fragment.types';
@@ -194,7 +196,7 @@ export default function Form({ section }: { section: FormFragmentType }) {
 
   return (
     <div className={cn('component-form row', spacingTop, spacingBottom)}>
-    
+
       {(headingContent || section.content) &&
         <div className='col lg:w-5/12'>
           <div className='max-w-3xl lg:pr-8'>
@@ -233,7 +235,7 @@ export default function Form({ section }: { section: FormFragmentType }) {
           })}
         </div>
 
-        {submitState === 'success' && (
+        {submitState === 'success' && section.successMessage && (
           <div className="bg-green-50 border border-green-200 text-green-800 px-5 py-4 rounded-sm mt-6 animate-in fade-in duration-300">
             {section.successMessage}
           </div>
@@ -248,13 +250,13 @@ export default function Form({ section }: { section: FormFragmentType }) {
         <div className="mt-6">
           <Button
             type="submit"
-            variant={section.submitButton.variant}
+            variant={section.submitButton?.variant}
             disabled={submitState === 'submitting'}
             className={cn(
               submitState === 'submitting' && 'opacity-50 cursor-not-allowed'
             )}
           >
-            {submitState === 'submitting' ? 'Submitting...' : section.submitButton.text}
+            {submitState === 'submitting' ? 'Submitting...' : (section.submitButton?.text || 'Submit')}
           </Button>
         </div>
       </form>
