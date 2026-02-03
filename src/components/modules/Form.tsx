@@ -250,7 +250,6 @@ export default function Form({ section }: { section: FormFragmentType }) {
         <div className="mt-6">
           <Button
             type="submit"
-            variant={section.submitButton?.variant}
             disabled={submitState === 'submitting'}
             className={cn(
               submitState === 'submitting' && 'opacity-50 cursor-not-allowed'

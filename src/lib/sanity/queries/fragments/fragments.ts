@@ -416,8 +416,7 @@ export const formFragment = /* groq */ `
     ${formFieldFragment}
   },
   submitButton {
-    text,
-    variant
+    text
   },
   successMessage,
   mailchimpConfig {

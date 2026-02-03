@@ -53,7 +53,7 @@ export default function SubscribeModal({ open, onOpenChange, data }: SubscribeMo
   const { heading, content, image } = data;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center h-screen">
+    <div id="modal-subscribe" className="fixed inset-0 z-50 flex items-center justify-center h-screen">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/80 transition-opacity h-screen"
@@ -62,7 +62,7 @@ export default function SubscribeModal({ open, onOpenChange, data }: SubscribeMo
       />
 
       {/* Modal Content */}
-      <div className="relative bg-white rounded-base shadow-xl max-w-4xl w-full mx-4 max-h-[75vh] overflow-hidden animate-in fade-in zoom-in-95 duration-500">
+      <div className="relative bg-white rounded-base shadow-xl max-w-5xl w-full mx-4 max-h-[75vh] overflow-hidden animate-in fade-in zoom-in-95 duration-500">
         {/* Close Button */}
         <button
           type="button"
@@ -88,11 +88,11 @@ export default function SubscribeModal({ open, onOpenChange, data }: SubscribeMo
               />
             )}
 
-            <div className="flex border border-gray-300 rounded-sm px-5 py-4">
-              <form className="flex justify-between w-full gap-4">
+            <div className="flex border border-gray-300 rounded-sm px-4 py-3">
+              <form className="form-subscribe flex justify-between w-full gap-4">
                 <input
                   type="email"
-                  placeholder="Enter your email address"
+                  placeholder="Your email"
                   className="flex-1 outline-none"
                   required
                 />

@@ -3,8 +3,6 @@ import { heading } from '../fields/heading';
 import { content } from '../fields/content';
 import { spacing } from '../fields/spacing';
 
-const buttonVariants = ['default', 'secondary', 'outline', 'link'];
-
 export default defineType({
   name: 'form',
   type: 'object',
@@ -30,20 +28,7 @@ export default defineType({
           type: 'string',
           initialValue: 'Submit',
           validation: (Rule) => Rule.required(),
-        }),
-        defineField({
-          name: 'variant',
-          title: 'Button Variant',
-          type: 'string',
-          options: {
-            list: buttonVariants.map((variant) => ({
-              title: variant.charAt(0).toUpperCase() + variant.slice(1),
-              value: variant,
-            })),
-            layout: 'dropdown',
-          },
-          initialValue: 'default',
-        }),
+        })
       ],
     }),
     defineField({

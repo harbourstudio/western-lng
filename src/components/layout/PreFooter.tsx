@@ -20,7 +20,7 @@ export default async function PreFooter() {
   const { heading, content, image } = settings.preFooter;
 
   return (
-    <section className="bg-tertiary">
+    <section id="pre-footer" className="bg-tertiary">
       <div className="container mx-auto">
         <div className="flex flex-col lg:flex-row">
           <div className="lg:w-1/2 flex flex-col justify-center">
@@ -31,8 +31,8 @@ export default async function PreFooter() {
             {content && (
               <PortableText value={content as PortableTextBlock[]} className='text-white max-w-lg'/>
             )}
-            <div className="flex border-solid border-1 border-gray-300 rounded-sm px-5 py-4 mt-5">
-              <form className='flex justify-between w-full'>
+            <div className="flex border-solid border-1 border-gray-300 rounded-sm px-4 py-5 mt-5">
+              <form className='form-subscribe flex justify-between w-full'>
                 <input
                   type="email"
                   placeholder="Enter your email address"

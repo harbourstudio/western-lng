@@ -327,6 +327,24 @@
     }
   }
 
+  form.form-subscribe {
+    input {
+      @apply border-0 p-0;
+    }
+
+    input[type="submit"] {
+      @apply bg-secondary text-white py-5 px-6 w-fit;
+    }
+  }
+
+  :where(#pre-footer) {
+    form.form-subscribe {
+      input[type="submit"] {
+        @apply bg-transparent p-0;
+      }
+    }
+  }
+
   /* Post List */
   .post-list.layout-featured {
     .post-card-featured {
