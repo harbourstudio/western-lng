@@ -221,7 +221,7 @@ export default function Form({ section }: { section: FormFragmentType }) {
             return (
               <div
                 key={fieldName}
-                className={field.width === 'half' ? 'col-span-1' : 'col-span-full'}
+                className={field.width == 'half' ? 'col-span-1' : 'col-span-full'}
               >
                 <FormField
                   field={field}
