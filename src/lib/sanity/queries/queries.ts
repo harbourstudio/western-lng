@@ -23,6 +23,14 @@ export const settingsQuery = defineQuery(`*[_type == "settings" && (!defined(sit
   footer {
     content
   },
+  subscribeModal {
+    heading,
+    content,
+    image {
+      asset,
+      alt
+    }
+  },
   socials {
     facebook,
     linkedin,

@@ -91,6 +91,38 @@ export default defineType({
       ]
     }),
     defineField({
+      name: 'subscribeModal',
+      title: 'Subscribe Modal',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'heading',
+          title: 'Heading',
+          type: 'string',
+        }),
+        defineField({
+          name: 'content',
+          title: 'Content',
+          type: 'blockContent',
+        }),
+        defineField({
+          name: 'image',
+          title: 'Image',
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            {
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+            },
+          ],
+        }),
+      ],
+    }),
+    defineField({
       name: 'socials',
       title: 'Socials',
       type: 'object',
