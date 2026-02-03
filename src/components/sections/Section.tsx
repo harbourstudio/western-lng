@@ -80,21 +80,39 @@ export default function Section({ section }: SectionProps) {
             const ComponentType = componentMap[component._type] as React.ComponentType<any>;
             const key = component._key || `component-${index}`;
 
-            // Debug rendering
-            if (!ComponentType) {
+            // Debug rendering - ALWAYS SHOW for form type
+            if (!ComponentType || component._type === 'form') {
               return (
-                <div key={key} className="border-2 border-red-500 p-4 my-4 bg-red-50">
-                  <p className="text-red-700 font-bold mb-2">Unknown component type: {component._type}</p>
-                  <details className="text-sm">
-                    <summary className="cursor-pointer text-red-600 mb-2">Debug Info</summary>
-                    <div className="bg-white p-2 rounded">
-                      <p><strong>Component _type:</strong> "{component._type}"</p>
-                      <p><strong>Available types in componentMap:</strong></p>
-                      <pre className="text-xs overflow-auto">{JSON.stringify(Object.keys(componentMap), null, 2)}</pre>
-                      <p className="mt-2"><strong>Component data:</strong></p>
-                      <pre className="text-xs overflow-auto max-h-40">{JSON.stringify(component, null, 2)}</pre>
+                <div key={key} className="border-4 border-blue-600 p-6 my-4 bg-blue-50">
+                  <h3 className="text-blue-900 font-bold text-xl mb-4">🐛 DEBUG: Form Component Analysis</h3>
+                  <div className="bg-white p-4 rounded space-y-4 text-sm">
+                    <div>
+                      <p className="font-bold text-lg">Component _type: "{component._type}"</p>
+                      <p className="text-gray-600">ComponentType found: {ComponentType ? 'YES ✓' : 'NO ✗'}</p>
                     </div>
-                  </details>
+
+                    <div>
+                      <p className="font-bold">Available types in componentMap:</p>
+                      <pre className="text-xs overflow-auto bg-gray-100 p-2 rounded">{JSON.stringify(Object.keys(componentMap), null, 2)}</pre>
+                    </div>
+
+                    <div>
+                      <p className="font-bold">Has 'use client' directive:</p>
+                      <p className="text-gray-600">Check Form.tsx line 1</p>
+                    </div>
+
+                    <div>
+                      <p className="font-bold">Full Component data:</p>
+                      <pre className="text-xs overflow-auto bg-gray-100 p-2 rounded max-h-60">{JSON.stringify(component, null, 2)}</pre>
+                    </div>
+                  </div>
+
+                  {ComponentType && (
+                    <div className="mt-4 p-4 bg-green-100 border-2 border-green-600 rounded">
+                      <p className="font-bold text-green-900 mb-2">Attempting to render Form component below:</p>
+                      <ComponentType section={component} />
+                    </div>
+                  )}
                 </div>
               );
             }
