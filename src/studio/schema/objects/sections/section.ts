@@ -69,6 +69,7 @@ export default defineType({
       of: [
         { type: 'header' },
         { type: 'accordion' },
+        { type: 'form' },
         { type: 'gallery' },
         { type: 'grid' },
         { type: 'stickyGrid' },

@@ -30,6 +30,9 @@ import heroMinimal from './objects/sections/heroMinimal';
 import accordion from './objects/accordion';
 import accordionItem from './objects/accordionItem';
 
+import form from './objects/form';
+import formField from './objects/formField';
+
 import grid from './objects/grid';
 import gridItem from './objects/gridItem';
 import card from './objects/card';
@@ -80,6 +83,7 @@ export const schemaTypes = [
   heroFullscreen,
   heroMinimal,
   accordion,
+  form,
 
   // Objects
   blockContent,
@@ -87,6 +91,7 @@ export const schemaTypes = [
   button,
   menuItem,
   accordionItem,
+  formField,
   gallery,
   grid,
   gridItem,

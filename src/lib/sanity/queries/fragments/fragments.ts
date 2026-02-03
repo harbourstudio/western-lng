@@ -384,6 +384,48 @@ export const accordionFragment = /* groq */ `
   spacing,
 `;
 
+export const formFieldFragment = /* groq */ `
+  _key,
+  _type,
+  fieldType,
+  label,
+  name,
+  placeholder,
+  helpText,
+  required,
+  width,
+  options[] {
+    label,
+    value
+  },
+  validation {
+    minLength,
+    maxLength,
+    pattern
+  }
+`;
+
+export const formFragment = /* groq */ `
+  _type,
+  _key,
+  heading {
+    ${headingFragment}
+  },
+  ${contentFragment}
+  fields[] {
+    ${formFieldFragment}
+  },
+  submitButton {
+    text,
+    variant
+  },
+  successMessage,
+  mailchimpConfig {
+    audienceId
+  },
+  spacing,
+`;
+
 export const headerSectionFragment = /* groq */ `
   _type,
   _key,
@@ -632,6 +674,7 @@ export const sectionFragment = /* groq */ `
     _type,
     _type == 'header' => {${headerSectionFragment}},
     _type == 'accordion' => {${accordionFragment}},
+    _type == 'form' => {${formFragment}},
     _type == 'gallery' => {${galleryFragment}},
     _type == 'grid' => {${gridFragment}},
     _type == 'stickyGrid' => {${stickyGridFragment}},

@@ -43,6 +43,9 @@ export type ListFragmentType = Extract<RowComponentType, { _type: 'list' }>;
 export type AccordionFragmentType = Extract<RowComponentType, { _type: 'accordion' }>;
 export type AccordionItemFragmentType = NonNullable<AccordionFragmentType['items']>[number];
 
+export type FormFragmentType = Extract<RowComponentType, { _type: 'form' }>;
+export type FormFieldFragmentType = NonNullable<FormFragmentType['fields']>[number];
+
 export type StickyGridFragmentType = Extract<SectionType, { _type: 'stickyGrid' }>;
 export type TimelineFragmentType = Extract<SectionType, { _type: 'timeline' }>;
 

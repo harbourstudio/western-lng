@@ -270,7 +270,7 @@
 
   /* Utilities */
   .row {
-    @apply flex flex-wrap;
+    @apply flex flex-wrap justify-between;
 
   }
 
@@ -302,8 +302,29 @@
   }
 
   /* Form */
-  input {
-    @apply placeholder:text-base/50;
+  form {
+
+    input,
+    select,
+    textarea {
+      @apply w-full border border-gray-300 rounded-sm px-5 py-4 outline-none transition-colors placeholder:text-base/50 focus:ring-2 focus:ring-ring focus:ring-offset-2;
+
+      &.error {
+        @apply border-red-500;
+      }
+    }
+
+    label {
+      @apply block font-medium text-dark mb-3;
+
+      .marker-required {
+        @apply text-red-500 ml-1;
+      }
+    }
+
+    .message-error {
+      @apply text-sm text-red-500 mt-1;
+    }
   }
 
   /* Post List */

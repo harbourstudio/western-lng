@@ -113,7 +113,7 @@ export default function Header({ section }: { section: HeaderFragmentType }) {
               {section?.content && (
                 <PortableText
                   value={section.content as PortableTextBlock[]}
-                  className="font-semibold text-lg max-w-5xl mt-5 [&_*]:not-last:mb-5"
+                  className="font-semibold text-lg mt-5 [&_*]:not-last:mb-5"
                 />
               )}
             </div>
