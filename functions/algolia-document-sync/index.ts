@@ -30,7 +30,7 @@ const urlFromAssetRef = (assetRef?: string | null) => {
 }
 
 export const handler = documentEventHandler(async ({event}) => {
-  const {_id, title, slug, content, _type, coverImage, date, _createdAt, _updatedAt, operation} =
+  const {_id, title, slug, content, _type, coverImage, date, _createdAt, _updatedAt, siteSlug, operation} =
     event.data
 
   const algolia = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_WRITE_KEY)
@@ -67,6 +67,7 @@ export const handler = documentEventHandler(async ({event}) => {
         date,
         _createdAt,
         _updatedAt,
+        siteSlug,
       }
 
       // Check document size and warn if it's getting close to the limit

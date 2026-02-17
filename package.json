@@ -44,6 +44,8 @@
     "next-sanity": "^9.9.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-instantsearch": "^7.23.1",
+    "react-instantsearch-nextjs": "^1.0.13",
     "sanity": "^3.99.0",
     "server-only": "^0.0.1",
     "sonner": "^1.7.1",

@@ -41,6 +41,7 @@ export default defineBlueprint({
           date,
           _createdAt,
           _updatedAt,
+          "siteSlug": site->slug.current,
           "operation": delta::operation()
         }`,
       },

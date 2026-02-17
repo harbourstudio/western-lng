@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { siteSanityFetch } from '@/lib/sanity/client/fetch';
 import { settingsQuery } from '@/lib/sanity/queries/queries';
 import { urlForImage } from '@/lib/sanity/client/utils';
+import { getCurrentSite } from '@/lib/get-current-site.app';
 import NavBar from './NavBar';
 import InlineSvg from '@/components/ui/InlineSvg';
 import HeaderActions from './HeaderActions';
@@ -13,10 +14,13 @@ function isSvgAsset(asset?: { _ref?: string } | null): boolean {
 }
 
 export default async function Header() {
-  const settings = await siteSanityFetch<SettingsQueryResult>({
-    query: settingsQuery,
-    tags: ['settings'],
-  });
+  const [settings, currentSite] = await Promise.all([
+    siteSanityFetch<SettingsQueryResult>({
+      query: settingsQuery,
+      tags: ['settings'],
+    }),
+    getCurrentSite(),
+  ]);
 
   if (!settings || !settings.site) {
     return null;
@@ -63,7 +67,7 @@ export default async function Header() {
           </Link>
           <NavBar menuItems={settings.menu || []} />
         </div>
-        <HeaderActions subscribeModalData={settings.subscribeModal} />
+        <HeaderActions subscribeModalData={settings.subscribeModal} siteId={currentSite.id} />
       </div>
     </header>
     <script

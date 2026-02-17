@@ -47,7 +47,8 @@ async function initialSync() {
         "coverImage": coverImage.asset->url,
         date,
         _createdAt,
-        _updatedAt
+        _updatedAt,
+        "siteSlug": site->slug.current
       }
     `)
 
@@ -74,6 +75,7 @@ async function initialSync() {
         date: post.date,
         _createdAt: post._createdAt,
         _updatedAt: post._updatedAt,
+        siteSlug: post.siteSlug,
       }
 
       // Check document size and warn if it's getting close to the limit

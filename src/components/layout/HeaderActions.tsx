@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import SubscribeModal from '@/components/modules/SubscribeModal';
+import SearchModal from '@/components/modules/SearchModal';
 import type { PortableTextBlock } from 'next-sanity';
 
 interface SubscribeModalData {
@@ -16,18 +16,20 @@ interface SubscribeModalData {
 
 interface HeaderActionsProps {
   subscribeModalData?: SubscribeModalData | null;
+  siteId: string;
 }
 
-export default function HeaderActions({ subscribeModalData }: HeaderActionsProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export default function HeaderActions({ subscribeModalData, siteId }: HeaderActionsProps) {
+  const [isSubscribeModalOpen, setIsSubscribeModalOpen] = useState(false);
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
   return (
     <>
       <nav className="flex gap-2">
         <button
           type="button"
-          onClick={() => setIsModalOpen(true)}
-          className="p-2 flex items-center justify-center hover:opacity-80 transition-opacity"
+          onClick={() => setIsSubscribeModalOpen(true)}
+          className="header-action-subscribe p-2 flex items-center justify-center hover:opacity-80 transition-opacity"
           aria-label="Subscribe to newsletter"
         >
           <svg
@@ -50,30 +52,31 @@ export default function HeaderActions({ subscribeModalData }: HeaderActionsProps
             </defs>
           </svg>
         </button>
-        <Link
-          className="p-2 flex items-center justify-center hover:opacity-80 transition-opacity"
-          href="/"
+        <button
+          type="button"
+          onClick={() => setIsSearchModalOpen(true)}
+          className="header-action-search p-2 flex items-center justify-center hover:opacity-80 transition-opacity"
           aria-label="Search"
         >
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 22 22"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M16.5 8.6875C16.5 6.02344 15.0391 3.53125 12.7188 2.15625C10.3555 0.824219 7.47656 0.824219 5.15625 2.15625C2.79297 3.53125 1.375 6.02344 1.375 8.6875C1.375 11.3945 2.79297 13.8867 5.15625 15.2617C7.47656 16.5938 10.3555 16.5938 12.7188 15.2617C15.0391 13.8867 16.5 11.3945 16.5 8.6875ZM14.7383 15.4766C13.1914 16.8516 11.1289 17.625 8.9375 17.625C3.99609 17.625 0 13.6289 0 8.6875C0 3.78906 3.99609 -0.25 8.9375 -0.25C13.8359 -0.25 17.875 3.78906 17.875 8.6875C17.875 10.9219 17.0586 12.9414 15.7266 14.5312L21.7852 20.5898C22.043 20.8477 22.043 21.3203 21.7852 21.5781C21.5273 21.8359 21.0547 21.8359 20.7969 21.5781L14.7383 15.4766Z"
               fill="black"
             />
           </svg>
-        </Link>
+        </button>
       </nav>
 
       <SubscribeModal
-        open={isModalOpen}
-        onOpenChange={setIsModalOpen}
+        open={isSubscribeModalOpen}
+        onOpenChange={setIsSubscribeModalOpen}
         data={subscribeModalData}
+      />
+
+      <SearchModal
+        open={isSearchModalOpen}
+        onOpenChange={setIsSearchModalOpen}
+        siteId={siteId}
       />
     </>
   );
