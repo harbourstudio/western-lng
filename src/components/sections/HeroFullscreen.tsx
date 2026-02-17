@@ -1,21 +1,11 @@
-'use client';
-
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import type { HeroFullscreenFragmentType } from '@/lib/sanity/queries/fragments/fragment.types';
 import type { PortableTextBlock } from 'next-sanity';
 import { Image } from 'next-sanity/image';
 import PortableText from '@/components/modules/PortableText';
 import { urlForImage } from '@/lib/sanity/client/utils';
-import { cn } from '@/lib/utils';
-
-// Function to remove zero-width and invisible Unicode characters
-function cleanString(str: string | undefined): string {
-  if (!str) return '';
-  return str
-    .replace(/[\u200B-\u200D\uFEFF\u202A-\u202E]/g, '')
-    .replace(/[\u061C\u180E\u2066-\u2069]/g, '')
-    .trim();
-}
+import { X } from 'lucide-react';
+import { cleanString } from '@/lib/utils';
 
 // Helper to build Sanity file URL from asset reference
 function buildFileUrl(assetRef: string): string | null {
@@ -55,14 +45,18 @@ function isEmbeddableUrl(url: string): boolean {
 
 export default function HeroFullscreen({ section }: { section: HeroFullscreenFragmentType }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+  const [isClosing, setIsClosing] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const closeTimeoutRef = useRef<number>();
+
   const bgColor = cleanString(section?.backgroundColor) || '';
   const gradientColor = cleanString(section?.gradientColor) || 'bg-secondary';
 
   // Get video URLs using reusable video field structure (videoUrl, videoFile)
   const videoUrl = section?.video?.videoUrl;
-  const videoFileUrl = 
-    section?.video?.videoFile?.asset?.url || 
+  const videoFileUrl =
+    section?.video?.videoFile?.asset?.url ||
     (section?.video?.videoFile?.asset?._ref ? buildFileUrl(section.video.videoFile.asset._ref) : null);
 
   const hasVideo = !!(videoUrl || videoFileUrl);
@@ -72,8 +66,7 @@ export default function HeroFullscreen({ section }: { section: HeroFullscreenFra
   const backgroundVideoSrc = videoFileUrl || (videoUrl && !isEmbeddableUrl(videoUrl) ? videoUrl : null);
 
   // Modal video: use videoUrl for embeds, or videoFileUrl for uploaded files
-  const isEmbed = videoUrl && isEmbeddableUrl(videoUrl);
-  const embedUrl = isEmbed ? getEmbedUrl(videoUrl) : null;
+  const embedUrl = videoUrl && isEmbeddableUrl(videoUrl) ? getEmbedUrl(videoUrl) : null;
   const modalVideoSrc = videoFileUrl || videoUrl;
 
   // Gradient color mapping for the bottom overlay
@@ -85,25 +78,43 @@ export default function HeroFullscreen({ section }: { section: HeroFullscreenFra
   };
   const gradientClasses = gradientColorMap[gradientColor] || 'from-secondary via-secondary/80';
 
+  const handleClose = useCallback(() => {
+    document.body.style.overflow = '';
+    setIsClosing(true);
+    closeTimeoutRef.current = window.setTimeout(() => {
+      setIsModalOpen(false);
+      setIsClosing(false);
+    }, 300); // Match animation duration
+  }, []);
+
   const openModal = useCallback(() => {
     setIsModalOpen(true);
     document.body.style.overflow = 'hidden';
   }, []);
 
-  const closeModal = useCallback(() => {
-    setIsModalOpen(false);
-    document.body.style.overflow = '';
-  }, []);
+  // Handle Escape key
+  useEffect(() => {
+    if (!isModalOpen) return;
 
-  // Handle escape key to close modal
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
+    const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        closeModal();
+        handleClose();
       }
-    },
-    [closeModal]
-  );
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isModalOpen, handleClose]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = '';
+      if (closeTimeoutRef.current) {
+        clearTimeout(closeTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <>
@@ -138,10 +149,7 @@ export default function HeroFullscreen({ section }: { section: HeroFullscreenFra
 
             {/* Bottom Gradient Overlay */}
             <div 
-              className={cn(
-                'absolute w-full h-[60%] bottom-0 left-0 bg-linear-to-t via-40% to-transparent',
-                gradientClasses
-              )}
+              className={`absolute w-full h-[60%] bottom-0 left-0 bg-linear-to-t via-40% to-transparent ${gradientClasses}`}
             />
           </div>
         )}
@@ -168,26 +176,9 @@ export default function HeroFullscreen({ section }: { section: HeroFullscreenFra
                 aria-label="Play video"
                 className="transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent rounded-full"
               >
-                <svg
-                  width="75"
-                  height="75"
-                  viewBox="0 0 75 75"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    x="0.848485"
-                    y="0.848485"
-                    width="72.9697"
-                    height="72.9697"
-                    rx="36.4848"
-                    stroke="white"
-                    strokeWidth="1.69697"
-                  />
-                  <path
-                    d="M48.3636 37.5454L30.5454 47.9393V27.1514L48.3636 37.5454Z"
-                    fill="white"
-                  />
+                <svg width="75" height="75" viewBox="0 0 75 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="0.848485" y="0.848485" width="72.9697" height="72.9697" rx="36.4848" stroke="#ffffff" strokeWidth="1.69697" />
+                  <path d="M48.3636 37.5454L30.5454 47.9393V27.1514L48.3636 37.5454Z" fill="#ffffff" />
                 </svg>
               </button>
             )}
@@ -198,54 +189,53 @@ export default function HeroFullscreen({ section }: { section: HeroFullscreenFra
       {/* Video Modal */}
       {isModalOpen && modalVideoSrc && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
-          onClick={closeModal}
-          onKeyDown={handleKeyDown}
+          onClick={handleClose}
           role="dialog"
           aria-modal="true"
           aria-label="Video player"
           tabIndex={-1}
-        >
-          {/* Close button */}
-          <button
-            onClick={closeModal}
-            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-10"
-            aria-label="Close video"
-          >
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
+          className="fixed inset-0 z-999 h-screen flex justify-center items-center">
 
-          {/* Video container */}
+          {/* Backdrop */}
           <div
-            className="relative w-full max-w-5xl mx-4 aspect-video"
+            aria-hidden="true"
+            className={`fixed inset-0 bg-black/50 transition-opacity h-screen duration-400 ${
+              isClosing ? 'opacity-0' : 'opacity-100 animate-in fade-in'
+            }`}
+          />
+
+          {/* Video wrapper */}
+          <div
+            className={`relative w-full max-w-7xl mx-5 aspect-video rounded-base overflow-hidden transition-all duration-400
+              ${isClosing ? 'opacity-0 scale-95' : 'opacity-100 scale-100 animate-in fade-in zoom-in-95'
+            }`}
             onClick={(e) => e.stopPropagation()}
-          >
+            >
+
+            {/* Close button */}
+            <button
+              onClick={handleClose}
+              className="absolute text-white right-5 top-5 z-10 rounded-full transition-opacity hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+              aria-label="Close video"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            {/* Video Player */}
             {embedUrl ? (
               <iframe
                 src={embedUrl}
-                className="w-full h-full rounded-base"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 title="Video player"
+                className="w-full h-full"
               />
             ) : (
               <video
-                className="w-full h-full rounded-base bg-black"
                 controls
                 autoPlay
                 playsInline
+                className="w-full h-full"
               >
                 <source src={modalVideoSrc} type="video/mp4" />
                 Your browser does not support the video tag.
