@@ -5,6 +5,7 @@ import type { AccordionFragmentType, AccordionItemFragmentType } from '@/lib/san
 import { urlForImage } from '@/lib/sanity/client/utils';
 import { cn } from '@/lib/utils';
 import PortableText from '@/components/modules/PortableText';
+import { Plus, Minus } from 'lucide-react';
 
 // Function to remove zero-width and invisible Unicode characters
 function cleanString(str: string | undefined): string {
@@ -140,22 +141,15 @@ function AccordionItem({ title, content, isOpen, onToggle }: AccordionItemProps)
     <div className="accordion-item">
       <button
         onClick={onToggle}
-        className="flex w-full items-center justify-between py-5 text-left border-solid border-t-1 border-secondary transition-colors hover:text-primary"
+        className={cn('relative flex w-full items-center justify-between py-5 text-left border-solid border-t-1 border-secondary hover:text-primary before:content-[""] before:block before:h-[2px] before:bg-primary before:absolute before:top-[-1px] before:left-0 before:transition-all before:ease-[cubic-bezier(0.785, 0.135, 0.15, 0.86)] before:duration-800',
+          isOpen ? 'before:w-full' : 'before:w-0' )}
         aria-expanded={isOpen}
       >
         <h4 className="text-md">{title}</h4>
-        <svg
-          className={cn(
-            'h-5 w-5 shrink-0 transition-transform duration-300',
-            isOpen && 'rotate-180'
-          )}
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-        </svg>
+        <span aria-hidden={true}>
+          <Plus className={isOpen ? 'hidden' : 'block'}/>
+          <Minus className={isOpen ? 'block' : 'hidden'}/>
+        </span>
       </button>
       <div
         className={cn(

@@ -31,9 +31,9 @@ function SearchResults({ onResultClick }: { onResultClick: () => void }) {
 
   return (
     <div className="search-modal__hits-wrapper overflow-y-auto">
-      <div className="flex justify-between py-3 px-5 text-sm">
-        <p className='font-medium max-w-3xl'>Results for: {query}</p>
-        <span> {nbHits} {nbHits === 1 ? 'result' : 'results'} </span>
+      <div className="flex py-2 px-5 justify-between items-center">
+        <p className='text-sm font-medium max-w-3xl'>Results for: {query}</p>
+        <span className='inline-block bg-gray-100 rounded-xs text-xs py-1 px-2'> {nbHits} {nbHits === 1 ? 'result' : 'results'} </span>
       </div>
       <Hits
         hitComponent={({ hit }) => (
@@ -50,7 +50,7 @@ function SearchResults({ onResultClick }: { onResultClick: () => void }) {
                 </p>
               )}
               {hit.date && (
-                <time className="inline-block bg-gray-100 rounded text-xs mt-2 py-1 px-2">
+                <time className="inline-block bg-gray-100 rounded-xs text-xs mt-2 py-1 px-2">
                   {new Date(hit.date).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "short",
@@ -126,7 +126,7 @@ export default function SearchModal({ open, onOpenChange, siteId }: SearchModalP
         <button
           onClick={handleClose}
           type="button"
-          className="absolute right-5 top-5 z-10 rounded-full ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+          className="absolute right-5 top-5 p-4 z-10 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
           aria-label="Close modal"
         >
           <X className="h-5 w-5" />
@@ -144,10 +144,10 @@ export default function SearchModal({ open, onOpenChange, siteId }: SearchModalP
             searchAsYouType={true}
             autoFocus={true}
             classNames={{
-              form: 'relative',
-              input: 'w-full rounded-none border-solid border-0 border-b border-gray-300 p-5 pl-7 text-dark focus:outline-none focus:shadow-none focus:ring-offset-0 focus:ring-0',
-              submit: 'absolute left-5 top-1/2 -translate-y-1/2 pointer-events-none',
-              submitIcon: 'w-4 h-4 opacity-50',
+              form: 'relative mt-5 mx-5',
+              input: 'w-full bg-gray-100 border-0 p-4 pl-7 text-dark focus:outline-none focus:shadow-none focus:ring-offset-0 focus:ring-0',
+              submit: 'absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none',
+              submitIcon: 'text-gray-500 w-4 h-4 opacity-50',
               reset: 'hidden',
               loadingIndicator: 'absolute right-3 top-1/2 -translate-y-1/2',
             }}

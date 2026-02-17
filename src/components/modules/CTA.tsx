@@ -34,17 +34,16 @@ export default function Cta({ section }: { section: CtaFragmentType }) {
           </div>
         }
         <div className='lg:w-7/12'>
-            <div className={`flex border-solid border-1 rounded-sm px-5 py-4
+            <div className={`flex border-solid border-1 rounded-sm py-4 px-4
               ${colorScheme == 'light' ? 'border-white' : 'border-dark' }`}>
-              <form className='flex justify-between w-full gap-5'>
-                <MailIcon className='opacity-50'/>
+              <form className='flex justify-between items-center w-full'>
+                <MailIcon className='opacity-50 mx-4'/>
                 <input
                   type="email"
-                  placeholder="Enter your email address"
-                  className='grow placeholder:text-inherit placeholder:opacity-50'
+                  placeholder="Please enter your email address"
+                  className='grow border-0 px-0 py-4 placeholder:text-inherit placeholder:opacity-50 focus:outline-none focus:shadow-none focus:ring-offset-0 focus:ring-0'
                 />
-      
-                <input type="submit" value={'Subscribe'} className={`font-medium ${colorScheme == 'light' ? 'text-white' : 'text-dark' }`}/>
+                <input type="submit" value={'Subscribe'} className={`grow-0 w-fit border-0 p-0 ml-5 font-medium ${colorScheme == 'light' ? 'text-white' : 'text-dark' }`}/>
               </form>
             </div>
         </div>
