@@ -691,6 +691,7 @@ export const sectionFragment = /* groq */ `
   spacing,
   backgroundColor,
   textColor,
+  visibility
 `;
 
 export const pageBuilderFragment = /* groq */ `

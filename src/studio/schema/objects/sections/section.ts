@@ -2,6 +2,7 @@ import { defineType } from 'sanity';
 import { spacing } from '../../fields/spacing';
 import { backgroundColor } from '../../fields/backgroundColor';
 import { textColor } from '../../fields/textColor';
+import { visibility } from '../../fields/visibility';
 
 // Recursively search for the first heading in nested components
 function findFirstHeading(obj: unknown): string | null {
@@ -88,6 +89,7 @@ export default defineType({
     },
     backgroundColor,
     textColor,
+    visibility,
     {
       ...spacing,
       fields: spacing.fields?.map((field) => {

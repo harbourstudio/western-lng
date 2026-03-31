@@ -25,6 +25,7 @@ type SectionProps = {
     };
     backgroundColor?: string;
     textColor?: string;
+    visibility?: string;
     components?: Array<{
       _key: string;
       _type: keyof typeof componentMap;
@@ -67,11 +68,12 @@ export default function Section({ section }: SectionProps) {
   const spacingBottom = cleanString(section?.spacing?.bottom) || '';
   const bgColor = cleanString(section?.backgroundColor) || '';
   const textColor = cleanString(section?.textColor) || '';
+  const visibility = cleanString(section?.visibility) || '';
   const anchorId = section?.anchorId;
 
   return (
     <section
-      className={`${bgColor} ${textColor}`}
+      className={`${bgColor} ${textColor} ${visibility}`}
       {...(anchorId && { id: anchorId })}
     >
       <div className={`container mx-auto ${spacingTop} ${spacingBottom}`}>
